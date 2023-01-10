@@ -19,16 +19,14 @@ all: $(LIB_ARCS) $(LIB_HDRS)
 	@ln -fs ./$(basename $@)/$@ ./$@
 
 %.h:
-	@echo $(wildcard $(basename $@)/include/$@)
-	@echo $(wildcard $(addsuffix $(INC_DIR)$@,./$(basename $@)))
-	@$(if $(wildcard $(addsuffix $(INC_DIR),$(basename $@))),\
+	@$(if $(wildcard $(addsuffix $@,$(addsuffix $(INC_DIR),$(basename $@)/))),\
 		$(call execute,ln -fs ./$(addprefix $(basename $@)/$(INC_DIR),$@) $@),\
 		$(call execute,ln -fs ./$(addprefix $(basename $@)/,$@) $@))
 
 clean:
 	$(foreach d,$(LIB_DIRS),$(call execute,-$(MAKE) --directory=$(d) clean))
 
-fclean:
+fclean: clean
 	$(foreach d,$(LIB_DIRS),$(call execute,-$(MAKE) --directory=$(d) fclean))
 	@rm -f $(LIB_ARCS) $(LIB_HDRS)
 
