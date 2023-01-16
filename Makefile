@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/01/16 14:41:42 by dbasting      ########   odam.nl          #
+#    Updated: 2023/01/16 18:19:43 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ LIB_DIR := ./lib/
 
 SRC_FILES := main.c\
 	canvas.c\
-	draw.c
+	draw.c\
+	load_assets.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
 HEADER_FILES := draw.h\
 	parse.h

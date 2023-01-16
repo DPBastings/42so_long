@@ -6,10 +6,11 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/16 14:48:25 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/16 18:31:44 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "so_long.h"
 #include <mlx.h>
 #include "libftprintf.h"
 #include "draw.h"
@@ -18,9 +19,9 @@ int	main(int argc, char **argv)
 {
 	void		*mlx;
 	void		*root;
-	t_canvas	*canvas;
+	void		*wall;
 	t_plane	 	dims;
-	int			count;
+	//int			count;
 	
 	(void) argv;
 	if (argc != 2)
@@ -30,15 +31,13 @@ int	main(int argc, char **argv)
 	}
 	mlx = mlx_init();
 	root = mlx_new_window(mlx, 1080, 720, "Zo lang, en dank voor alle vis.");
-	canvas = canvas_new(mlx, 720, 480);
-	dims.w = 16;
-	dims.h = 16;
-	count = 0;
-	while (count < 12)
-	{
-		draw_plane(canvas, 0 + count * dims.w, 0 + count * dims.w, dims, DIM_LILAC);
-		count++;
-	}
-	mlx_put_image_to_window(mlx, root, canvas->image, 0, 0);
+	wall = mlx_xpm_file_to_image(mlx, "./wall", &dims.w, &dims.h);
+	ft_printf("%p\n", wall);
+	//count = 0;	
+	//while (count < 12)
+	//{
+		mlx_put_image_to_window(mlx, root, wall, 0, 0);
+		//count++;
+	//}
 	mlx_loop(mlx);
 }
