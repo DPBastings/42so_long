@@ -1,5 +1,7 @@
-/lib/mlx
-/lib/*.h
+lib/*.h
+lib/*.a
+lib/mlx/
+object/
+so_long
 
-*.a
-*.o
+*.swp

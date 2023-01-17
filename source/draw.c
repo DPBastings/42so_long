@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   draw.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/16 18:31:44 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/16 14:50:59 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include <mlx.h>
-#include "libftprintf.h"
 #include "draw.h"
+#include <mlx.h>
+#include <stdlib.h>
 
-int	main(int argc, char **argv)
+void	draw_plane(t_canvas *cvs, int x, int y, t_plane dims, t_colour colour)
 {
-	void		*mlx;
-	void		*root;
-	void		*wall;
-	t_plane	 	dims;
-	//int			count;
-	
-	(void) argv;
-	if (argc != 2)
+	int		w;
+	int		h;
+
+	h = -1;
+	while (h++ < dims.h)
 	{
-		ft_dprintf(2, "Usage: so_long [map].\n");
-		return (0);
+		w = -1;
+		while (w++ < dims.w)
+			draw_point(cvs, x + w, y + h, colour);
 	}
-	mlx = mlx_init();
-	root = mlx_new_window(mlx, 1080, 720, "Zo lang, en dank voor alle vis.");
-	wall = mlx_xpm_file_to_image(mlx, "./wall", &dims.w, &dims.h);
-	ft_printf("%p\n", wall);
-	//count = 0;	
-	//while (count < 12)
-	//{
-		mlx_put_image_to_window(mlx, root, wall, 0, 0);
-		//count++;
-	//}
-	mlx_loop(mlx);
+}
+
+void	draw_point(t_canvas *canvas, int x, int y, t_colour colour)
+{
+	char	*byte;
+
+	byte = canvas->address + 
+		(y * canvas->len + x * (canvas->bpp / 8));
+	*(unsigned int *)byte = colour;
 }
