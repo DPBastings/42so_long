@@ -17,12 +17,12 @@
 
 int	main(int argc, char **argv)
 {
-	void		*mlx;
-	void		*root;
-	void		*wall;
-	t_plane	 	dims;
-	//int			count;
-	
+	void	*mlx;
+	void	*root;
+	void	*wall;
+	t_plane	dims;
+	size_t	count;
+
 	(void) argv;
 	if (argc != 2)
 	{
@@ -31,13 +31,14 @@ int	main(int argc, char **argv)
 	}
 	mlx = mlx_init();
 	root = mlx_new_window(mlx, 1080, 720, "Zo lang, en dank voor alle vis.");
-	wall = mlx_xpm_file_to_image(mlx, "./wall", &dims.w, &dims.h);
-	ft_printf("%p\n", wall);
-	//count = 0;	
-	//while (count < 12)
-	//{
-		mlx_put_image_to_window(mlx, root, wall, 0, 0);
-		//count++;
-	//}
+	dims.w = GRID_SIZE;
+	dims.h = GRID_SIZE;
+	wall = mlx_xpm_file_to_image(mlx, "./assets/textures/stone_wall.xpm", &dims.w, &dims.h);
+	count = 0;
+	while (count < 12)
+	{
+		mlx_put_image_to_window(mlx, root, wall, count * GRID_SIZE, 0);
+		count++;
+	}
 	mlx_loop(mlx);
 }

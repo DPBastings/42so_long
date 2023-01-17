@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define OBJ_DIM 48
+# define GRID_SIZE 48
 # define ASSETS_DIR "./assets"
 # define TEXTURES_DIR ASSETS_DIR "/textures"
 # define MAPS_DIR ASSETS_DIR "/maps"
