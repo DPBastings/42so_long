@@ -1,33 +1,38 @@
-LIB_NAMES := mlx\
-	libftprintf
-LIB_ARCS := $(addsuffix .a,$(LIB_NAMES))
-LIB_DIRS := $(addprefix ./,$(addsuffix /,$(LIB_NAMES)))
-LIB_HDRS := $(addsuffix .h,$(LIB_NAMES))
-INC_DIR := include/
+OS	= $(shell uname -s)
 
-define execute
-$(1)
-
-endef
+LIB	= libftprintf libmlx
+HDR	= libftprintf.h mlx.h
+ARC = libftprintf.a
+ifeq ($(OS),Linux)
+    ARC += libmlx_Linux.a
+else
+    ARC += libmlx.a
+endif
+DIR = $(addprefix ./,$(addsuffix /,$(LIB)))
 
 .PHONY: all clean fclean re
 
-all: $(LIB_ARCS) $(LIB_HDRS)
+all: $(ARC) $(HDR)
 
-%.a:
+libmlx_Linux.a:
+	cd ./libmlx && ./configure
+	@ln -fs ./libmlx/$@ $@
+
+libftprintf.a:
 	$(MAKE) --directory=./$(basename $@)/
 	@ln -fs ./$(basename $@)/$@ ./$@
 
-%.h:
-	@$(if $(wildcard $(addsuffix $@,$(addsuffix $(INC_DIR),$(basename $@)/))),\
-		$(call execute,ln -fs ./$(addprefix $(basename $@)/$(INC_DIR),$@) $@),\
-		$(call execute,ln -fs ./$(addprefix $(basename $@)/,$@) $@))
+libftprintf.h:
+	@ln -fs ./libftprintf/include/$@ $@
+
+mlx.h:
+	@ln -fs ./libmlx/$@ $@
 
 clean:
-	$(foreach d,$(LIB_DIRS),$(call execute,-$(MAKE) --directory=$(d) clean))
+	$(foreach d,$(DIR),$(call execute,-$(MAKE) --directory=$(d) clean))
 
 fclean: clean
-	$(foreach d,$(LIB_DIRS),$(call execute,-$(MAKE) --directory=$(d) fclean))
-	@rm -f $(LIB_ARCS) $(LIB_HDRS)
+	$(foreach d,$(DIR),$(call execute,-$(MAKE) --directory=$(d) fclean))
+	@rm -f $(ARC) $(HDR)
 
 re: fclean all

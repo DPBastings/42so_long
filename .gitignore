@@ -1,6 +1,6 @@
 lib/*.h
 lib/*.a
-lib/mlx/
+lib/libmlx/
 object/
 so_long
 

@@ -16,7 +16,7 @@ OS := $(shell uname -s)
 
 SRC_DIR := ./source/
 OBJ_DIR := ./object/
-HEADER_DIR := ./header/
+HDR_DIR := ./header/
 LIB_DIR := ./lib/
 
 SRC_FILES := main.c\
@@ -24,17 +24,21 @@ SRC_FILES := main.c\
 	draw.c\
 	load_assets.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
-HEADER_FILES := draw.h\
+HDR_FILES := draw.h\
 	parse.h
-LIB_FILES := libmlx.a\
-	libftprintf.a
-
-CFLAGS ?= -Wall -Wextra -Werror -I$(HEADER_DIR) -I$(LIB_DIR)
+LIB_FILES := libftprintf.a
 ifeq ($(OS),Linux)
-	FRAMEWORK := -lXext -X11
+    LIB_FILES += libmlx_Linux.a
+else
+    LIB_FILES += libmlx.a
+endif
+
+CFLAGS ?= -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIB_DIR) -L$(HDR_DIR) -L$(LIB_DIR)
+ifeq ($(OS),Linux)
+    MLX_FLAGS := -L/usr/lib -lXext -lX11 -lm -lz
 endif
 ifeq ($(OS),Darwin)
-	FRAMEWORK := -framework OpenGL -framework AppKit
+    MLX_FLAGS := -framework OpenGL -framework AppKit
 endif
 .PHONY: all bonus clean fclean re
 
@@ -44,17 +48,19 @@ bonus: all
 	@echo "Bonus is basis, vrind."
 
 $(NAME): $(addprefix $(OBJ_DIR),$(OBJ_FILES))
-	#$(MAKE) --directory=$(LIB_DIR)
-	$(CC) $(CFLAGS) $(FRAMEWORK) $^ $(addprefix $(LIB_DIR),$(LIB_FILES)) -o $(NAME)
+	$(MAKE) --directory=$(LIB_DIR)
+	@$(CC) $(CFLAGS) $^ $(addprefix $(LIB_DIR),$(LIB_FILES)) $(MLX_FLAGS) -o $@
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(HEADER_DIR),$(HEADER_FILES))
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(HDR_DIR),$(HDR_FILES))
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c $(CFLAGS) -o $@ $<
 
 clean:
+	$(MAKE) --directory=$(LIB_DIR) clean
 	@rm -f $(OBJ_DIR)*.o
 
 fclean: clean
+	$(MAKE) --directory=$(LIB_DIR) fclean
 	@rm -f $(NAME)
 
 re: fclean all
