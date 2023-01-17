@@ -10,9 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct	s_map
-{
-	size_t	width;
-	size_t	height;
-	int		*values;
-}	t_map;
+#ifndef MAP_H
+# define MAP_H
+
+# include "libft.h"
+
+typedef t_list	t_map;
+
+# define OBJ_NONE '0'
+# define OBJ_WALL '1'
+# define OBJ_COLL 'C'
+# define OBJ_EXIT 'E'
+# define OBJ_STRT 'P'
+# define OBJ_ENMY_H 'X'
+# define OBJ_ENMY_V 'Y'
+
+# define CHECK_EXIT 1
+# define CHECK_COLL 2
+# define CHECK_STRT 4
+
+int		map_check(t_map *map);
+t_map	*map_read(int fd);
+
+#endif

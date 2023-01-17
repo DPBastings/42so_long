@@ -11,11 +11,33 @@
 /* ************************************************************************** */
 
 #include "map.h"
+#include <fcntl.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include "libft.h"
 
-t_map	*parse(int fd)
+static void	map_delete(void *content)
 {
-	map = malloc(sizeof(t_map));
-	if (map == NULL)
-		exit();
+	free(content);
+}
+
+t_map	*map_read(char const *filename)
+{
+	t_map	*map;
+	int		fd;
+	char	*line;
+	size_t	width;
+
+	map = NULL;
+	fd = open(filename, O_RDONLY);
+	line = ft_getline(fd);
+	width = ft_strlen(line);
+	while (line)
+	{
+		if (ft_strlen(line) != width)
+			return (ft_lstclear(&map, map_delete), NULL);
+		ft_lstadd_back(&map, ft_lstnew(line));
+		line = get_next_line(fd);
+	}
+	close(fd);
 }
