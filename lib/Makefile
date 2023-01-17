@@ -1,8 +1,8 @@
 OS	= $(shell uname -s)
 
-LIB	= libftprintf libmlx
-HDR	= libftprintf.h mlx.h
-ARC = libftprintf.a
+LIB	= libft libftprintf libmlx
+HDR	= libft.h libftprintf.h mlx.h
+ARC = libft.a libftprintf.a
 ifeq ($(OS),Linux)
     ARC += libmlx_Linux.a
 else
@@ -18,12 +18,12 @@ libmlx_Linux.a:
 	cd ./libmlx && ./configure
 	@ln -fs ./libmlx/$@ $@
 
-libftprintf.a:
+libf%.a:
 	$(MAKE) --directory=./$(basename $@)/
 	@ln -fs ./$(basename $@)/$@ ./$@
 
-libftprintf.h:
-	@ln -fs ./libftprintf/include/$@ $@
+libf%.h:
+	@ln -fs ./$(basename $@)/include/$@ $@
 
 mlx.h:
 	@ln -fs ./libmlx/$@ $@

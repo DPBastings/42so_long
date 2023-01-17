@@ -26,7 +26,7 @@ SRC_FILES := main.c\
 OBJ_FILES := $(SRC_FILES:.c=.o)
 HDR_FILES := draw.h\
 	parse.h
-LIB_FILES := libftprintf.a
+LIB_FILES := libft.a libftprintf.a
 ifeq ($(OS),Linux)
     LIB_FILES += libmlx_Linux.a
 else
