@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-typedef t_list	t_map;
+typedef char**	t_map;
 
 # define OBJ_NONE '0'
 # define OBJ_WALL '1'
@@ -30,6 +30,6 @@ typedef t_list	t_map;
 # define CHECK_STRT 4
 
 int		map_check(t_map *map);
-t_map	*map_read(int fd);
+t_map	map_read(char const *filename);
 
 #endif

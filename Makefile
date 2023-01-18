@@ -22,9 +22,11 @@ LIB_DIR := ./lib/
 SRC_FILES := main.c\
 	canvas.c\
 	draw.c\
-	load_assets.c
+	load_assets.c\
+	map_read.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
 HDR_FILES := draw.h\
+	map.h\
 	parse.h
 LIB_FILES := libft.a libftprintf.a
 ifeq ($(OS),Linux)

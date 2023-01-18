@@ -2,7 +2,7 @@
 
 static int	check_owalls(char const *line);
 static int	check_iwalls(char const *line);
-static int	check_object(char const *line);
+static int	check_object(char const *line, int *reqs);
 static int	check_path(t_map *map);
 
 static int	check_owalls(char const *line)
@@ -53,16 +53,16 @@ int	map_check(t_map *map)
 	int		requirements;
 
 	requirements = 0;
-	if (!check_owalls((char *)map->content))
+	if (!check_owalls((char *)(map->content)))
 		return (0);
 	map = map->next;
 	while (map->next)
 	{
-		if (!check_iwalls((char *)map->content))
+		if (!check_iwalls((char *)(map->content)))
 			return (0);
 		map = map->next;
 	}
-	if (!check_owalls((char *)map->content))
+	if (!check_owalls((char *)(map->content)))
 		return (0);
 	return (1);
 }

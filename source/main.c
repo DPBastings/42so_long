@@ -14,10 +14,29 @@
 #include <mlx.h>
 #include "libftprintf.h"
 #include "draw.h"
+#include "map.h"
 
-int	main(int argc, char **argv)
+void	map_view(t_map map)
 {
-	void	*mlx;
+	t_map	slice;
+	
+	slice = map;
+	while (*slice)
+		ft_printf("%s", *(slice++));
+}
+
+int	main(void)
+{
+	t_map	map;
+
+	map = map_read("./assets/maps/map0");
+	map_view(map);
+	return (0);
+}
+
+/*int	main(int argc, char **argv)
+{
+	void	*mlx;:q
 	void	*root;
 	void	*wall;
 	t_plane	dims;
@@ -41,4 +60,4 @@ int	main(int argc, char **argv)
 		count++;
 	}
 	mlx_loop(mlx);
-}
+}*/
