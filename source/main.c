@@ -32,6 +32,7 @@ int	main(void)
 
 	map = map_read("./assets/maps/map0");
 	map_view(map);
+	ft_printf("map check: %d\n", map_check(map));
 	return (0);
 }
 

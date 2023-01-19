@@ -72,6 +72,7 @@ static t_list	*get_list(int fd, size_t *width, size_t *height)
 		(*height)++;
 		slice = ft_getline(fd);
 	}
+	*width--;
 	return (list);
 }
 
