@@ -18,7 +18,8 @@
 
 typedef struct	s_map {
 	char	**objs;
-	size_t	size;
+	size_t	w;
+	size_t	h;
 }	t_map;
 
 # define OBJ_NONE '0'
@@ -35,5 +36,6 @@ typedef struct	s_map {
 
 int		map_check(t_map *map);
 t_map	*map_read(char const *filename);
+void	map_destroy(t_map **map);
 
 #endif

@@ -34,41 +34,35 @@ static void	lst_destroy(t_list **list)
 	}
 }
 
-static t_map	*get_map(t_list *list, size_t height)
+static int	get_map(t_map *map, t_list *list)
 {
-	t_map	*map;
 	size_t	i;
 
-	map = malloc(sizeof(t_map));
-	if (map == NULL)
-		return (NULL);
-	map->size = height;
-	map->objs = malloc((map->size + 1) * sizeof(char *));
+	map->objs = malloc((map->h + 1) * sizeof(char *));
 	if (map->objs == NULL)
-		return (free(map), NULL);
-	map->objs[map->size] = NULL;
+		return (map_destroy(&map), 0);
+	map->objs[map->h] = NULL;
 	i = 0;
 	while (list)
 	{
 		map->objs[i++] = list->content;
 		list = list->next;
 	}
-	return (map);
+	return (1);
 }
 
-static t_list	*get_list(int fd, size_t *height)
+static t_list	*get_list(int fd, size_t *width, size_t *height)
 {
 	t_list	*list;
 	char	*slice;
-	size_t	width;
 
 	list = NULL;
 	*height = 0;
 	slice = ft_getline(fd);
-	width = ft_strlen(slice);
+	*width = ft_strlen(slice);
 	while (slice)
 	{
-		if (ft_strlen(slice) != width)
+		if (ft_strlen(slice) != *width)
 		{
 			*height = 0;
 			free(slice);
@@ -86,18 +80,18 @@ t_map	*map_read(char const *filename)
 	t_map	*map;
 	t_list	*tmp;
 	int		fd;
-	size_t	height;
-	
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	tmp = get_list(fd, &height);
-	close(fd);
-	if (tmp == NULL)
-		return (NULL);
-	map = get_map(tmp, height);
+
+	map = malloc(sizeof(t_map));
 	if (map == NULL)
 		return (NULL);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (map_destroy(&map), NULL);
+	tmp = get_list(fd, &(map->w), &(map->h));
+	close(fd);
+	if (tmp == NULL)
+		return (map_destroy(&map), NULL);
+	get_map(map, tmp);
 	lst_destroy(&tmp);
 	return (map);
 }

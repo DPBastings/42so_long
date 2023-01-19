@@ -21,6 +21,7 @@ void	map_view(t_map *map)
 	char	**slice;
 	
 	slice = map->objs;
+	ft_printf("w = %u, h = %u\n", map->w, map->h);
 	while (*slice)
 		ft_printf("%s", *(slice++));
 }
