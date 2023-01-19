@@ -16,18 +16,18 @@
 #include "draw.h"
 #include "map.h"
 
-void	map_view(t_map map)
+void	map_view(t_map *map)
 {
-	t_map	slice;
+	char	**slice;
 	
-	slice = map;
+	slice = map->objs;
 	while (*slice)
 		ft_printf("%s", *(slice++));
 }
 
 int	main(void)
 {
-	t_map	map;
+	t_map	*map;
 
 	map = map_read("./assets/maps/map0");
 	map_view(map);

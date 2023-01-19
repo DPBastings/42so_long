@@ -14,8 +14,12 @@
 # define MAP_H
 
 # include "libft.h"
+# include <stddef.h>
 
-typedef char**	t_map;
+typedef struct	s_map {
+	char	**objs;
+	size_t	size;
+}	t_map;
 
 # define OBJ_NONE '0'
 # define OBJ_WALL '1'
@@ -30,6 +34,6 @@ typedef char**	t_map;
 # define CHECK_STRT 4
 
 int		map_check(t_map *map);
-t_map	map_read(char const *filename);
+t_map	*map_read(char const *filename);
 
 #endif
