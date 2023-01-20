@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/01/16 18:19:43 by dbasting      ########   odam.nl          #
+#    Updated: 2023/01/20 11:37:24 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ else
     LIB_FILES += libmlx.a
 endif
 
-CFLAGS ?= -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIB_DIR) -L$(HDR_DIR) -L$(LIB_DIR)
+CFLAGS ?= -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIB_DIR)
 ifeq ($(OS),Linux)
     MLX_FLAGS := -L/usr/lib -lXext -lX11 -lm -lz
 endif
@@ -52,7 +52,7 @@ bonus: all
 
 $(NAME): $(addprefix $(OBJ_DIR),$(OBJ_FILES))
 	$(MAKE) --directory=$(LIB_DIR)
-	@$(CC) $(CFLAGS) $^ $(addprefix $(LIB_DIR),$(LIB_FILES)) $(MLX_FLAGS) -o $@
+	@$(CC) $(CFLAGS) -L$(HDR_DIR) -L$(LIB_DIR) $^ $(addprefix $(LIB_DIR),$(LIB_FILES)) $(MLX_FLAGS) -o $@
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(HDR_DIR),$(HDR_FILES))
 	@mkdir -p $(OBJ_DIR)

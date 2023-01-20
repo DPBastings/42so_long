@@ -1,64 +1,90 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   map_check.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/01/20 12:04:21 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/01/20 12:04:25 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
+#include "libft.h"
 #include "libftprintf.h"
 
 static int	check_walls(t_map *map);
-static int	check_object(t_map *map, int *reqs);
-static int	check_path(t_map *map);
+static int	check_slice(char const *slice, size_t len, int *reqs);
+static int	check_object(t_map *map);
 
 static int	check_walls(t_map *map)
 {
-	char	*ptr;
-	size_t	i;
+	char	*slice;
+	size_t	is;
+	size_t	io;
 
-	i = 0;
-	ptr = map->objs[i++];
-	while (*ptr != '\n')
+	is = 0;
+	io = 0;
+	slice = map->objs[is++];
+	while (io < map->w)
 	{
-		if (*(ptr++) != OBJ_WALL)
+		if (slice[io++] != OBJ_WALL)
 			return (0);
 	}
-	while (i < map->h - 1)
+	while (is < map->h)
 	{
-		ptr = map->objs[i++];
-		if (ptr[0] != OBJ_WALL || ptr[map->w - 1] != OBJ_WALL)
+		slice = map->objs[is++];
+		if (slice[0] != OBJ_WALL || slice[map->w - 1] != OBJ_WALL)
 			return (0);
 	}
-	while (*ptr != '\n')
+	io = 0;
+	while (io < map->w)
 	{
-		if (*(ptr++) != OBJ_WALL)
+		if (slice[io++] != OBJ_WALL)
 			return (0);
 	}
 	return (1);
 }
 
-static int	check_object(t_map *map, int *reqs)
+static int	check_slice(char const *slice, size_t len, int *reqs)
 {
-	char	*slice;
+	while (len--)
+	{
+		if (*slice == OBJ_COLL)
+			*reqs |= CHECK_COLL;
+		else if (*slice == OBJ_EXIT)
+		{
+			if (*reqs & CHECK_EXIT)
+				return (0);
+			*reqs |= CHECK_EXIT;
+		}
+		else if (*slice == OBJ_STRT)
+		{
+			if (*reqs & CHECK_STRT)
+				return (0);
+			*reqs |= CHECK_STRT;
+		}
+		else if (!ft_strchr(OBJ_FILL, *slice))
+			return (0);
+		slice++;
+	}
+	return (1);
+}
+
+static int	check_object(t_map *map)
+{
+	int		reqs;
 	size_t	i;
 
+	reqs = 0;
 	i = 1;
 	while (i < map->h - 1)
 	{
-		slice = map->objs[i++];
-		while (*slice != '\n')
-		{
-			if (*slice == OBJ_COLL)
-				*reqs |= CHECK_COLL;
-			else if (*slice == OBJ_EXIT)
-			{
-				if (*reqs & CHECK_EXIT)
-					return (0);
-				*reqs |= CHECK_EXIT;
-			}
-			else if (*slice == OBJ_STRT)
-			{
-				if (*reqs & CHECK_STRT)
-					return (0);
-				*reqs |= CHECK_STRT;
-			}
-		}
+		if (!check_slice(map->objs[i++], map->w - 1, &reqs))
+			return (0);
 	}
-	return (*reqs & CHECK_COLL);
+	return (reqs & CHECK_COLL);
 }
 
 static int	check_path(t_map *map)
@@ -69,12 +95,7 @@ static int	check_path(t_map *map)
 
 int	map_check(t_map *map)
 {
-	int		reqs;
-
-	reqs = 0;
-	ft_printf("%d\n", check_walls(map));//, check_object(map, &reqs));
-	reqs = 0;
 	return (check_walls(map)
-		&& check_object(map, &reqs)
+		&& check_object(map)
 		&& check_path(map));
 }

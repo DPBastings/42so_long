@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/16 18:31:44 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/20 12:13:00 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@
 void	map_view(t_map *map)
 {
 	char	**slice;
-	
+
 	slice = map->objs;
 	ft_printf("w = %u, h = %u\n", map->w, map->h);
 	while (*slice)
 		ft_printf("%s", *(slice++));
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_map	*map;
 
-	map = map_read("./assets/maps/map0");
+	if (argc != 2)
+		return (0);
+	map = map_read(argv[1]);
 	map_view(map);
 	ft_printf("map check: %d\n", map_check(map));
 	return (0);

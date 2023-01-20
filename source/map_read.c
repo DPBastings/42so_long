@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:20:41 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/09 15:41:12 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/20 12:12:30 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,14 @@ static t_list	*get_list(int fd, size_t *width, size_t *height)
 	{
 		if (ft_strlen(slice) != *width)
 		{
-			*height = 0;
-			free(slice);
+			slice_free(slice);
 			return (ft_lstclear(&list, slice_free), NULL);
 		}
 		ft_lstadd_back(&list, ft_lstnew(slice));
 		(*height)++;
 		slice = ft_getline(fd);
 	}
-	*width--;
+	(*width)--;
 	return (list);
 }
 
@@ -95,19 +94,4 @@ t_map	*map_read(char const *filename)
 	get_map(map, tmp);
 	lst_destroy(&tmp);
 	return (map);
-}
-
-void	map_destroy(t_map **map)
-{
-	char	**tmp;
-
-	tmp = (*map)->objs;
-	while (tmp)
-	{
-		free(*tmp);
-		tmp++;
-	}
-	free((*map)->objs);
-	free(*map);
-	*map = NULL;
 }
