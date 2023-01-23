@@ -18,6 +18,10 @@ libmlx_Linux.a:
 	cd ./libmlx && ./configure
 	@ln -fs ./libmlx/$@ $@
 
+libmlx.a:
+	@$(MAKE) --directory=./libmlx/
+	@ln -fs ./libmlx/$@ $@
+
 libf%.a:
 	$(MAKE) --directory=./$(basename $@)/
 	@ln -fs ./$(basename $@)/$@ ./$@

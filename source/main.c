@@ -6,15 +6,16 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/20 12:13:00 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/23 18:04:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <mlx.h>
-#include "libftprintf.h"
 #include "draw.h"
+#include "libftprintf.h"
 #include "map.h"
+#include <mlx.h>
+#include <stdlib.h>
 
 void	map_view(t_map *map)
 {
@@ -26,21 +27,38 @@ void	map_view(t_map *map)
 		ft_printf("%s", *(slice++));
 }
 
+void	ft_exit(char const *message, int status)
+{
+	ft_dprintf(2, "Error:\n%s\n", message);
+	exit(status);
+}
+
 int	main(int argc, char **argv)
 {
+	void	*mlx;
+	void	*root;
 	t_map	*map;
 
 	if (argc != 2)
-		return (0);
+		ft_exit("Usage: so_long [map].", EXIT_FAILURE);
+	mlx = mlx_init();
+	root = mlx_new_window(mlx, 1152, 864, "The Bach Game");
 	map = map_read(argv[1]);
+	if (map == NULL)
+		ft_exit("Error reading map from file.", EXIT_FAILURE);
+	if (!map_check(map))
+	{
+		map_destroy(&map);
+		ft_exit("That map does not constitute a valid level.", EXIT_FAILURE);
+	}
 	map_view(map);
-	ft_printf("map check: %d\n", map_check(map));
-	return (0);
+	//map_draw(mlx, map);
+	//mlx_loop(mlx);
 }
 
 /*int	main(int argc, char **argv)
 {
-	void	*mlx;:q
+	void	*mlx;
 	void	*root;
 	void	*wall;
 	t_plane	dims;

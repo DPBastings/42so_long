@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/20 12:04:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/20 12:04:25 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/23 17:59:13 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 #include "libft.h"
 #include "libftprintf.h"
 
-static int	check_walls(t_map *map);
 static int	check_slice(char const *slice, size_t len, int *reqs);
-static int	check_object(t_map *map);
 
-static int	check_walls(t_map *map)
+int	map_check_walls(t_map *map)
 {
 	char	*slice;
 	size_t	is;
@@ -72,7 +70,7 @@ static int	check_slice(char const *slice, size_t len, int *reqs)
 	return (1);
 }
 
-static int	check_object(t_map *map)
+int	map_check_object(t_map *map)
 {
 	int		reqs;
 	size_t	i;
@@ -87,15 +85,9 @@ static int	check_object(t_map *map)
 	return (reqs & CHECK_COLL);
 }
 
-static int	check_path(t_map *map)
-{
-	(void) map;
-	return (1);
-}
-
 int	map_check(t_map *map)
 {
-	return (check_walls(map)
-		&& check_object(map)
-		&& check_path(map));
+	return (map_check_walls(map)
+		&& map_check_object(map)
+		&& map_check_path(map));
 }

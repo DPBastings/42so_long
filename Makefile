@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/01/20 11:37:24 by dbasting      ########   odam.nl          #
+#    Updated: 2023/01/23 18:00:06 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRC_FILES := main.c\
 	draw.c\
 	load_assets.c\
 	map_check.c\
+	map_check_path.c\
+	map_destroy.c\
 	map_read.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
 HDR_FILES := draw.h\

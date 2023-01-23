@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/20 11:54:03 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/23 17:59:08 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct	s_map {
 # define OBJ_FILL "01CXY"
 
 int		map_check(t_map *map);
+int		map_check_walls(t_map *map);
+int		map_check_object(t_map *map);
+int		map_check_path(t_map *map);
 t_map	*map_read(char const *filename);
 void	map_destroy(t_map **map);
 

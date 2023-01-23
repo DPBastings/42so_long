@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 12:21:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/16 18:19:12 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/23 16:18:32 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ typedef unsigned int	t_colour;
 # define GREY	0x00888888
 # define DIM_LILAC	0x0067477D
 # define BRIGHT_LILAC 0x00A656DB
+
+typedef struct	s_point {
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct	s_plane {
 	int	w;

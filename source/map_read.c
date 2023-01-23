@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:20:41 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/20 12:12:30 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/23 18:21:35 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include <unistd.h>
 #include "libft.h"
 #include "libftprintf.h"
-
-static void	slice_free(void *slice)
-{
-	free(slice);
-}
 
 static void	lst_destroy(t_list **list)
 {
@@ -64,8 +59,8 @@ static t_list	*get_list(int fd, size_t *width, size_t *height)
 	{
 		if (ft_strlen(slice) != *width)
 		{
-			slice_free(slice);
-			return (ft_lstclear(&list, slice_free), NULL);
+			free(slice);
+			return (ft_lstclear(&list, free), NULL);
 		}
 		ft_lstadd_back(&list, ft_lstnew(slice));
 		(*height)++;
@@ -81,7 +76,9 @@ t_map	*map_read(char const *filename)
 	t_list	*tmp;
 	int		fd;
 
-	map = malloc(sizeof(t_map));
+	if (!check_filename(filename, ".ber", ft_strlen(filename)))
+		return (NULL);
+	map = ft_calloc(1, sizeof(t_map));
 	if (map == NULL)
 		return (NULL);
 	fd = open(filename, O_RDONLY);
