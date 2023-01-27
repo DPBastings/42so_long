@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/27 14:37:12 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/27 16:59:14 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		map_check_walls(t_map *map);
 int		map_check_object(t_map *map);
 int		map_check_path(t_map *map);
 t_map	*map_read(char const *filename);
+void	map_copy(t_map *map);
 void	map_destroy(t_map **map);
 
 #endif
