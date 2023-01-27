@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/01/23 18:00:06 by dbasting      ########   odam.nl          #
+#    Updated: 2023/01/27 14:51:13 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC_FILES := main.c\
 	map_read.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
 HDR_FILES := draw.h\
+	geometry.h\
 	map.h\
 	parse.h
 LIB_FILES := libft.a libftprintf.a
