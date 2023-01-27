@@ -6,12 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/23 18:05:29 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/27 16:02:18 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
-#include "draw.h"
+#include "geometry.h"
+
 #include "libftprintf.h"
 
 static t_point	find_start(t_map *map)
@@ -33,6 +34,12 @@ static t_point	find_start(t_map *map)
 	start.x = -1;
 	start.y = -1;
 	return (start);
+}
+
+static void	check_adjacent(t_point point, t_map *map)
+{
+	map[point.y][point.x] = '@';
+	//hier moet meer
 }
 
 int	map_check_path(t_map *map)

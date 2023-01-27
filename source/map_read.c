@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:20:41 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/27 14:36:18 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/27 16:02:23 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ static int	populate_map(t_map *map, t_list *list)
 	return (1);
 }
 
-#include "libftprintf.h"
-
 t_map	*map_read(char const *filename)
 {
 	t_map	*map;
@@ -95,10 +93,7 @@ t_map	*map_read(char const *filename)
 	int		fd;
 
 	if (!check_ext(filename, MAP_EXT))
-	{
-		ft_dprintf(2, "invalid filename\n");
 		return (NULL);
-	}
 	map = ft_calloc(1, sizeof(t_map));
 	if (map == NULL)
 		return (NULL);

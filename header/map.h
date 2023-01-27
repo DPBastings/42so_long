@@ -6,15 +6,16 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/23 17:59:08 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/01/27 14:37:12 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 
-# include "libft.h"
 # include <stddef.h>
+
+# define MAP_EXT	".ber"
 
 typedef struct	s_map {
 	char	**objs;
