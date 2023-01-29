@@ -13,6 +13,8 @@
 #ifndef DRAW_H
 # define DRAW_H
 
+#include "geometry.h"
+
 typedef int	t_colour;
 
 # define WHITE			0x00FFFFFF

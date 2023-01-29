@@ -22,17 +22,19 @@ LIB_DIR := ./lib/
 SRC_FILES := main.c\
 	canvas.c\
 	draw.c\
-	geometry.c\	
+	geometry.c\
 	load_assets.c\
 	map_check.c\
 	map_check_path.c\
-	map_destroy.c\
-	map_read.c
+	map_general.c\
+	map_read.c\
+	test.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
 HDR_FILES := draw.h\
 	geometry.h\
 	map.h\
-	parse.h
+	parse.h\
+	sl_test.h
 LIB_FILES := libft.a libftprintf.a
 ifeq ($(OS),Linux)
     LIB_FILES += libmlx_Linux.a
@@ -40,7 +42,7 @@ else
     LIB_FILES += libmlx.a
 endif
 
-CFLAGS ?= -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIB_DIR)
+CFLAGS ?= -Wall -Wextra  -I$(HDR_DIR) -I$(LIB_DIR)
 ifeq ($(OS),Linux)
     MLX_FLAGS := -L/usr/lib -lXext -lX11 -lm -lz
 endif

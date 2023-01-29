@@ -17,43 +17,37 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-void	map_view(t_map *map)
-{
-	char	**slice;
+#include "sl_test.h"
 
-	slice = map->objs;
-	ft_printf("w = %u, h = %u\n", map->w, map->h);
-	while (*slice)
-		ft_printf("%s", *(slice++));
-}
-
-void	ft_exit(char const *message, int status)
+void	sl_error(char const *message)
 {
 	ft_dprintf(2, "Error:\n%s\n", message);
-	exit(status);
+	exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv)
 {
-	void	*mlx;
-	void	*root;
+	//void	*mlx;
+	//void	*root;
 	t_map	*map;
 
 	if (argc != 2)
-		ft_exit("Usage: so_long [map].", EXIT_FAILURE);
-	mlx = mlx_init();
-	root = mlx_new_window(mlx, 1152, 864, "The Bach Game");
+		sl_error("Usage: so_long [map].");
+	//mlx = mlx_init();
+	//root = mlx_new_window(mlx, 1152, 864, "The Bach Game");
 	map = map_read(argv[1]);
 	if (map == NULL)
-		ft_exit("Error reading map from file.", EXIT_FAILURE);
-	if (!map_check(map))
+		sl_error("Error reading map from file.");
+	map_destroy(&map);
+	/*if (!map_check(map))
 	{
 		map_destroy(&map);
-		ft_exit("That map does not constitute a valid level.", EXIT_FAILURE);
+		sl_error("That map does not constitute a valid level.");
 	}
-	map_view(map);
+	map_view(map);*/
 	//map_draw(mlx, map);
 	//mlx_loop(mlx);
+	return (0);
 }
 
 /*int	main(int argc, char **argv)

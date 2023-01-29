@@ -87,7 +87,7 @@ int	map_check_object(t_map *map)
 
 int	map_check(t_map *map)
 {
-	return (map_check_walls(map)
-		&& map_check_object(map)
-		&& map_check_path(map));
+	if (map_check_walls(map) && map_check_object(map))
+		return (1);//(map_check_path(map));
+	return (0);
 }

@@ -16,6 +16,8 @@
 #include <unistd.h>
 #include "libft.h"
 
+#include "libftprintf.h"
+
 static int		check_ext(char const *filename, char const *extension);
 static t_list	*get_list(int fd, size_t *width, size_t *height);
 static void		lst_destroy(t_list **list);
@@ -30,7 +32,9 @@ static int	check_ext(char const *filename, char const *extension)
 	ext_len = ft_strlen(extension);
 	if (len < ext_len + 1)
 		return (0);
-	return ((int) ft_strnstr(filename + len - ext_len, extension, ext_len));
+	if (ft_strnstr(filename + len - ext_len, extension, ext_len))
+		return (1);
+	return (0);
 }
 
 static t_list	*get_list(int fd, size_t *width, size_t *height)
@@ -65,7 +69,9 @@ static void	lst_destroy(t_list **list)
 	{
 		prev = *list;
 		*list = (*list)->next;
+		free(prev->content);
 		free(prev);
+		prev = NULL;
 	}
 }
 
@@ -73,14 +79,14 @@ static int	populate_map(t_map *map, t_list *list)
 {
 	size_t	i;
 
-	map->objs = malloc((map->h + 1) * sizeof(char *));
+	map->objs = malloc((map->h) * sizeof(char *));
 	if (map->objs == NULL)
 		return (map_destroy(&map), 0);
-	map->objs[map->h] = NULL;
 	i = 0;
-	while (list)
+	while (i < map->h)
 	{
 		map->objs[i++] = list->content;
+		list->content = NULL;
 		list = list->next;
 	}
 	return (1);
@@ -94,16 +100,16 @@ t_map	*map_read(char const *filename)
 
 	if (!check_ext(filename, MAP_EXT))
 		return (NULL);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
 	map = ft_calloc(1, sizeof(t_map));
 	if (map == NULL)
 		return (NULL);
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (map_destroy(&map), NULL);
 	tmp = get_list(fd, &(map->w), &(map->h));
 	close(fd);
 	if (tmp == NULL)
-		return (map_destroy(&map), NULL);
+		return (free(map), NULL);
 	populate_map(map, tmp);
 	lst_destroy(&tmp);
 	return (map);
