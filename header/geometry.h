@@ -23,4 +23,7 @@ typedef struct	s_plane {
 	int	h;
 }	t_plane;
 
+t_point	get_point(int x, int y);
+t_plane	get_plane(int w, int h);
+
 #endif

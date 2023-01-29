@@ -22,6 +22,7 @@ LIB_DIR := ./lib/
 SRC_FILES := main.c\
 	canvas.c\
 	draw.c\
+	geometry.c\	
 	load_assets.c\
 	map_check.c\
 	map_check_path.c\
