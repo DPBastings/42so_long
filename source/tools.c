@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw.c                                             :+:    :+:            */
+/*   tools.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/16 14:50:59 by dbasting      ########   odam.nl         */
+/*   Created: 2023/02/06 14:14:08 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/02/06 14:45:30 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
-#include <mlx.h>
+#include "libft.h"
 #include <stdlib.h>
 
-void	draw_plane(t_canvas *cvs, int x, int y, t_plane dims, t_colour colour)
+int	ft_talloc(void **ptr, size_t size)
 {
-	int		w;
-	int		h;
-
-	h = -1;
-	while (h++ < dims.h)
-	{
-		w = -1;
-		while (w++ < dims.w)
-			draw_point(cvs, x + w, y + h, colour);
-	}
+	*ptr = malloc(size);
+	if (*ptr == NULL)
+		return (0);
+	return (1);
 }
 
-void	draw_point(t_canvas *canvas, int x, int y, t_colour colour)
+int	ft_tcalloc(void **ptr, size_t count, size_t size)
 {
-	char	*byte;
-
-	byte = canvas->address + 
-		(y * canvas->len + x * (canvas->bpp / 8));
-	*(unsigned int *)byte = colour;
+	*ptr = malloc(size);
+	if (*ptr == NULL)
+		return (0);
+	ft_memset(*ptr, '\0', count * size);
+	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/01/27 14:51:13 by dbasting      ########   odam.nl          #
+#    Updated: 2023/02/06 16:55:24 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,18 +20,21 @@ HDR_DIR		:= ./header/
 LIB_DIR		:= ./lib/
 
 SRC_FILES	:= main.c\
+			charmap_check.c\
+			charmap_check_path.c\
+			charmap_general.c\
+			charmap_read.c\
+			error.c\
 			geometry.c\
-			map_check.c\
-			map_check_path.c\
-			map_general.c\
-			map_read.c\
 			sprite.c\
+			object.c\
+			tilemap.c\
 			\
-			test.c
+			sl_test.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
+			charmap.h\
 			geometry.h\
-			map.h\
 			\
 			sl_test.h
 LIB_FILES	:= libft.a\
@@ -43,7 +46,7 @@ ifeq ($(OS),Linux)
 	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread
 endif
 ifeq ($(OS),Darwin)
-	MLX_FLAGS := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+	MLX_FLAGS := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
 .PHONY: all bonus clean fclean re
@@ -61,14 +64,14 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(LIB_DIR),$(LIB_FILES)) $(addprefix $(
 	@$(CC) -c $(CFLAGS) -o $@ $<
 
 %.a:
-	$(MAKE) --directory=$(LIB_DIR)
+	@$(MAKE) --directory=$(LIB_DIR)
 
 clean:
-	$(MAKE) --directory=$(LIB_DIR) clean
+	@$(MAKE) --directory=$(LIB_DIR) clean
 	@rm -f $(OBJ_DIR)*.o
 
 fclean: clean
-	$(MAKE) --directory=$(LIB_DIR) fclean
+	@$(MAKE) --directory=$(LIB_DIR) fclean
 	@rm -f $(NAME)
 
 re: fclean all

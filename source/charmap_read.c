@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   map_read.c                                         :+:    :+:            */
+/*   charmap_read.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:20:41 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/27 16:02:23 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/06 17:59:33 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "so_long.h"
+#include "charmap.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
 
-#include "libftprintf.h"
-
 static int		check_ext(char const *filename, char const *extension);
-static t_list	*get_list(int fd, size_t *width, size_t *height);
+static t_list	*get_list(int fd, unsigned int *width, unsigned int *height);
 static void		lst_destroy(t_list **list);
-static int		populate_map(t_map *map, t_list *list);
+static int		populate_charmap(t_charmap *map, t_list *list);
 
 static int	check_ext(char const *filename, char const *extension)
 {
@@ -37,7 +36,7 @@ static int	check_ext(char const *filename, char const *extension)
 	return (0);
 }
 
-static t_list	*get_list(int fd, size_t *width, size_t *height)
+static t_list	*get_list(int fd, unsigned int *width, unsigned int *height)
 {
 	t_list	*list;
 	char	*slice;
@@ -75,15 +74,15 @@ static void	lst_destroy(t_list **list)
 	}
 }
 
-static int	populate_map(t_map *map, t_list *list)
+static int	populate_charmap(t_charmap *map, t_list *list)
 {
 	size_t	i;
 
-	map->objs = malloc((map->h) * sizeof(char *));
+	map->objs = malloc((map->dims.h) * sizeof(char *));
 	if (map->objs == NULL)
-		return (map_destroy(&map), 0);
+		return (charmap_destroy(&map), 0);
 	i = 0;
-	while (i < map->h)
+	while (i < map->dims.h)
 	{
 		map->objs[i++] = list->content;
 		list->content = NULL;
@@ -92,25 +91,25 @@ static int	populate_map(t_map *map, t_list *list)
 	return (1);
 }
 
-t_map	*map_read(char const *filename)
+t_charmap	*charmap_read(char const *filename)
 {
-	t_map	*map;
-	t_list	*tmp;
-	int		fd;
+	t_charmap	*map;
+	t_list		*tmp;
+	int			fd;
 
 	if (!check_ext(filename, MAP_EXT))
-		return (NULL);
+		sl_error(SL_INVEXT);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	map = ft_calloc(1, sizeof(t_map));
+	map = ft_calloc(1, sizeof(t_charmap));
 	if (map == NULL)
 		return (NULL);
-	tmp = get_list(fd, &(map->w), &(map->h));
+	tmp = get_list(fd, &(map->dims.w), &(map->dims.h));
 	close(fd);
 	if (tmp == NULL)
 		return (free(map), NULL);
-	populate_map(map, tmp);
+	populate_charmap(map, tmp);
 	lst_destroy(&tmp);
 	return (map);
 }

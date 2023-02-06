@@ -1,8 +1,10 @@
 #ifndef SL_TEST_H
 # define SL_TEST_H
 
-# include "map.h"
+# include "charmap.h"
+# include "so_long.h"
 
-void	map_view(t_map *map);
+void	charmap_view(t_charmap *map);
+void	tilemap_view(t_tilemap *map);
 
 #endif

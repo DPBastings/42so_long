@@ -1,48 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   map.h                                              :+:    :+:            */
+/*   charmap.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/27 16:59:14 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/06 16:14:45 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef CHARMAP_H
+# define CHARMAP_H
 
-# include <stddef.h>
+# include "geometry.h"
 
 # define MAP_EXT	".ber"
 
-typedef struct	s_map {
+typedef struct	s_charmap {
+	t_plane	dims;
 	char	**objs;
-	size_t	w;
-	size_t	h;
-}	t_map;
+}	t_charmap;
 
-# define OBJ_NONE	'0'
-# define OBJ_WALL	'1'
-# define OBJ_COLL	'C'
-# define OBJ_EXIT	'E'
-# define OBJ_STRT	'P'
-# define OBJ_ENMY_H	'X'
-# define OBJ_ENMY_V	'Y'
+# define CHR_ALL	"01CEPXY"
+# define CHR_FILL	"01CXY"
+
+# define CHR_NONE	'0'
+# define CHR_WALL	'1'
+# define CHR_COLL	'C'
+# define CHR_EXIT	'E'
+# define CHR_STRT	'P'
+# define CHR_ENMYH	'X'
+# define CHR_ENMYV	'Y'
 
 # define CHECK_EXIT	1
 # define CHECK_COLL	2
 # define CHECK_STRT	4
 
-# define OBJ_FILL	"01CXY"
-
-int		map_check(t_map *map);
-int		map_check_walls(t_map *map);
-int		map_check_object(t_map *map);
-int		map_check_path(t_map *map);
-t_map	*map_read(char const *filename);
-t_map	*map_copy(t_map *map);
-void	map_destroy(t_map **map);
+int			charmap_check(t_charmap *map);
+int			charmap_check_walls(t_charmap *map);
+int			charmap_check_object(t_charmap *map);
+int			charmap_check_path(t_charmap *map);
+t_charmap	*charmap_read(char const *filename);
+t_charmap	*charmap_copy(t_charmap *map);
+void		charmap_destroy(t_charmap **map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/16 18:21:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/06 17:44:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,18 @@
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
 
+#define BPP	4
+
 static char const	*g_spritefiles[] = {
 	"./assets/textures/wall.png",
-	"./assets/textures/bach.png",
 	"./assets/textures/score.png",
-	"./assets/textures/harpsichord.png"
+	"./assets/textures/harpsichord.png",
+	"./assets/textures/bach.png"
 };
 
-static t_point	*setpoint(t_point *point, unsigned int x, unsigned int y)
-{
-	point->x = x;
-	point->y = y;
-	return (point);
-}
+static t_sprite	*sprite_load(mlx_t *mlx, char const *filename);
 
-static t_plane	*setplane(t_plane *plane, unsigned int w, unsigned int h)
-{
-	plane->w = w;
-	plane->h = h;
-	return (plane);
-}
-
-void	sprite_destroy(mlx_t *mlx, t_sprite **sprite)
-{
-	mlx_delete_texture((*sprite)->texture);
-	mlx_delete_image(mlx, (*sprite)->image);
-	free(*sprite);
-	*sprite = NULL;
-}
-
-t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
+static t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
 {
 	t_sprite	*sprite;
 	t_point		origin;
@@ -55,10 +37,10 @@ t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
 	if (sprite == NULL)
 		return (NULL);
 	sprite->texture = mlx_load_png(filename);
-	if (sprite->texture == NULL)
+	if (sprite->texture == NULL || sprite->texture->width % GRID_SIZE)
 		return (free(sprite), NULL);
-	setpoint(&origin, 0, 0);
-	setplane(&area, GRID_SIZE, GRID_SIZE);
+	set_point(&origin, 0, 0);
+	set_plane(&area, GRID_SIZE, GRID_SIZE);
 	sprite->image = mlx_texture_area_to_image(mlx, sprite->texture,
 			(unsigned int *)&origin, (unsigned int *)&area);
 	if (sprite->image == NULL)
@@ -66,13 +48,13 @@ t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
 	return (sprite);
 }
 
-t_sprite	**load_sprites(mlx_t *mlx)
+t_sprite	**sprites_load(mlx_t *mlx)
 {
 	t_sprite		**sprites;
 	size_t			i;
 
 	i = 0;
-	sprites = ft_calloc(N_SPRITES, sizeof(t_sprite*));
+	sprites = ft_calloc(N_SPRITES, sizeof(t_sprite *));
 	if (sprites == NULL)
 		return (NULL);
 	while (i < N_SPRITES)
@@ -88,4 +70,30 @@ t_sprite	**load_sprites(mlx_t *mlx)
 		i++;
 	}
 	return (sprites);
+}
+
+void	sprite_animate(t_sprite *sprite, unsigned int frame)
+{
+	unsigned char	*pxsrc;
+	unsigned char	*pxdst;
+	unsigned int	x;
+	unsigned int	y;
+
+	x = frame * GRID_SIZE % sprite->texture->width;
+	y = 0;
+	while (y < sprite->image->height)
+	{
+		pxsrc = &sprite->texture->pixels[y * sprite->texture->width + x * BPP];
+		pxdst = &sprite->image->pixels[y * GRID_SIZE * BPP];
+		ft_memmove(pxdst, pxsrc, GRID_SIZE * BPP);
+		y++;
+	}
+}
+
+void	sprite_destroy(mlx_t *mlx, t_sprite **sprite)
+{
+	mlx_delete_texture((*sprite)->texture);
+	mlx_delete_image(mlx, (*sprite)->image);
+	free(*sprite);
+	*sprite = NULL;
 }
