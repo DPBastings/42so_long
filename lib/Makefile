@@ -1,42 +1,37 @@
 OS	= $(shell uname -s)
 
 LIB	= libft libftprintf libmlx
-HDR	= libft.h libftprintf.h mlx.h
-ARC = libft.a libftprintf.a
-ifeq ($(OS),Linux)
-    ARC += libmlx_Linux.a
-else
-    ARC += libmlx.a
-endif
-DIR = $(addprefix ./,$(addsuffix /,$(LIB)))
+HDR	= libft.h libftprintf.h
+ARC = libft.a libftprintf.a libmlx42.a
+DIR = ./libft ./libftprintf
 
 .PHONY: all clean fclean re
 
-all: $(ARC) $(HDR)
-
-libmlx_Linux.a:
-	cd ./libmlx && ./configure
-	@ln -fs ./libmlx/$@ $@
-
-libmlx.a:
-	@$(MAKE) --directory=./libmlx/
-	@ln -fs ./libmlx/$@ $@
+all: $(ARC) $(HDR) ./MLX42/
 
 libf%.a:
-	$(MAKE) --directory=./$(basename $@)/
+	@$(MAKE) --directory=./$(basename $@)/
 	@ln -fs ./$(basename $@)/$@ ./$@
 
 libf%.h:
 	@ln -fs ./$(basename $@)/include/$@ $@
 
-mlx.h:
-	@ln -fs ./libmlx/$@ $@
+libmlx42.a:
+	@cmake -S ./libmlx42 -B ./libmlx
+	@cmake --build ./libmlx -j4
+	@ln -fs ./libmlx/libmlx42.a
+
+./MLX42/:
+	@ln -fs ./libmlx42/include/MLX42/ ./MLX42
 
 clean:
-	$(foreach d,$(DIR),$(call execute,-$(MAKE) --directory=$(d) clean))
+	@$(foreach d,$(DIR),$(call execute,-$(MAKE) --directory=$(d) clean))
+	@cmake --build ./libmlx/ --target clean
 
 fclean: clean
-	$(foreach d,$(DIR),$(call execute,-$(MAKE) --directory=$(d) fclean))
+	@$(foreach d,$(DIR),$(call execute,-$(MAKE) --directory=$(d) fclean))
 	@rm -f $(ARC) $(HDR)
+	@rm -f ./MLX42
+	@rm -rf ./libmlx/
 
 re: fclean all

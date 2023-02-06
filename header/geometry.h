@@ -13,17 +13,19 @@
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
 
+# include <stddef.h>
+
 typedef struct	s_point {
-	int	x;
-	int	y;
+	unsigned int	x;
+	unsigned int	y;
 }	t_point;
 
 typedef struct	s_plane {
-	int	w;
-	int	h;
+	unsigned int	w;
+	unsigned int	h;
 }	t_plane;
 
-t_point	get_point(int x, int y);
-t_plane	get_plane(int w, int h);
+t_point	*set_point(t_point *point, unsigned int x, unsigned int y);
+t_plane	*set_plane(t_plane *plane, unsigned int w, unsigned int h);
 
 #endif

@@ -19,11 +19,11 @@
 t_map	*map_copy(t_map *map)
 {
 	t_map	*copy;
-	
+
 	copy = ft_calloc(1, sizeof(t_map));
 	if (copy == NULL)
 		return (NULL);
-	copy->objs = malloc(sizeof(char*) * map->h);
+	copy->objs = malloc(sizeof(char *) * map->h);
 	if (copy->objs == NULL)
 		return (free(copy), NULL);
 	copy->h = 0;
@@ -40,18 +40,14 @@ t_map	*map_copy(t_map *map)
 
 void	map_destroy(t_map **map)
 {
-	char	**objs;
+	size_t	i;
 
 	if (*map == NULL)
 		return ;
-	objs = (*map)->objs;
-	ft_printf("%p ", objs);
-	while (*objs)
-	{
-		free(*objs);
-		*objs = NULL;
-	}
-	free(objs);
+	i = 0;
+	while (i < (*map)->h)
+		free((*map)->objs[i++]);
+	free((*map)->objs);
 	free(*map);
 	*map = NULL;
 }

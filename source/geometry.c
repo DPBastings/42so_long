@@ -1,19 +1,15 @@
 #include "geometry.h"
 
-t_point	get_point(int x, int y)
+t_point	*set_point(t_point *point, unsigned int x, unsigned int y)
 {
-	t_point	point;
-
-	point.x = x;
-	point.y = y;
+	point->x = x;
+	point->y = y;
 	return (point);
 }
 
-t_plane	get_plane(int w, int h)
+t_plane	*set_plane(t_plane *plane, unsigned int w, unsigned int h)
 {
-	t_plane	plane;
-
-	plane.w = w;
-	plane.h = h;
+	plane->w = w;
+	plane->h = h;
 	return (plane);
 }

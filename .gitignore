@@ -1,7 +1,15 @@
+# Library compilation products
 lib/*.h
+lib/MLX42
+lib/cmake_install.cmake
 lib/*.a
-lib/libmlx/
+lib/.*
+
+lib/libmlx
+
+# Compiler products
 object/
 so_long
 
+# Misc
 *.swp

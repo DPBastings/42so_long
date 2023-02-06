@@ -10,45 +10,42 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME := so_long
+NAME		:= so_long
 
-OS := $(shell uname -s)
+OS 			:= $(shell uname -s)
 
-SRC_DIR := ./source/
-OBJ_DIR := ./object/
-HDR_DIR := ./header/
-LIB_DIR := ./lib/
+SRC_DIR		:= ./source/
+OBJ_DIR		:= ./object/
+HDR_DIR		:= ./header/
+LIB_DIR		:= ./lib/
 
-SRC_FILES := main.c\
-	canvas.c\
-	draw.c\
-	geometry.c\
-	load_assets.c\
-	map_check.c\
-	map_check_path.c\
-	map_general.c\
-	map_read.c\
-	test.c
-OBJ_FILES := $(SRC_FILES:.c=.o)
-HDR_FILES := draw.h\
-	geometry.h\
-	map.h\
-	parse.h\
-	sl_test.h
-LIB_FILES := libft.a libftprintf.a
+SRC_FILES	:= main.c\
+			geometry.c\
+			map_check.c\
+			map_check_path.c\
+			map_general.c\
+			map_read.c\
+			sprite.c\
+			\
+			test.c
+OBJ_FILES	:= $(SRC_FILES:.c=.o)
+HDR_FILES	:= so_long.h\
+			geometry.h\
+			map.h\
+			\
+			sl_test.h
+LIB_FILES	:= libft.a\
+			libftprintf.a\
+			libmlx42.a
+
+CFLAGS 		?= -Wall -Wextra -lm -I$(HDR_DIR) -I$(LIB_DIR)
 ifeq ($(OS),Linux)
-    LIB_FILES += libmlx_Linux.a
-else
-    LIB_FILES += libmlx.a
-endif
-
-CFLAGS ?= -Wall -Wextra  -I$(HDR_DIR) -I$(LIB_DIR)
-ifeq ($(OS),Linux)
-    MLX_FLAGS := -L/usr/lib -lXext -lX11 -lm -lz
+	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread
 endif
 ifeq ($(OS),Darwin)
-    MLX_FLAGS := -framework OpenGL -framework AppKit
+	MLX_FLAGS := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 endif
+
 .PHONY: all bonus clean fclean re
 
 all: $(NAME)
@@ -56,13 +53,15 @@ all: $(NAME)
 bonus: all
 	@echo "Bonus is basis, vrind."
 
-$(NAME): $(addprefix $(OBJ_DIR),$(OBJ_FILES))
-	$(MAKE) --directory=$(LIB_DIR)
-	@$(CC) $(CFLAGS) -L$(HDR_DIR) -L$(LIB_DIR) $^ $(addprefix $(LIB_DIR),$(LIB_FILES)) $(MLX_FLAGS) -o $@
+$(NAME): $(addprefix $(OBJ_DIR),$(OBJ_FILES)) $(addprefix $(LIB_DIR),$(LIB_FILES)) 
+	@$(CC) $(CFLAGS) -L$(HDR_DIR) -L$(LIB_DIR) $^ $(MLX_FLAGS) -o $@
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(HDR_DIR),$(HDR_FILES))
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(addprefix $(LIB_DIR),$(LIB_FILES)) $(addprefix $(HDR_DIR),$(HDR_FILES))
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c $(CFLAGS) -o $@ $<
+
+%.a:
+	$(MAKE) --directory=$(LIB_DIR)
 
 clean:
 	$(MAKE) --directory=$(LIB_DIR) clean
