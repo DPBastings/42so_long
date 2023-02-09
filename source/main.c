@@ -12,33 +12,29 @@
 
 #include "so_long.h"
 #include "MLX42/MLX42.h"
-#include "charmap.h"
+#include "map.h"
 
 #include "sl_test.h"
 
 int	main(int argc, char **argv)
 {
-	//mlx_t		*mlx;
-	t_tilemap	*game;
-	t_charmap	*map;
+	//mlx_t	*mlx;
+	t_map	*map;
 
 	if (argc != 2)
 		sl_error(SL_INVARGS);
 	//mlx = mlx_init(1258, 768, "The Bach Game", true);
-	map = charmap_read(argv[1]);
+	map = map_load(argv[1]);
 	if (map == NULL)
 		sl_error(SL_INVMAP);
-	if (!charmap_check(map))
+	if (!map_check(map))
 	{
-		charmap_destroy(&map);
+		map_destroy(&map);
 		sl_error(SL_INVMAP);
 	}
 	//mlx_loop(mlx);
-	charmap_view(map);
-	game = tilemap_init(map->dims);
-	tilemap_set(game, map);
-	tilemap_view(game);
-	charmap_destroy(&map);
+	map_view(map);
+	map_destroy(&map);
 	//mlx_terminate(mlx);
 	return (0);
 }

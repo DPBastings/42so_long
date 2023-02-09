@@ -14,10 +14,12 @@
 # define SO_LONG_H
 
 # include "geometry.h"
-# include "charmap.h"
+# include "libft.h"
+# include "libftprintf.h"
 # include "MLX42/MLX42.h"
 
 # define GRID_SIZE		48
+# define SL_FILEEXT		".ber"
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -29,6 +31,14 @@ typedef enum e_objs {
 	OBJ_ENMYV,
 	N_OBJS,
 }	t_objs;
+
+typedef enum e_dirs {
+	DIR_UP = 0,
+	DIR_RIGHT,
+	DIR_DOWN,
+	DIR_LEFT,
+	N_DIRS,
+}	t_dirs;
 
 typedef struct s_sprite {
 	mlx_texture_t	*texture;
@@ -42,13 +52,16 @@ typedef struct s_object {
 	t_sprite		*sprite;
 }	t_object;
 
-typedef struct s_tilemap {
+typedef struct s_map {
 	t_plane		dims;
-	t_object	***tiles;
-}	t_tilemap;
+	t_object	***objs;
+	t_object	*none;
+}	t_map;
+
+# define NOWHERE	map->none
 
 typedef struct s_game {
-	t_tilemap		*map;
+	t_map			*map;
 	t_sprite		**sprites;
 	unsigned int	score;
 	unsigned int	moves;
@@ -67,6 +80,7 @@ typedef enum e_sl_errno {
 	SL_MEMFAIL,
 	SL_INVARGS,
 	SL_INVEXT,
+	SL_INVPATH,
 	SL_INVMAP,
 	N_SL_ERR,
 }	t_sl_errno;
@@ -75,12 +89,17 @@ t_game		*game_init(mlx_t *mlx, char const *filename);
 t_sprite	**sprites_load(mlx_t *mlx);
 void		sprite_animate(t_sprite *sprite, unsigned int frame);
 void		sprite_destroy(mlx_t *mlx, t_sprite **sprite);
-t_object	*object_init(char type);
+t_object	*object_init(unsigned int type);
 void		object_destroy(t_object **obj);
-t_object	*object_move(t_object *obj, t_point newpos, t_tilemap *map);
-t_tilemap	*tilemap_init(t_plane dims);
-void		tilemap_set(t_tilemap *map, t_charmap *charmap);
-void		tilemap_destroy(t_tilemap **map);
+t_object	*object_move(t_object *obj, t_point newpos, t_map *map);
+t_map		*map_load(char const *filename);
+t_map		*map_init(t_plane dims);
+void		map_set(t_map *map, t_list *bytemap);
+void		map_destroy(t_map **map);
+
+t_point		*get_adjacent(t_point p, t_map *map);
+t_object	**map_index(t_map *map, t_point p);
+int			is_passable(t_object *object);
 
 void		sl_strerror(int errno);
 void		sl_error(int errno);

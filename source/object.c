@@ -11,35 +11,24 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "map.h"
 #include "libft.h"
 #include <stdlib.h>
 
-static unsigned int	gettype(char type)
+int	is_passable(t_object *obj)
 {
-	char *const	chars = CHR_ALL;
-	char		*ptr;
-
-	ptr = ft_strchr(chars, type);
-	if (ptr == NULL)
-		return (OBJ_NONE);
-	return ((unsigned int)(ptr - chars));
+	return (obj == NULL
+		|| (obj->type != OBJ_WALL && obj->type != OBJ_NONE));
 }
 
-static int	is_passable(t_object *obj)
-{
-	return (obj == NULL || obj->type == OBJ_COLL);
-}
-
-t_object	*object_init(char type)
+t_object	*object_init(unsigned int type)
 {
 	t_object	*new;
 
-	if (type == CHR_NONE)
-		return (NULL);
 	new = malloc(sizeof(t_object));
 	if (new == NULL)
-		sl_error(SL_MEMFAIL);
-	new->type = gettype(type);
+		return (NULL);
+	new->type = type;
 	return (new);
 }
 
@@ -52,16 +41,16 @@ void	object_destroy(t_object **obj)
 /* Return value corresponds to the object that previously occupied `newpos`
  * (either NULL or a passable object (i.e. a collectible).*/
 
-//20220206 This is currently broken.
-t_object	*object_move(t_object *obj, t_point newpos, t_tilemap *map)
+//20230206 This is currently broken.
+t_object	*object_move(t_object *obj, t_point newpos, t_map *map)
 {
 	t_object	*other;
 
-	other = map->tiles[newpos.y][newpos.x];
+	other = map->objs[newpos.y][newpos.x];
 	if (is_passable(other))
 	{
-		map->tiles[obj->position.y][obj->position.x] = NULL;
-		map->tiles[newpos.y][newpos.x] = obj;
+		map->objs[obj->position.y][obj->position.x] = NULL;
+		map->objs[newpos.y][newpos.x] = obj;
 		obj->position = newpos;
 	}
 	return (other);

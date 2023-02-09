@@ -19,8 +19,8 @@ static const char	*sl_errors[] = {
 	"Couldn't allocate memory.",
 	"Usage: so_long [map].",
 	"Invalid map file extension.",
-	"Couldn't read map from file.",
-	"That map doesn't constitute a valid level.",
+	"No file could be found at that location.",
+	"That file doesn't constitute a valid map.",
 };
 
 void	sl_error(int errno)

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   charmap.h                                          :+:    :+:            */
+/*   map.h                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHARMAP_H
-# define CHARMAP_H
+#ifndef MAP_H
+# define MAP_H
 
+# include "so_long.h"
 # include "geometry.h"
-
-# define MAP_EXT	".ber"
 
 typedef struct	s_charmap {
 	t_plane	dims;
@@ -29,20 +28,17 @@ typedef struct	s_charmap {
 # define CHR_WALL	'1'
 # define CHR_COLL	'C'
 # define CHR_EXIT	'E'
-# define CHR_STRT	'P'
+# define CHR_PLYR	'P'
 # define CHR_ENMYH	'X'
 # define CHR_ENMYV	'Y'
 
 # define CHECK_EXIT	1
 # define CHECK_COLL	2
-# define CHECK_STRT	4
+# define CHECK_PLYR	4
 
-int			charmap_check(t_charmap *map);
-int			charmap_check_walls(t_charmap *map);
-int			charmap_check_object(t_charmap *map);
-int			charmap_check_path(t_charmap *map);
-t_charmap	*charmap_read(char const *filename);
-t_charmap	*charmap_copy(t_charmap *map);
-void		charmap_destroy(t_charmap **map);
+int			map_check(t_map *map);
+int			map_check_walls(t_map *map);
+int			map_check_object(t_map *map);
+int			map_check_path(t_map *map);
 
 #endif

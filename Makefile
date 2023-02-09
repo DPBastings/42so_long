@@ -20,20 +20,20 @@ HDR_DIR		:= ./header/
 LIB_DIR		:= ./lib/
 
 SRC_FILES	:= main.c\
-			charmap_check.c\
-			charmap_check_path.c\
-			charmap_general.c\
-			charmap_read.c\
+			map.c\
+			map_check.c\
+			map_check_path.c\
+			map_load.c\
+			map_search.c\
 			error.c\
 			geometry.c\
 			sprite.c\
 			object.c\
-			tilemap.c\
 			\
 			sl_test.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
-			charmap.h\
+			map.h\
 			geometry.h\
 			\
 			sl_test.h
