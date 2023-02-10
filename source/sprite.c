@@ -36,11 +36,12 @@ t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
 		return (NULL);
 	sprite->texture = mlx_load_png(filename);
 	if (sprite->texture == NULL || sprite->texture->width % GRID_W)
-		return (free(sprite), NULL);
+		return (mlx_delete_texture(sprite->texture), free(sprite), NULL);
+	ft_printf("%p\n", sprite->texture);
 	set_point(&origin, 0, 0);
 	set_plane(&area, GRID_W, GRID_H);
 	sprite->image = mlx_texture_area_to_image(mlx, sprite->texture,
-			(unsigned int *)&origin, (unsigned int *)&area);
+		(unsigned int *)&origin, (unsigned int *)&area);
 	if (sprite->image == NULL)
 		return (mlx_delete_texture(sprite->texture), free(sprite), NULL);
 	return (sprite);
@@ -100,6 +101,7 @@ void	sprites_destroy(mlx_t *mlx, t_sprite ***sprites)
 void	sprite_destroy(mlx_t *mlx, t_sprite **sprite)
 {
 	(void) mlx;
+	mlx_delete_texture((*sprite)->texture);
 	free(*sprite);
 	*sprite = NULL;
 }
