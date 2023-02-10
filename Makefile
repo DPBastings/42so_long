@@ -24,6 +24,9 @@ SRC_FILES	:= main.c\
 			game_init.c\
 			game_sprites_bind.c\
 			geometry.c\
+			hook.c\
+			hook_close.c\
+			hook_keys.c\
 			map.c\
 			map_check.c\
 			map_check_path.c\

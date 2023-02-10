@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		sl_error(SL_INVARGS);
 	game = game_init(argv[1]);
+	hook_set(game);
 	mlx_loop(game->mlx);
 	game_end(game);
 	return (0);

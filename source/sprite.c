@@ -99,8 +99,7 @@ void	sprites_destroy(mlx_t *mlx, t_sprite ***sprites)
 
 void	sprite_destroy(mlx_t *mlx, t_sprite **sprite)
 {
-	mlx_delete_texture((*sprite)->texture);
-	mlx_delete_image(mlx, (*sprite)->image);
+	(void) mlx;
 	free(*sprite);
 	*sprite = NULL;
 }

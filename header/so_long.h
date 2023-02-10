@@ -95,6 +95,10 @@ t_game		*game_init(char const *filename);
 void		game_sprites_bind(t_game *game);
 void		game_end(t_game *game);
 
+void		hook_set(t_game *game);
+void		hook_keys(void *param);
+void		hook_close(void *param);
+
 t_sprite	**sprites_load(mlx_t *mlx);
 t_sprite	*sprite_load(mlx_t *mlx, char const *filename);
 void		sprite_animate(t_sprite *sprite, unsigned int frame);
