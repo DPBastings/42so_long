@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   map.h                                              :+:    :+:            */
+/*   map_check.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -10,33 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef MAP_CHECK_H
+# define MAP_CHECK_H
 
 # include "so_long.h"
 # include "geometry.h"
 
-typedef struct	s_charmap {
-	t_plane	dims;
-	char	**objs;
-}	t_charmap;
-
 # define CHR_ALL	"01CEPXY"
-# define CHR_FILL	"01CXY"
-
 # define CHR_NONE	'0'
-# define CHR_WALL	'1'
-# define CHR_COLL	'C'
-# define CHR_EXIT	'E'
-# define CHR_PLYR	'P'
-# define CHR_ENMYH	'X'
-# define CHR_ENMYV	'Y'
 
 # define CHECK_EXIT	1
 # define CHECK_COLL	2
 # define CHECK_PLYR	4
 
-int			map_check(t_map *map);
 int			map_check_walls(t_map *map);
 int			map_check_object(t_map *map);
 int			map_check_path(t_map *map);

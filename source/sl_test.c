@@ -4,6 +4,19 @@
 
 #include "libftprintf.h"
 
+void	adj_view(t_point *adj)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < N_DIRS)
+	{
+		ft_printf("%p: ", &adj[i]);
+		ft_printf("%u %u\n", adj[i].x, adj[i].y);
+		i++;
+	}
+}
+
 void	map_view(t_map *map)
 {
 	t_point		p;
@@ -18,7 +31,12 @@ void	map_view(t_map *map)
 		{
 			obj = map->objs[p.y][p.x];
 			if (obj)
-				ft_printf("%d", obj->type);
+			{
+				if (obj == NOWHERE)
+					ft_printf("@");
+				else
+					ft_printf("%d", obj->type);
+			}
 			else
 				ft_printf(" ");
 			p.x++;

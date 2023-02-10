@@ -18,8 +18,13 @@
 # include "libftprintf.h"
 # include "MLX42/MLX42.h"
 
-# define GRID_SIZE		48
+# define SL_TITLE		"The Bach Game"
 # define SL_FILEEXT		".ber"
+
+# define GRID_W			48
+# define GRID_H			48
+# define SCREEN_MIN_W	1152
+# define SCREEN_MIN_H	864
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -61,6 +66,7 @@ typedef struct s_map {
 # define NOWHERE	map->none
 
 typedef struct s_game {
+	mlx_t			*mlx;
 	t_map			*map;
 	t_sprite		**sprites;
 	unsigned int	score;
@@ -68,11 +74,11 @@ typedef struct s_game {
 }	t_game;
 
 typedef enum e_sprites {
-	WALL,
-	COLL,
-	EXIT,
-	PLYR,
-	N_SPRITES
+	SPR_WALL,
+	SPR_COLL,
+	SPR_EXIT,
+	SPR_PLYR,
+	N_SPRITES,
 }	t_sprites;
 
 typedef enum e_sl_errno {
@@ -85,26 +91,30 @@ typedef enum e_sl_errno {
 	N_SL_ERR,
 }	t_sl_errno;
 
-t_game		*game_init(mlx_t *mlx, char const *filename);
+t_game		*game_init(char const *filename);
+void		game_sprites_bind(t_game *game);
+void		game_end(t_game *game);
+
 t_sprite	**sprites_load(mlx_t *mlx);
+t_sprite	*sprite_load(mlx_t *mlx, char const *filename);
 void		sprite_animate(t_sprite *sprite, unsigned int frame);
 void		sprite_destroy(mlx_t *mlx, t_sprite **sprite);
+void		sprites_destroy(mlx_t *mlx, t_sprite ***sprites);
+
 t_object	*object_init(unsigned int type);
-void		object_destroy(t_object **obj);
 t_object	*object_move(t_object *obj, t_point newpos, t_map *map);
+int			object_is_passable(t_object *object);
+void		object_destroy(t_object **obj);
+
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);
+int			map_check(t_map *map);
 void		map_set(t_map *map, t_list *bytemap);
-void		map_destroy(t_map **map);
-
-t_point		*get_adjacent(t_point p, t_map *map);
 t_object	**map_index(t_map *map, t_point p);
-int			is_passable(t_object *object);
+t_point		*map_get_adjacent(t_map *map, t_point p);
+void		map_destroy(t_map **map);
 
 void		sl_strerror(int errno);
 void		sl_error(int errno);
-
-# define TEXTURES_DIR	"./assets/textures/"
-# define MAPS_DIR		"./assets/maps/"
 
 #endif

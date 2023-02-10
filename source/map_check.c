@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "map_check.h"
 #include "libft.h"
-#include "libftprintf.h"
 
 int	map_check_walls(t_map *map)
 {

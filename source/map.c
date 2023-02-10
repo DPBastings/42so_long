@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "map.h"
+#include "map_check.h"
 #include "libft.h"
 #include <stdlib.h>
 
@@ -62,9 +62,9 @@ void	map_set(t_map *map, t_list *bytemap)
 			{	
 				obj = object_init(chrtotype(row[p.x]));
 				if (obj == NULL)
-					sl_error(SL_MEMFAIL);	
-				map->objs[p.y][p.x] = obj;
+					sl_error(SL_MEMFAIL);
 				obj->position = p;
+				*map_index(map, p) = obj;
 			}
 			p.x++;
 		}
@@ -84,24 +84,19 @@ static unsigned int	chrtotype(char const chr)
 	return ((unsigned int)(ptr - chars));
 }
 
-t_object	**map_index(t_map *map, t_point p)
-{
-	if (p.y >= map->dims.h || p.x >= map->dims.w)
-		return (&NOWHERE);
-	return (&map->objs[p.y][p.x]);
-}
-
 void	map_destroy(t_map **map)
 {
 	t_point	p;
 
+	if (*map == NULL)
+		return ;
 	p.y = 0;
 	while (p.y < (*map)->dims.h)
 	{
 		p.x = 0;
 		while (p.x < (*map)->dims.w)
 		{
-			object_destroy(&(*map)->objs[p.y][p.x]);
+			object_destroy(map_index(*map, p));
 			p.x++;
 		}
 		free((*map)->objs[p.y]);

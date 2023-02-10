@@ -12,29 +12,17 @@
 
 #include "so_long.h"
 #include "MLX42/MLX42.h"
-#include "map.h"
 
 #include "sl_test.h"
 
 int	main(int argc, char **argv)
 {
-	//mlx_t	*mlx;
-	t_map	*map;
+	t_game	*game;
 
 	if (argc != 2)
 		sl_error(SL_INVARGS);
-	//mlx = mlx_init(1258, 768, "The Bach Game", true);
-	map = map_load(argv[1]);
-	if (map == NULL)
-		sl_error(SL_INVMAP);
-	if (!map_check(map))
-	{
-		map_destroy(&map);
-		sl_error(SL_INVMAP);
-	}
-	//mlx_loop(mlx);
-	map_view(map);
-	map_destroy(&map);
-	//mlx_terminate(mlx);
+	game = game_init(argv[1]);
+	mlx_loop(game->mlx);
+	game_end(game);
 	return (0);
 }

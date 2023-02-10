@@ -25,9 +25,7 @@ static char const	*g_spritefiles[] = {
 	"./assets/textures/bach.png"
 };
 
-static t_sprite	*sprite_load(mlx_t *mlx, char const *filename);
-
-static t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
+t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
 {
 	t_sprite	*sprite;
 	t_point		origin;
@@ -37,10 +35,10 @@ static t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
 	if (sprite == NULL)
 		return (NULL);
 	sprite->texture = mlx_load_png(filename);
-	if (sprite->texture == NULL || sprite->texture->width % GRID_SIZE)
+	if (sprite->texture == NULL || sprite->texture->width % GRID_W)
 		return (free(sprite), NULL);
 	set_point(&origin, 0, 0);
-	set_plane(&area, GRID_SIZE, GRID_SIZE);
+	set_plane(&area, GRID_W, GRID_H);
 	sprite->image = mlx_texture_area_to_image(mlx, sprite->texture,
 			(unsigned int *)&origin, (unsigned int *)&area);
 	if (sprite->image == NULL)
@@ -56,16 +54,14 @@ t_sprite	**sprites_load(mlx_t *mlx)
 	i = 0;
 	sprites = ft_calloc(N_SPRITES, sizeof(t_sprite *));
 	if (sprites == NULL)
-		return (NULL);
+		sl_error(SL_MEMFAIL);
 	while (i < N_SPRITES)
 	{
 		sprites[i] = sprite_load(mlx, g_spritefiles[i]);
 		if (sprites[i] == NULL)
 		{
-			i = 0;
-			while (i < N_SPRITES)
-				sprite_destroy(mlx, sprites + i++);
-			return (NULL);
+			sprites_destroy(mlx, &sprites);
+			sl_error(SL_MEMFAIL);
 		}
 		i++;
 	}
@@ -79,15 +75,26 @@ void	sprite_animate(t_sprite *sprite, unsigned int frame)
 	unsigned int	x;
 	unsigned int	y;
 
-	x = frame * GRID_SIZE % sprite->texture->width;
+	x = frame * GRID_W % sprite->texture->width;
 	y = 0;
 	while (y < sprite->image->height)
 	{
 		pxsrc = &sprite->texture->pixels[y * sprite->texture->width + x * BPP];
-		pxdst = &sprite->image->pixels[y * GRID_SIZE * BPP];
-		ft_memmove(pxdst, pxsrc, GRID_SIZE * BPP);
+		pxdst = &sprite->image->pixels[y * GRID_H * BPP];
+		ft_memmove(pxdst, pxsrc, GRID_W * BPP);
 		y++;
 	}
+}
+
+void	sprites_destroy(mlx_t *mlx, t_sprite ***sprites)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < N_SPRITES)
+		sprite_destroy(mlx, &(*sprites)[i++]);
+	free(*sprites);
+	*sprites = NULL;
 }
 
 void	sprite_destroy(mlx_t *mlx, t_sprite **sprite)

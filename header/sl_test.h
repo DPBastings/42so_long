@@ -3,6 +3,7 @@
 
 # include "so_long.h"
 
+void	adj_view(t_point *adj);
 void	map_view(t_map *map);
 
 #endif

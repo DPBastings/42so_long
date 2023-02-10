@@ -11,14 +11,47 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "map.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "libft.h"
 
+static int		check_ext(char const *filename);
 static t_list	*get_bytemap(int fd, t_plane *dims);
 static void		lst_destroy(t_list **list);
+static int		open_file(char const *filename);
+
+t_map	*map_load(char const *filename)
+{
+	t_map	*map;
+	t_list	*bytemap;
+	t_plane	dims;
+	int		fd;
+
+	fd = open_file(filename);
+	bytemap = get_bytemap(fd, &dims);
+	close(fd);
+	if (bytemap == NULL)
+		sl_error(SL_MEMFAIL);
+	map = map_init(dims);
+	if (map == NULL)
+		sl_error(SL_MEMFAIL);
+	map_set(map, bytemap);
+	lst_destroy(&bytemap);
+	return (map);
+}
+
+static int	open_file(char const *filename)
+{
+	int	fd;
+
+	if (!check_ext(filename))
+		sl_error(SL_INVEXT);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		sl_error(SL_INVPATH);
+	return (fd);
+}
 
 static int	check_ext(char const *filename)
 {
@@ -32,18 +65,6 @@ static int	check_ext(char const *filename)
 	if (ft_strnstr(filename + len - ext_len, SL_FILEEXT, ext_len))
 		return (1);
 	return (0);
-}
-
-static int	open_file(char const *filename)
-{
-	int	fd;
-	
-	if (!check_ext(filename))
-		sl_error(SL_INVEXT);
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		sl_error(SL_INVPATH);
-	return (fd);
 }
 
 static t_list	*get_bytemap(int fd, t_plane *dims)
@@ -83,24 +104,4 @@ static void	lst_destroy(t_list **list)
 		free(prev);
 		prev = NULL;
 	}
-}
-
-t_map	*map_load(char const *filename)
-{
-	t_map	*map;
-	t_list	*bytemap;
-	t_plane	dims;
-	int		fd;
-
-	fd = open_file(filename);
-	bytemap = get_bytemap(fd, &dims);	
-	close(fd);
-	if (bytemap == NULL)
-		return (NULL);
-	map = map_init(dims);
-	if (map == NULL)
-		return (NULL);
-	map_set(map, bytemap);
-	lst_destroy(&bytemap);
-	return (map);
 }

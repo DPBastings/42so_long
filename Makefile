@@ -20,20 +20,22 @@ HDR_DIR		:= ./header/
 LIB_DIR		:= ./lib/
 
 SRC_FILES	:= main.c\
+			error.c\
+			game_init.c\
+			game_sprites_bind.c\
+			geometry.c\
 			map.c\
 			map_check.c\
 			map_check_path.c\
 			map_load.c\
 			map_search.c\
-			error.c\
-			geometry.c\
 			sprite.c\
 			object.c\
 			\
 			sl_test.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
-			map.h\
+			map_check.h\
 			geometry.h\
 			\
 			sl_test.h

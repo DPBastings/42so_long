@@ -14,11 +14,11 @@
 #include "libftprintf.h"
 #include <stdlib.h>
 
-static const char	*sl_errors[] = {
+static const char	*g_sl_errors[] = {
 	"Everything went better than expected.",
 	"Couldn't allocate memory.",
-	"Usage: so_long [map].",
-	"Invalid map file extension.",
+	"Usage: so_long <map>.",
+	"Invalid map file extension (it should be `.ber`).",
 	"No file could be found at that location.",
 	"That file doesn't constitute a valid map.",
 };
@@ -31,5 +31,5 @@ void	sl_error(int errno)
 
 void	sl_strerror(int errno)
 {
-	ft_dprintf(2, "Error\n%s\n", sl_errors[errno]);
+	ft_dprintf(2, "Error\n%s\n", g_sl_errors[errno]);
 }

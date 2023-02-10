@@ -3,6 +3,17 @@
 #include <stdlib.h>
 #include <limits.h>
 
+/* t_object **map_index(t_map *map, t_point p)
+ * Return the address of the pointer at point p in map.
+ * Return the address of NOWHERE if p is out of bounds.
+ */
+t_object	**map_index(t_map *map, t_point p)
+{
+	if (p.y >= map->dims.h || p.x >= map->dims.w)
+		return (&NOWHERE);
+	return (&map->objs[p.y][p.x]);
+}
+
 /* t_point *get_adjacent(t_point p, t_map *map)
  * Return an array of the points adjacent to `p` within `map`. This array
  * always comprises four elements in a set order.
@@ -10,8 +21,9 @@
  * NOWHERE (a t_point(x = UINT_MAX, y = UINT_MAX)).
  * Returns NULL if `p` is itself out of bounds.
  * The memory at the address returned by this function is dynamically allocated
- * and must therefore be passed to free() once no longer in use.*/
-t_point	*get_adjacent(t_point p, t_map *map)
+ * and must therefore be passed to free() once no longer in use.
+ */
+t_point	*map_get_adjacent(t_map *map, t_point p)
 {
 	t_point	*adjacent;
 	size_t	i;
