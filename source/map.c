@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 11:42:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 16:17:16 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:05:30 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "sl_test.h"
 
 static unsigned int	chrtotype(char const chr);
+static int			object_set(t_map *map, t_point p, char type);
 
 t_map	*map_init(t_plane dims)
 {
@@ -48,7 +49,6 @@ t_map	*map_init(t_plane dims)
 void	map_set(t_map *map, t_list *bytemap)
 {
 	t_point		p;
-	t_object	*obj;
 	char		*row;
 
 	p.y = 0;
@@ -60,19 +60,28 @@ void	map_set(t_map *map, t_list *bytemap)
 		{
 			if (row[p.x] != CHR_NONE)
 			{	
-				obj = object_init(chrtotype(row[p.x]));
-				if (obj == NULL)
+				if (!object_set(map, p, row[p.x]))
 					sl_error(SL_MEMFAIL);
-				obj->position = p;
-				*map_index(map, p) = obj;
-				if (obj->type == OBJ_PLYR)
-					map->player = obj;
 			}
 			p.x++;
 		}
 		bytemap = bytemap->next;
 		p.y++;
 	}
+}
+
+static int	object_set(t_map *map, t_point p, char type)
+{
+	t_object	*obj;
+
+	obj = object_init(chrtotype(type));
+	if (obj == NULL)
+		return (0);
+	obj->position = p;
+	*map_index(map, p) = obj;
+	if (obj->type == OBJ_PLYR)
+		map->player = obj;
+	return (1);
 }
 
 static unsigned int	chrtotype(char const chr)

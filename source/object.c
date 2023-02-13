@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 16:48:50 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:17:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	object_is_passable(t_object *obj)
  * that was there previously (or to NULL, if it was empty space).
  * Returns NOWHERE if the position was out of bounds or otherwise impassable.
  */
-t_object	*object_move(t_object *obj, t_map *map, 
+t_object	*object_move(t_object *obj, t_map *map,
 	uint32_t xdelta, uint32_t ydelta)
 {
 	t_object	*other;

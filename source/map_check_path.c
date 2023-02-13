@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 15:55:01 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:16:41 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	check_point(t_point p, t_map *map)
 	t_object	**obj;
 	t_point		*adj;
 	size_t		i;
-	int			res;
 
 	obj = map_index(map, p);
 	if (*obj)
@@ -64,12 +63,9 @@ static int	check_point(t_point p, t_map *map)
 	i = 0;
 	while (i < N_DIRS)
 	{
-		if (object_is_passable(*map_index(map, adj[i])))
-		{
-			res = check_point(adj[i], map);
-			if (res)
-				return (free(adj), res);
-		}
+		if (object_is_passable(*map_index(map, adj[i]))
+			&& check_point(adj[i], map))
+			return (free(adj), 1);
 		i++;
 	}
 	return (free(adj), 0);

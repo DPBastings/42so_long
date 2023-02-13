@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 16:21:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:16:33 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 static mlx_t	*screen_init(unsigned int width, unsigned int height);
-static void	game_abort(t_game *game, int errno);
+static void		game_abort(t_game *game, int errno);
 
 t_game	*game_init(char const *filename)
 {
@@ -30,7 +30,8 @@ t_game	*game_init(char const *filename)
 	if (!map_check(game->map))
 		game_abort(game, SL_INVMAP);
 	ft_printf("Establishing graphical environment...\n");
-	game->mlx = screen_init(game->map->dims.w * GRID_W,	game->map->dims.h * GRID_H);
+	game->mlx = screen_init(game->map->dims.w * GRID_W,
+			game->map->dims.h * GRID_H);
 	if (game->mlx == NULL)
 		game_abort(game, SL_MEMFAIL);
 	ft_printf("Loading sprites...\n");
@@ -38,7 +39,7 @@ t_game	*game_init(char const *filename)
 	if (game->sprites == NULL)
 		game_abort(game, SL_MEMFAIL);
 	ft_printf("Rendering...\n");
-	game_sprites_bind(game);	
+	game_sprites_bind(game);
 	return (game);
 }
 
