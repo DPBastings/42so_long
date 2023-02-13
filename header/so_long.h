@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 16:51:21 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:26:22 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef enum e_sl_errno {
 
 t_game		*game_init(char const *filename);
 void		game_sprites_bind(t_game *game);
+void		object_collect(t_game *game, t_object **obj);
+void		game_exit(t_game *game);
 void		game_end(t_game *game);
 
 void		hook_set(t_game *game);

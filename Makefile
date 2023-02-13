@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/02/13 16:51:04 by dbasting      ########   odam.nl          #
+#    Updated: 2023/02/13 17:25:44 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_FILES	:= main.c\
 			error.c\
 			game_init.c\
 			game_sprites_bind.c\
+			game_status.c\
 			geometry.c\
 			hook.c\
 			hook_close.c\
