@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 17:44:38 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 15:08:00 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
 		return (NULL);
 	sprite->texture = mlx_load_png(filename);
 	if (sprite->texture == NULL || sprite->texture->width % GRID_W)
-		return (mlx_delete_texture(sprite->texture), free(sprite), NULL);
-	ft_printf("%p\n", sprite->texture);
+		sl_error(SL_BADASS);
 	set_point(&origin, 0, 0);
 	set_plane(&area, GRID_W, GRID_H);
 	sprite->image = mlx_texture_area_to_image(mlx, sprite->texture,

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 15:25:36 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 13:12:55 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	map_check_path(t_map *map)
 	t_point		start;
 	int			res;
 
-	start = find_start(map);
+	start = map->player->position;
 	res = check_point(start, map);
 	map_clean(map);
 	return (res);

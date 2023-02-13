@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 17:49:30 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 15:26:20 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 # include "libftprintf.h"
 # include "MLX42/MLX42.h"
 
-# define SL_TITLE		"The Bach Game"
-# define SL_FILEEXT		".ber"
+# define SL_TITLE			"The Bach Game"
+# define SL_FILEEXT			".ber"
 
-# define GRID_W			48
-# define GRID_H			48
-# define SCREEN_MIN_W	1152
-# define SCREEN_MIN_H	864
+# define GRID_W				48
+# define GRID_H				48
+# define SCREEN_MIN_W		1152
+# define SCREEN_MIN_H		864
+
+# define INTV_ANIM_MOVE		0.25
+# define INTV_ANIM_BG		0.1
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -60,6 +63,7 @@ typedef struct s_object {
 typedef struct s_map {
 	t_plane		dims;
 	t_object	***objs;
+	t_object	*player;
 	t_object	*none;
 }	t_map;
 
@@ -71,6 +75,7 @@ typedef struct s_game {
 	t_sprite		**sprites;
 	unsigned int	score;
 	unsigned int	moves;
+	int				lock_input;
 }	t_game;
 
 typedef enum e_sprites {
@@ -84,6 +89,7 @@ typedef enum e_sprites {
 typedef enum e_sl_errno {
 	SL_SUCCESS = 0,
 	SL_MEMFAIL,
+	SL_BADASS,
 	SL_INVARGS,
 	SL_INVEXT,
 	SL_INVPATH,
@@ -106,7 +112,8 @@ void		sprite_destroy(mlx_t *mlx, t_sprite **sprite);
 void		sprites_destroy(mlx_t *mlx, t_sprite ***sprites);
 
 t_object	*object_init(unsigned int type);
-t_object	*object_move(t_object *obj, t_point newpos, t_map *map);
+t_object	**object_move(t_object *obj, t_map *map, 
+	unsigned int xdelta, unsigned int ydelta);
 int			object_is_passable(t_object *object);
 void		object_destroy(t_object **obj);
 

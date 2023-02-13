@@ -26,7 +26,7 @@ t_game	*game_init(char const *filename)
 	if (game->sprites == NULL)
 		game_abort(game, SL_MEMFAIL);
 	ft_printf("Rendering...\n");
-	game_sprites_bind(game);
+	game_sprites_bind(game);	
 	return (game);
 }
 
