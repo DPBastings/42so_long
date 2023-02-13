@@ -19,13 +19,13 @@ static void	hook_movement(t_game *game)
 {
 	static double	clock_playermove;
 	double			now;
-	t_object		**other;
+	t_object		*other;
 
 	now = mlx_get_time();
-	if (now - clock_playermove < 2 * INTV_ANIM_MOVE)
+	if (now - clock_playermove < 6 * INTV_ANIM_MOVE)
 		return ;
 	clock_playermove = now;
-	other = &game->NOWHERE;
+	other = game->NOWHERE;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		other = object_move(game->map->player, game->map, 0, -1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
@@ -34,11 +34,15 @@ static void	hook_movement(t_game *game)
 		other = object_move(game->map->player, game->map, 0, 1);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		other = object_move(game->map->player, game->map, -1, 0);
-	if (other != &game->NOWHERE)
+	if (other == game->NOWHERE)
+		return ;
+	if (other && other->type == OBJ_COLL)
 	{
-		game->moves++;
-		ft_printf("%u\n", game->moves);
+		ft_printf("Fabelhaft!\n", other, other->type);
+		object_destroy(&other);
+		ft_printf("New score: %u! ", game->score++);
 	}
+	ft_printf("You've made %u moves so far.\n", game->moves++);
 }
 
 static void	hook_esc(t_game *game)

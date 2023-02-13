@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 15:18:18 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 15:49:06 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ int	object_is_passable(t_object *obj)
 		|| (obj->type != OBJ_WALL && obj->type != OBJ_NONE));
 }
 
-/* t_object **object_move()
+/* t_object *object_move()
  * Return value corresponds to the object that previously occupied `newpos`
  * (either NULL or a passable object (i.e. a collectible).
  */
-t_object	**object_move(t_object *obj, t_map *map, unsigned int xdelta, unsigned int ydelta)
+t_object	*object_move(t_object *obj, t_map *map, unsigned int xdelta, unsigned int ydelta)
 {
-	t_object	**other;
+	t_object	*other;
 	t_point		np;
 
 	set_point(&np, obj->position.x + xdelta, obj->position.y + ydelta);
-	other = map_index(map, np);
-	if (object_is_passable(*other))
+	other = *map_index(map, np);
+	if (object_is_passable(other))
 	{
 		*map_index(map, obj->position) = NULL;
 		*map_index(map, np) = obj;
@@ -52,7 +52,7 @@ t_object	**object_move(t_object *obj, t_map *map, unsigned int xdelta, unsigned 
 		obj->sprite->image->instances[obj->id].y = np.y * GRID_H;
 		return (other);
 	}
-	return (&NOWHERE);
+	return (NOWHERE);
 }
 
 void	object_destroy(t_object **obj)

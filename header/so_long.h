@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 15:26:20 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 15:37:10 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define SCREEN_MIN_W		1152
 # define SCREEN_MIN_H		864
 
-# define INTV_ANIM_MOVE		0.25
-# define INTV_ANIM_BG		0.1
+# define INTV_ANIM_MOVE		0.04
+# define INTV_ANIM_BG		0.10
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -112,7 +112,7 @@ void		sprite_destroy(mlx_t *mlx, t_sprite **sprite);
 void		sprites_destroy(mlx_t *mlx, t_sprite ***sprites);
 
 t_object	*object_init(unsigned int type);
-t_object	**object_move(t_object *obj, t_map *map, 
+t_object	*object_move(t_object *obj, t_map *map, 
 	unsigned int xdelta, unsigned int ydelta);
 int			object_is_passable(t_object *object);
 void		object_destroy(t_object **obj);
