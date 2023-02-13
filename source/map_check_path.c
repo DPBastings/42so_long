@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 13:12:55 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 15:55:01 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #define UNCHECKED	0
 #define CHECKED		1
 
-static t_point	find_start(t_map *map);
 static int		check_point(t_point p, t_map *map);
 static void		map_clean(t_map *map);
 
@@ -30,49 +29,19 @@ static void		map_clean(t_map *map);
  */
 int	map_check_path(t_map *map)
 {
-	t_point		start;
 	int			res;
 
-	start = map->player->position;
-	res = check_point(start, map);
+	res = check_point(map->player->position, map);
 	map_clean(map);
 	return (res);
 }
 
-/* t_point find_start(t_map *map)
- * Return the coordinate of the object in `map` for which type == OBJ_PLYR. Since
- * the map will always be surrounded by a wall, the points for which x=0 | =max;
- * y=0 | =max are excluded from the search.
- * Return (0, 0) if no such point is found.
- */
-static t_point	find_start(t_map *map)
-{
-	t_point		p;
-	t_object	*obj;
-
-	p.y = 1;
-	while (p.y < map->dims.h - 1)
-	{
-		p.x = 1;
-		while (p.x < map->dims.w - 1)
-		{
-			obj = *map_index(map, p);
-			if (obj && obj->type == OBJ_PLYR)
-				return (p);
-			p.x++;
-		}
-		p.y++;
-	}
-	set_point(&p, 0, 0);
-	return (p);
-}
-
-#include "sl_test.h"
-
 /* int check_point(t_point p, t_map *map)
  * Checks if the exit has been reached; returns 1 if it has.
  * If the exit hasn't yet been reached, the current point is marked as checked
- * and the function calls itself for all adjacent passable, unchecked points.
+ * (either by setting a temporary flag on the object there or inserting a
+ * reference to NOWHERE in empty space) and the function calls itself for all 
+ * adjacent passable, unchecked points.
  * Returns 0 if the map doesn't contain a reachable exit.
  */
 static int	check_point(t_point p, t_map *map)
