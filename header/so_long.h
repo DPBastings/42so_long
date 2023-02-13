@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 15:37:10 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 16:51:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,15 @@
 # include "libft.h"
 # include "libftprintf.h"
 # include "MLX42/MLX42.h"
+# include <stdint.h>
 
 # define SL_TITLE			"The Bach Game"
 # define SL_FILEEXT			".ber"
+
+# define SL_KEY_UP			MLX_KEY_W
+# define SL_KEY_LEFT		MLX_KEY_A
+# define SL_KEY_DOWN		MLX_KEY_S
+# define SL_KEY_RIGHT		MLX_KEY_D
 
 # define GRID_W				48
 # define GRID_H				48
@@ -113,7 +119,8 @@ void		sprites_destroy(mlx_t *mlx, t_sprite ***sprites);
 
 t_object	*object_init(unsigned int type);
 t_object	*object_move(t_object *obj, t_map *map, 
-	unsigned int xdelta, unsigned int ydelta);
+			uint32_t xdelta, uint32_t ydelta);
+int			player_move(t_game *game, uint32_t xdelta, uint32_t ydelta);
 int			object_is_passable(t_object *object);
 void		object_destroy(t_object **obj);
 

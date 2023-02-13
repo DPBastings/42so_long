@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/02/13 15:28:57 by dbasting      ########   odam.nl          #
+#    Updated: 2023/02/13 16:51:04 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_FILES	:= main.c\
 			map_check_path.c\
 			map_load.c\
 			map_search.c\
+			movement.c\
 			sprite.c\
 			object.c\
 			\
