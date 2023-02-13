@@ -49,11 +49,11 @@ void	game_end(t_game *game)
 {
 	if (game == NULL)
 		return ;
-	mlx_terminate(game->mlx);
-	ft_printf("Unloading sprites...\n");
-	sprites_destroy(game->mlx, &game->sprites);
 	ft_printf("Deallocating map...\n");
 	map_destroy(&game->map);
+	ft_printf("Unloading sprites...\n");
+	sprites_destroy(game->mlx, &game->sprites);
+	mlx_terminate(game->mlx);
 	free(game);
 	ft_printf("Goodbye!\n");
 }

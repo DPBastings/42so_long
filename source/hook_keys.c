@@ -40,9 +40,9 @@ static void	hook_movement(t_game *game)
 	{
 		ft_printf("Fabelhaft!\n", other, other->type);
 		object_destroy(&other);
-		ft_printf("New score: %u! ", game->score++);
+		ft_printf("New score: %u! ", ++game->score);
 	}
-	ft_printf("You've made %u moves so far.\n", game->moves++);
+	ft_printf("You've made %u moves so far.\n", ++game->moves);
 }
 
 static void	hook_esc(t_game *game)
