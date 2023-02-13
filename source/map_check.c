@@ -6,12 +6,21 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/20 12:04:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 15:25:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:46:11 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_check.h"
 #include "libft.h"
+
+static int	check_object(t_object *obj, int *reqs);
+
+int	map_check(t_map *map)
+{
+	return (map_check_walls(map)
+		&& map_check_objects(map)
+		&& map_check_path(map));
+}
 
 int	map_check_walls(t_map *map)
 {
@@ -36,6 +45,29 @@ int	map_check_walls(t_map *map)
 	return (1);
 }
 
+int	map_check_objects(t_map *map)
+{
+	int			reqs;
+	t_point		p;
+
+	reqs = 0;
+	p.y = 1;
+	while (p.y < map->dims.h - 1)
+	{
+		p.x = 1;
+		while (p.x < map->dims.w - 1)
+		{
+			if (!check_object(map->objs[p.y][p.x], &reqs))
+				return (0);
+			if (reqs & CHECK_COLL)
+				return (1);
+			p.x++;
+		}
+		p.y++;
+	}
+	return (reqs & CHECK_COLL);
+}
+
 static int	check_object(t_object *obj, int *reqs)
 {
 	if (obj != NULL)
@@ -58,30 +90,25 @@ static int	check_object(t_object *obj, int *reqs)
 	return (1);
 }
 
-int	map_check_objects(t_map *map)
+uint32_t	map_get_total_score(t_map *map)
 {
-	int			reqs;
+	uint32_t	c;
 	t_point		p;
+	t_object	*obj;
 
-	reqs = 0;
+	c = 0;
 	p.y = 1;
 	while (p.y < map->dims.h - 1)
 	{
 		p.x = 1;
 		while (p.x < map->dims.w - 1)
 		{
-			if (!check_object(map->objs[p.y][p.x], &reqs))
-				return (0);
+			obj = *map_index(map, p);
+			if (obj && obj->type == OBJ_COLL)
+				c++;
 			p.x++;
 		}
 		p.y++;
 	}
-	return (reqs & CHECK_COLL);
-}
-
-int	map_check(t_map *map)
-{
-	return (map_check_walls(map)
-		&& map_check_objects(map)
-		&& map_check_path(map));
+	return (c);
 }

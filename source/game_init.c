@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:16:33 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:45:12 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_game	*game_init(char const *filename)
 	game->map = map_load(filename);
 	if (!map_check(game->map))
 		game_abort(game, SL_INVMAP);
+	game->total_score = map_get_total_score(game->map);
 	ft_printf("Establishing graphical environment...\n");
 	game->mlx = screen_init(game->map->dims.w * GRID_W,
 			game->map->dims.h * GRID_H);

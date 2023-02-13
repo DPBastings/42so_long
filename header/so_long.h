@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:26:22 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:43:56 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_game {
 	t_map			*map;
 	t_sprite		**sprites;
 	unsigned int	score;
+	unsigned int	total_score;
 	unsigned int	moves;
 	int				lock_input;
 }	t_game;
@@ -129,6 +130,7 @@ void		object_destroy(t_object **obj);
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);
 int			map_check(t_map *map);
+uint32_t	map_get_total_score(t_map *map);	
 void		map_set(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_point p);
 t_point		*map_get_adjacent(t_map *map, t_point p);

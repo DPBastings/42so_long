@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:28:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/13 17:42:48 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	player_move(t_game *game, uint32_t xdelta, uint32_t ydelta)
 	{
 		if (other->type == OBJ_COLL)
 			object_collect(game, &other);
-		else if (other->type == OBJ_EXIT)
+		else if (other->type == OBJ_EXIT && game->score >= game->total_score)
 		{
 			game_exit(game);
 			return (1);
