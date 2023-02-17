@@ -26,7 +26,7 @@ t_object	*object_init(unsigned int type)
 	if (new == NULL)
 		return (NULL);
 	new->type = type;
-	new->id = 0;
+	new->sprite = NULL;
 	return (new);
 }
 
@@ -39,7 +39,7 @@ int	object_is_passable(t_object *obj)
 		|| (obj->type != OBJ_WALL && obj->type != OBJ_NONE));
 }
 
-/* t_object *object_move(t_object *`obj`, t_map *`map`,
+/* t_object *object_move(t_object *obj, t_map *map,
  * 						 unsigned int xdelta, unsigned int ydelta)
  * Modifies the position of `obj` on `map` by `xdelta` and `ydelta` units.
  * If that position is passable, the return value will correspond to the object
@@ -59,8 +59,8 @@ t_object	*object_move(t_object *obj, t_map *map,
 		*map_index(map, obj->position) = NULL;
 		*map_index(map, np) = obj;
 		obj->position = np;
-		obj->sprite->image->instances[obj->id].x = np.x * GRID_W;
-		obj->sprite->image->instances[obj->id].y = np.y * GRID_H;
+		obj->sprite->image->instances[0].x = np.x * GRID_W;
+		obj->sprite->image->instances[0].y = np.y * GRID_H;
 		return (other);
 	}
 	return (NOWHERE);
@@ -70,8 +70,7 @@ void	object_destroy(t_object **obj)
 {
 	if (*obj == NULL)
 		return ;
-	if ((*obj)->sprite)
-		(*obj)->sprite->image->instances[(*obj)->id].enabled = false;
+	(*obj)->sprite->image->instances[(*obj)->instance_id].enabled = false;
 	free(*obj);
 	*obj = NULL;
 }

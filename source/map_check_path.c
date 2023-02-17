@@ -16,8 +16,8 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define UNCHECKED	0
-#define CHECKED		1
+#define UNCHECKED	NULL
+#define CHECKED		(void *)NOWHERE
 
 static int		check_point(t_point p, t_map *map);
 static void		map_clean(t_map *map);
@@ -53,9 +53,11 @@ static int	check_point(t_point p, t_map *map)
 	obj = map_index(map, p);
 	if (*obj)
 	{
+		if ((*obj)->sprite == CHECKED)
+			return (0);
 		if ((*obj)->type == OBJ_EXIT)
 			return (1);
-		(*obj)->id = CHECKED;
+		(*obj)->sprite = CHECKED;
 	}
 	else
 		*obj = NOWHERE;
@@ -92,8 +94,8 @@ static void	map_clean(t_map *map)
 			{
 				if (*obj == NOWHERE)
 					*obj = NULL;
-				else if ((*obj)->id == CHECKED)
-					(*obj)->id = UNCHECKED;
+				else if ((*obj)->sprite == CHECKED)
+					(*obj)->sprite = UNCHECKED;
 			}
 			p.x++;
 		}

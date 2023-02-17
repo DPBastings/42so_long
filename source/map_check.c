@@ -90,7 +90,7 @@ static int	check_object(t_object *obj, int *reqs)
 	return (1);
 }
 
-uint32_t	map_get_total_score(t_map *map)
+uint32_t	map_get_maxscore(t_map *map)
 {
 	uint32_t	c;
 	t_point		p;

@@ -22,7 +22,6 @@ LIB_DIR		:= ./lib/
 SRC_FILES	:= main.c\
 			error.c\
 			game_init.c\
-			game_sprites_bind.c\
 			game_status.c\
 			geometry.c\
 			hook.c\
@@ -34,8 +33,11 @@ SRC_FILES	:= main.c\
 			map_load.c\
 			map_search.c\
 			movement.c\
-			sprite.c\
 			object.c\
+			sprite.c\
+			sprite_bind.c\
+			sprite_shift.c\
+			texture.c\
 			\
 			sl_test.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)

@@ -16,7 +16,7 @@
 # include "so_long.h"
 # include "geometry.h"
 
-# define CHR_ALL	"01CEPXY"
+# define CHR_ALL	"0PCE1P"
 # define CHR_NONE	'0'
 
 # define CHECK_EXIT	1

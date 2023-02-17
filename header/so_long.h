@@ -19,6 +19,8 @@
 # include "MLX42/MLX42.h"
 # include <stdint.h>
 
+# include <stdio.h>
+
 # define SL_TITLE			"The Bach Game"
 # define SL_FILEEXT			".ber"
 
@@ -37,14 +39,33 @@
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
-	OBJ_WALL,
+	OBJ_PLYR,
 	OBJ_COLL,
 	OBJ_EXIT,
-	OBJ_PLYR,
-	OBJ_ENMYH,
-	OBJ_ENMYV,
+	OBJ_WALL,
 	N_OBJS,
-}	t_objs;
+}	t_obj_ids;
+
+typedef enum e_textures {
+	TXR_NONE = 0,
+	TXR_PLYR,
+	TXR_COLL,
+	TXR_EXIT,
+	TXR_WALL,
+	N_TEXTURES,
+}	t_texture_ids;
+
+typedef enum e_sprites {
+	SPR_NONE = 0,
+	SPR_PLYR,
+	SPR_COLL_0,
+	SPR_COLL_1,
+	SPR_COLL_2,
+	SPR_COLL_3,
+	SPR_EXIT,
+	SPR_WALL_1111,
+	N_SPRITES,
+}	t_sprite_ids;
 
 typedef enum e_dirs {
 	DIR_UP = 0,
@@ -52,17 +73,23 @@ typedef enum e_dirs {
 	DIR_DOWN,
 	DIR_LEFT,
 	N_DIRS,
-}	t_dirs;
+}	t_dir_ids;
+
+typedef struct s_texture {
+	mlx_texture_t	*texture;
+	mlx_texture_t	*gradient;
+}	t_texture;
 
 typedef struct s_sprite {
-	mlx_texture_t	*texture;
 	mlx_image_t		*image;
+	unsigned int	frame;
+	mlx_t			*mlx;
 }	t_sprite;
 
 typedef struct s_object {
 	t_point			position;
 	unsigned int	type;
-	unsigned int	id;
+	int				instance_id;
 	t_sprite		*sprite;
 }	t_object;
 
@@ -78,20 +105,14 @@ typedef struct s_map {
 typedef struct s_game {
 	mlx_t			*mlx;
 	t_map			*map;
+	t_texture		**textures;
+	mlx_texture_t	*gradient;
 	t_sprite		**sprites;
+	unsigned int	score_max;
 	unsigned int	score;
-	unsigned int	total_score;
 	unsigned int	moves;
 	int				lock_input;
 }	t_game;
-
-typedef enum e_sprites {
-	SPR_WALL,
-	SPR_COLL,
-	SPR_EXIT,
-	SPR_PLYR,
-	N_SPRITES,
-}	t_sprites;
 
 typedef enum e_sl_errno {
 	SL_SUCCESS = 0,
@@ -104,8 +125,9 @@ typedef enum e_sl_errno {
 	N_SL_ERR,
 }	t_sl_errno;
 
+typedef unsigned int (*t_sprite_shifter)(t_object *obj, void *param);
+
 t_game		*game_init(char const *filename);
-void		game_sprites_bind(t_game *game);
 void		object_collect(t_game *game, t_object **obj);
 void		game_exit(t_game *game);
 void		game_end(t_game *game);
@@ -114,11 +136,22 @@ void		hook_set(t_game *game);
 void		hook_keys(void *param);
 void		hook_close(void *param);
 
-t_sprite	**sprites_load(mlx_t *mlx);
-t_sprite	*sprite_load(mlx_t *mlx, char const *filename);
-void		sprite_animate(t_sprite *sprite, unsigned int frame);
-void		sprite_destroy(mlx_t *mlx, t_sprite **sprite);
-void		sprites_destroy(mlx_t *mlx, t_sprite ***sprites);
+t_texture	**textures_load(t_game *game);
+t_texture	*texture_load(char const *filename);
+void		textures_destroy(t_texture ***textures);
+void		texture_destroy(t_texture **texture);
+
+t_sprite	**sprites_init(t_game *game);
+t_sprite	*sprite_new(t_game *game, unsigned int spr_id);
+t_sprite	*sprite_load(t_texture *texture, unsigned int i, mlx_t *mlx);
+void		sprites_destroy(t_sprite ***sprites);
+void		sprite_destroy(t_sprite **sprite);
+void		sprites_bind(t_game *game);
+void		sprite_bind(t_object *obj, t_game *game);
+
+void		sprite_animate(t_sprite *sprite);
+unsigned	sprite_shift_coll(t_object *obj, void *param);
+unsigned	sprite_shift_wall(t_object *obj, void *param);
 
 t_object	*object_init(unsigned int type);
 t_object	*object_move(t_object *obj, t_map *map, 
@@ -130,7 +163,7 @@ void		object_destroy(t_object **obj);
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);
 int			map_check(t_map *map);
-uint32_t	map_get_total_score(t_map *map);	
+uint32_t	map_get_maxscore(t_map *map);	
 void		map_set(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_point p);
 t_point		*map_get_adjacent(t_map *map, t_point p);

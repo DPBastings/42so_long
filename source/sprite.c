@@ -12,95 +12,129 @@
 
 #include "so_long.h"
 #include "geometry.h"
+
 #include "libft.h"
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
 
-#define BPP	4
-
-static char const	*g_spritefiles[] = {
-	"./assets/textures/wall.png",
-	"./assets/textures/score.png",
-	"./assets/textures/harpsichord.png",
-	"./assets/textures/bach.png"
+static const int	g_txr_id_lookup[N_SPRITES] = {
+	TXR_NONE,
+	TXR_PLYR,
+	TXR_COLL,
+	TXR_COLL,
+	TXR_COLL,
+	TXR_COLL,
+	TXR_EXIT,
+	TXR_WALL,
 };
 
-t_sprite	*sprite_load(mlx_t *mlx, char const *filename)
+t_sprite	**sprites_init(t_game *game)
+{
+	t_sprite		**sprites;
+	unsigned int	id;
+
+	sprites = ft_calloc(N_SPRITES, sizeof(t_sprite *));
+	if (sprites == NULL)
+		sl_error(SL_MEMFAIL);
+	id = 1;
+	while (id < N_SPRITES)
+	{
+		sprites[id] = sprite_new(game, id);
+		if (sprites[id] == NULL)
+		{
+			sprites_destroy(&sprites);
+			sl_error(SL_MEMFAIL);
+		}
+		id++;
+	}
+	return (sprites);
+}
+
+t_sprite	*sprite_new(t_game *game, unsigned int spr_id)
+{
+	t_sprite		*sprite;
+	unsigned int	txr_id;
+	t_texture		*texture;
+
+	txr_id = g_txr_id_lookup[spr_id];
+	texture = game->textures[txr_id];
+	if (txr_id == TXR_COLL)
+	{
+		sprite = sprite_load(texture, 0, game->mlx);
+		if (sprite == NULL)
+			return (NULL);
+		sprite->frame = SPR_COLL_3 - SPR_COLL_0;
+	}
+	else if (txr_id == TXR_WALL)
+	{
+		sprite = sprite_load(texture, SPR_WALL_1111 - spr_id, game->mlx);
+		if (sprite == NULL)
+			return (NULL);
+		sprite->frame = 0;
+	}
+	else
+	{
+		sprite = sprite_load(texture, 0, game->mlx);
+		if (sprite == NULL)
+			return (NULL);
+		sprite->frame = 0;
+	}
+	return (sprite);
+}
+
+t_sprite	*sprite_load(t_texture *texture, unsigned int i, mlx_t *mlx)
 {
 	t_sprite	*sprite;
 	t_point		origin;
 	t_plane		area;
 
+	if (texture == NULL)
+		return (NULL);
 	sprite = malloc(sizeof(t_sprite));
 	if (sprite == NULL)
 		return (NULL);
-	sprite->texture = mlx_load_png(filename);
-	if (sprite->texture == NULL || sprite->texture->width % GRID_W)
-		sl_error(SL_BADASS);
-	set_point(&origin, 0, 0);
+	sprite->mlx = mlx;
+	set_point(&origin, i * GRID_W, 0);
 	set_plane(&area, GRID_W, GRID_H);
-	sprite->image = mlx_texture_area_to_image(mlx, sprite->texture,
-			(unsigned int *)&origin, (unsigned int *)&area);
+	sprite->image = mlx_texture_area_to_image(sprite->mlx, texture->texture,
+		(unsigned int *)&origin, (unsigned int *)&area);
 	if (sprite->image == NULL)
-		return (mlx_delete_texture(sprite->texture), free(sprite), NULL);
+		return (free(sprite), NULL);
 	return (sprite);
 }
 
-t_sprite	**sprites_load(mlx_t *mlx)
-{
-	t_sprite		**sprites;
-	size_t			i;
-
-	i = 0;
-	sprites = ft_calloc(N_SPRITES, sizeof(t_sprite *));
-	if (sprites == NULL)
-		sl_error(SL_MEMFAIL);
-	while (i < N_SPRITES)
-	{
-		sprites[i] = sprite_load(mlx, g_spritefiles[i]);
-		if (sprites[i] == NULL)
-		{
-			sprites_destroy(mlx, &sprites);
-			sl_error(SL_MEMFAIL);
-		}
-		i++;
-	}
-	return (sprites);
-}
-
-void	sprite_animate(t_sprite *sprite, unsigned int frame)
-{
-	unsigned char	*pxsrc;
-	unsigned char	*pxdst;
-	unsigned int	x;
-	unsigned int	y;
-
-	x = frame * GRID_W % sprite->texture->width;
-	y = 0;
-	while (y < sprite->image->height)
-	{
-		pxsrc = &sprite->texture->pixels[y * sprite->texture->width + x * BPP];
-		pxdst = &sprite->image->pixels[y * GRID_H * BPP];
-		ft_memmove(pxdst, pxsrc, GRID_W * BPP);
-		y++;
-	}
-}
-
-void	sprites_destroy(mlx_t *mlx, t_sprite ***sprites)
+void	sprites_destroy(t_sprite ***sprites)
 {
 	size_t	i;
-
-	i = 0;
+	i = 1;
 	while (i < N_SPRITES)
-		sprite_destroy(mlx, &(*sprites)[i++]);
+		sprite_destroy(&(*sprites)[i++]);
 	free(*sprites);
 	*sprites = NULL;
 }
 
-void	sprite_destroy(mlx_t *mlx, t_sprite **sprite)
+void	sprite_destroy(t_sprite **sprite)
 {
-	(void) mlx;
-	mlx_delete_texture((*sprite)->texture);
+	if (*sprite == NULL)
+		return;
+	mlx_delete_image((*sprite)->mlx, (*sprite)->image);
 	free(*sprite);
 	*sprite = NULL;
 }
+
+/*void	sprite_animate(t_sprite *sprite, uint32_t frame)
+{
+	uint8_t	*src;
+	uint8_t	*dst;
+	t_point	p;
+
+	p.x = frame * GRID_W % sprite->texture->width;
+	p.y = 0;
+	while (p.y < sprite->image->height)
+	{
+		src = &sprite->texture->pixels[p.y * sprite->texture->width + p.x * BPP];
+		dst = &sprite->image->pixels[p.y * GRID_H * BPP];
+		ft_memmove(dst, src, GRID_W * BPP);
+		y++;
+	}
+}*/

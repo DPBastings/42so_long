@@ -15,8 +15,9 @@
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
 
-static mlx_t	*screen_init(unsigned int width, unsigned int height);
-static void		game_abort(t_game *game, int errno);
+static mlx_texture_t	*gradient_load(void);
+static mlx_t			*screen_init(unsigned int width, unsigned int height);
+static void				game_abort(t_game *game, int errno);
 
 t_game	*game_init(char const *filename)
 {
@@ -29,19 +30,27 @@ t_game	*game_init(char const *filename)
 	game->map = map_load(filename);
 	if (!map_check(game->map))
 		game_abort(game, SL_INVMAP);
-	game->total_score = map_get_total_score(game->map);
-	ft_printf("Establishing graphical environment...\n");
+	game->score_max = map_get_maxscore(game->map);
 	game->mlx = screen_init(game->map->dims.w * GRID_W,
 			game->map->dims.h * GRID_H);
 	if (game->mlx == NULL)
 		game_abort(game, SL_MEMFAIL);
-	ft_printf("Loading sprites...\n");
-	game->sprites = sprites_load(game->mlx);
-	if (game->sprites == NULL)
-		game_abort(game, SL_MEMFAIL);
-	ft_printf("Rendering...\n");
-	game_sprites_bind(game);
+	ft_printf("Loading assets...\n");
+	game->gradient = gradient_load();
+	game->textures = textures_load(game);
+	game->sprites = sprites_init(game);
+	sprites_bind(game);
 	return (game);
+}
+
+static mlx_texture_t	*gradient_load(void)
+{
+	mlx_texture_t	*gradient;
+
+	gradient = mlx_load_png("./assets/textures/gradient_rainbow.png");
+	if (gradient == NULL)
+		sl_error(SL_MEMFAIL);
+	return (gradient);
 }
 
 static mlx_t	*screen_init(unsigned int width, unsigned int height)
@@ -63,10 +72,11 @@ void	game_end(t_game *game)
 {
 	if (game == NULL)
 		return ;
-	ft_printf("Deallocating map...\n");
+	ft_printf("Unloading map...\n");
 	map_destroy(&game->map);
-	ft_printf("Unloading sprites...\n");
-	sprites_destroy(game->mlx, &game->sprites);
+	ft_printf("Unloading assets...\n");
+	mlx_delete_texture(game->gradient);
+	textures_destroy(&game->textures);
 	mlx_terminate(game->mlx);
 	free(game);
 	ft_printf("Goodbye!\n");

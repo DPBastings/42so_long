@@ -18,7 +18,7 @@ void	object_collect(t_game *game, t_object **obj)
 	object_destroy(obj);
 	game->score++;
 	ft_printf("You've collected %u out of %u scores.\n",
-		game->score, game->total_score);
+		game->score, game->score_max);
 }
 
 void	game_exit(t_game *game)

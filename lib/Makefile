@@ -1,7 +1,7 @@
 OS	= $(shell uname -s)
 
 LIB	= libft libftprintf libmlx
-HDR	= libft.h libftprintf.h
+HDR	= libft.h ft_math.h libftprintf.h
 ARC = libft.a libftprintf.a libmlx42.a
 DIR = ./libft ./libftprintf
 
@@ -15,6 +15,9 @@ libf%.a:
 
 libf%.h:
 	@ln -fs ./$(basename $@)/include/$@ $@
+
+ft_math.h:
+	@ln -fs ./libft/include/ft_math.h
 
 libmlx42.a:
 	@cmake -S ./libmlx42 -B ./libmlx

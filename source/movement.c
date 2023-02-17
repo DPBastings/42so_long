@@ -25,7 +25,7 @@ int	player_move(t_game *game, uint32_t xdelta, uint32_t ydelta)
 	{
 		if (other->type == OBJ_COLL)
 			object_collect(game, &other);
-		else if (other->type == OBJ_EXIT && game->score >= game->total_score)
+		else if (other->type == OBJ_EXIT && game->score >= game->score_max)
 		{
 			game_exit(game);
 			return (1);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   game_sprites_bind.c                                :+:    :+:            */
+/*   sprite_bind.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -13,21 +13,25 @@
 #include "so_long.h"
 #include "MLX42/MLX42.h"
 
-static int	sprite_bind(t_game *game, t_object *obj)
-{
-	t_sprite	*sprite;
-	int			id;
+static unsigned int	sprite_shift_pass(t_object *obj, void *param);
 
-	sprite = game->sprites[obj->type - 1];
-	id = mlx_image_to_window(game->mlx, sprite->image,
-			obj->position.x * GRID_W, obj->position.y * GRID_H);
-	if (id == -1)
-		sl_error(SL_MEMFAIL);
-	obj->sprite = sprite;
-	return (id);
-}
+static const int g_spr_id_lookup[N_OBJS] = {
+	SPR_NONE,
+	SPR_PLYR,
+	SPR_COLL_0,
+	SPR_EXIT,
+	SPR_WALL_1111
+};
 
-void	game_sprites_bind(t_game *game)
+static const t_sprite_shifter	g_sprite_shifter_lookup[N_OBJS] = {
+	sprite_shift_pass,
+	sprite_shift_pass,
+	sprite_shift_coll,
+	sprite_shift_pass,
+	sprite_shift_wall,
+};
+
+void	sprites_bind(t_game *game)
 {
 	t_point		p;
 	t_object	**obj;
@@ -39,10 +43,32 @@ void	game_sprites_bind(t_game *game)
 		while (p.x < game->map->dims.w)
 		{
 			obj = map_index(game->map, p);
-			if (*obj)
-				(*obj)->id = sprite_bind(game, *obj);
+			sprite_bind(*obj, game);
 			p.x++;
 		}
 		p.y++;
 	}
+}
+
+void	sprite_bind(t_object *obj, t_game *game)
+{
+	t_sprite_shifter	f;
+	
+	if (obj == NULL)
+		return ;
+
+	f = g_sprite_shifter_lookup[obj->type];
+	obj->sprite = game->sprites[g_spr_id_lookup[obj->type] + f(obj, game)];
+	obj->instance_id = mlx_image_to_window(game->mlx,
+			obj->sprite->image,
+			obj->position.x * GRID_W, obj->position.y * GRID_H);
+	if (obj->instance_id == -1)
+		sl_error(SL_MEMFAIL);
+}
+
+static unsigned int	sprite_shift_pass(t_object *obj, void *param)
+{
+	(void) obj;
+	(void) param;
+	return (0);
 }
