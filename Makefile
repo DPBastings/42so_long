@@ -27,6 +27,7 @@ SRC_FILES	:= main.c\
 			hook.c\
 			hook_close.c\
 			hook_keys.c\
+			hook_tick.c\
 			map.c\
 			map_check.c\
 			map_check_path.c\
@@ -36,9 +37,11 @@ SRC_FILES	:= main.c\
 			object.c\
 			sprite.c\
 			sprite_bind.c\
+			sprite_hueshift.c\
 			sprite_shift.c\
 			texture.c\
 			\
+			mlx42_utils.c\
 			sl_test.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
@@ -50,12 +53,12 @@ LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a
 
-CFLAGS 		?= -Wall -Wextra -I$(HDR_DIR) -I$(LIB_DIR)
+CFLAGS 		?= -Wall -Wextra -I$(HDR_DIR) -I$(LIB_DIR) 
 ifeq ($(OS),Linux)
-	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread
+	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread -lm
 endif
 ifeq ($(OS),Darwin)
-	MLX_FLAGS := -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+	MLX_FLAGS := -lglfw3 -lm -framework Cocoa -framework OpenGL -framework IOKit
 endif
 
 .PHONY: all bonus clean fclean re

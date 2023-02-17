@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 #include "MLX42/MLX42.h"
+#include "mlx42_utils.h"
 
 static unsigned int	sprite_shift_pass(t_object *obj, void *param);
 

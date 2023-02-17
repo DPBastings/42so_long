@@ -133,8 +133,9 @@ void		game_exit(t_game *game);
 void		game_end(t_game *game);
 
 void		hook_set(t_game *game);
-void		hook_keys(void *param);
 void		hook_close(void *param);
+void		hook_keys(void *param);
+void		hook_tick(void *param);
 
 t_texture	**textures_load(t_game *game);
 t_texture	*texture_load(char const *filename);
@@ -151,11 +152,14 @@ void		sprites_bind(t_game *game);
 void		sprite_bind(t_object *obj, t_game *game);
 
 void		sprite_animate(t_sprite *sprite);
+void		sprite_overlay_gradient(t_sprite *sprite, mlx_texture_t *gradient);
 unsigned	sprite_shift_coll(t_object *obj, void *param);
 unsigned	sprite_shift_wall(t_object *obj, void *param);
 
+uint8_t		*gradient_read(mlx_texture_t *gradient, uint32_t i);
+
 t_object	*object_init(unsigned int type);
-t_object	*object_move(t_object *obj, t_map *map, 
+t_object	*object_move(t_object *obj, t_map *map,
 			uint32_t xdelta, uint32_t ydelta);
 int			player_move(t_game *game, uint32_t xdelta, uint32_t ydelta);
 int			object_is_passable(t_object *object);
