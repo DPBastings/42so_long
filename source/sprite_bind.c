@@ -15,14 +15,13 @@
 
 static unsigned int	sprite_shift_pass(t_object *obj, void *param);
 
-static const int g_spr_id_lookup[N_OBJS] = {
+static const int				g_spr_id_lookup[N_OBJS] = {
 	SPR_NONE,
 	SPR_PLYR,
 	SPR_COLL_0,
 	SPR_EXIT,
 	SPR_WALL_1111
 };
-
 static const t_sprite_shifter	g_sprite_shifter_lookup[N_OBJS] = {
 	sprite_shift_pass,
 	sprite_shift_pass,
@@ -53,10 +52,9 @@ void	sprites_bind(t_game *game)
 void	sprite_bind(t_object *obj, t_game *game)
 {
 	t_sprite_shifter	f;
-	
+
 	if (obj == NULL)
 		return ;
-
 	f = g_sprite_shifter_lookup[obj->type];
 	obj->sprite = game->sprites[g_spr_id_lookup[obj->type] + f(obj, game)];
 	obj->instance_id = mlx_image_to_window(game->mlx,

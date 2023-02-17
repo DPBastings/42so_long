@@ -25,7 +25,7 @@ void	pixel_hueshift(uint8_t *pixel, uint8_t *overlay)
 	i = R;
 	while (i < A)
 	{
-		pixel[i] = (uint8_t) (factor * overlay[i]);
+		pixel[i] = (uint8_t)(factor * overlay[i]);
 		i++;
 	}
 }

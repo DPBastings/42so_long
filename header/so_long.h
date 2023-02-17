@@ -143,7 +143,8 @@ void		texture_destroy(t_texture **texture);
 
 t_sprite	**sprites_init(t_game *game);
 t_sprite	*sprite_new(t_game *game, unsigned int spr_id);
-t_sprite	*sprite_load(t_texture *texture, unsigned int i, mlx_t *mlx);
+t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
+			unsigned int origin_i, unsigned int frame);
 void		sprites_destroy(t_sprite ***sprites);
 void		sprite_destroy(t_sprite **sprite);
 void		sprites_bind(t_game *game);
