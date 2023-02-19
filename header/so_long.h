@@ -34,6 +34,8 @@
 # define SCREEN_MIN_W		1152
 # define SCREEN_MIN_H		864
 
+# define SEC_PER_TICK		0.05
+# define TICKS_PER_ANIM_FG	2
 # define INTV_ANIM_MOVE		0.04
 # define INTV_ANIM_BG		0.10
 
@@ -62,10 +64,14 @@ typedef enum e_sprites {
 	SPR_COLL_1,
 	SPR_COLL_2,
 	SPR_COLL_3,
+	SPR_COLL_4,
+	SPR_COLL_5,
 	SPR_EXIT,
 	SPR_WALL_1111,
 	N_SPRITES,
 }	t_sprite_ids;
+
+# define SPR_COLL_MAX		SPR_COLL_5
 
 typedef enum e_dirs {
 	DIR_UP = 0,
@@ -103,15 +109,16 @@ typedef struct s_map {
 # define NOWHERE	map->none
 
 typedef struct s_game {
-	mlx_t			*mlx;
-	t_map			*map;
+	size_t			ticks;
+	int				lock_input;
 	t_texture		**textures;
 	mlx_texture_t	*gradient;
 	t_sprite		**sprites;
+	t_map			*map;
 	unsigned int	score_max;
 	unsigned int	score;
 	unsigned int	moves;
-	int				lock_input;
+	mlx_t			*mlx;
 }	t_game;
 
 typedef enum e_sl_errno {
@@ -152,6 +159,7 @@ void		sprites_bind(t_game *game);
 void		sprite_bind(t_object *obj, t_game *game);
 
 void		sprite_animate(t_sprite *sprite);
+void		sprite_animate_coll(t_sprite *sprite, t_game *game);
 void		sprite_overlay_gradient(t_sprite *sprite, mlx_texture_t *gradient);
 unsigned	sprite_shift_coll(t_object *obj, void *param);
 unsigned	sprite_shift_wall(t_object *obj, void *param);

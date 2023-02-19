@@ -20,7 +20,7 @@
 static char const	*g_texture_files[] = {
 	"",
 	"./assets/textures/bach.png",
-	"./assets/textures/collectible.png",
+	"./assets/textures/orb.png",
 	"./assets/textures/harpsichord.png",
 	"./assets/textures/wall.png",
 };

@@ -36,6 +36,7 @@ SRC_FILES	:= main.c\
 			movement.c\
 			object.c\
 			sprite.c\
+			sprite_animate.c\
 			sprite_bind.c\
 			sprite_hueshift.c\
 			sprite_shift.c\

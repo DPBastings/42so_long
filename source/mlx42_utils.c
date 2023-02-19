@@ -24,6 +24,8 @@ void	pixel_overlay(uint8_t *pixel, uint8_t *overlay)
 
 	if (pixel == NULL || overlay == NULL)
 		return ;
+	if (pixel[R] == pixel[G] && pixel[G] == pixel[B])
+		return ;
 	factor = (double) ft_uintmax(3, pixel[R], pixel[G], pixel[B]) / UCHAR_MAX;
 	i = R;
 	while (i < A)

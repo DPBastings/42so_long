@@ -24,6 +24,8 @@ static const int	g_txr_id_lookup[N_SPRITES] = {
 	TXR_COLL,
 	TXR_COLL,
 	TXR_COLL,
+	TXR_COLL,
+	TXR_COLL,
 	TXR_EXIT,
 	TXR_WALL,
 };
@@ -60,7 +62,7 @@ t_sprite	*sprite_new(t_game *game, unsigned int spr_id)
 	texture = game->textures[txr_id];
 	if (txr_id == TXR_COLL)
 		sprite = sprite_load(texture, game->mlx,
-				0, (SPR_COLL_3 - spr_id) * (GRID_H / 4));
+				0, (SPR_COLL_MAX - spr_id) * (GRID_H / (SPR_COLL_MAX - SPR_COLL_0)));
 	else if (txr_id == TXR_WALL)
 		sprite = sprite_load(texture, game->mlx,
 				SPR_WALL_1111 - spr_id, 0);
