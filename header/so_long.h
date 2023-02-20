@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 13:06:32 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 15:29:08 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define SCREEN_MIN_H		864
 
 # define SEC_PER_TICK		0.05
-# define TICKS_PER_ANIM_FG	2
+# define T_PER_IDLE_ANIM	12	
 # define INTV_ANIM_MOVE		0.04
 # define INTV_ANIM_BG		0.10
 
@@ -82,15 +82,13 @@ typedef enum e_dirs {
 	N_DIRS,
 }	t_dir_ids;
 
-typedef struct s_texture {
-	mlx_texture_t	*texture;
-	mlx_texture_t	*gradient;
-}	t_texture;
+typedef mlx_texture_t	t_texture;
 
 typedef struct s_sprite {
-	mlx_image_t	*image;
-	uint32_t	frame;
-	mlx_t		*mlx;
+	mlx_texture_t	*texture;
+	mlx_image_t		*image;
+	uint32_t		frame;
+	mlx_t			*mlx;
 }	t_sprite;
 
 typedef struct s_object {
@@ -148,7 +146,7 @@ void		hook_close(void *param);
 void		hook_keys(void *param);
 void		hook_tick(void *param);
 
-t_texture	**textures_load(t_game *game);
+t_texture	**textures_load();
 t_texture	*texture_load(char const *filename);
 void		textures_destroy(t_texture ***textures);
 void		texture_destroy(t_texture **texture);

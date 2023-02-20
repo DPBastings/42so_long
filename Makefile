@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/02/13 17:25:44 by dbasting      ########   odam.nl          #
+#    Updated: 2023/02/20 17:00:28 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a
 
-CFLAGS 		?= -Wall -Wextra -I$(HDR_DIR) -I$(LIB_DIR) 
+CFLAGS 		?= -Wall -Wextra -I$(HDR_DIR) -I$(LIB_DIR) -g -fsanitize=address
 ifeq ($(OS),Linux)
 	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread -lm
 endif

@@ -6,13 +6,14 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 16:50:23 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 13:13:32 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 #include "MLX42/MLX42.h"
-#include <math.h>
+#include <stdbool.h>
 
 static void	hook_keys_move(t_game *game);
 static void	hook_esc(t_game *game);
@@ -29,13 +30,6 @@ void	hook_keys(void *param)
 
 static void	hook_keys_move(t_game *game)
 {
-	static double	clock_playermove;
-	double			now;
-
-	now = mlx_get_time();
-	if (now - clock_playermove < 4 * INTV_ANIM_MOVE)
-		return ;
-	clock_playermove = now;
 	if (mlx_is_key_down(game->mlx, SL_KEY_UP))
 		player_move(game, 0, -1);
 	else if (mlx_is_key_down(game->mlx, SL_KEY_LEFT))

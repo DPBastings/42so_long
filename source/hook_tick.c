@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 16:50:23 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 15:38:12 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ static void	sprites_animate(t_game *game)
 {
 	unsigned int	id;
 
-	if (game->ticks % TICKS_PER_ANIM_FG)
-		return ;
+	if (game->ticks % T_PER_IDLE_ANIM == 0
+			|| game->map->player->sprite->frame % 12)
+		sprite_animate(game->map->player->sprite);
 	id = SPR_COLL_0;
 	while (id < SPR_COLL_MAX)
 	{

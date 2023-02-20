@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 12:54:21 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 13:18:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ bool	player_move(t_game *game, uint32_t xdelta, uint32_t ydelta)
 {
 	t_object	*other;
 
+	game->lock_input = true;
 	other = object_move(game->map->player, game->map, xdelta, ydelta);
 	if (other == game->NOWHERE)
 		return (false);
