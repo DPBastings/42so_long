@@ -6,23 +6,23 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/20 12:04:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:46:11 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 12:55:59 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_check.h"
 #include "libft.h"
 
-static int	check_object(t_object *obj, int *reqs);
+static bool	check_object(t_object *obj, int *reqs);
 
-int	map_check(t_map *map)
+bool	map_check(t_map *map)
 {
 	return (map_check_walls(map)
 		&& map_check_objects(map)
 		&& map_check_path(map));
 }
 
-int	map_check_walls(t_map *map)
+bool	map_check_walls(t_map *map)
 {
 	unsigned int	c;
 
@@ -31,7 +31,7 @@ int	map_check_walls(t_map *map)
 	{
 		if (map->objs[0][c]->type != OBJ_WALL
 				|| map->objs[map->dims.h - 1][c]->type != OBJ_WALL)
-			return (0);
+			return (false);
 		c++;
 	}
 	c = 1;
@@ -39,13 +39,13 @@ int	map_check_walls(t_map *map)
 	{
 		if (map->objs[c][0]->type != OBJ_WALL
 				|| map->objs[c][map->dims.w - 1]->type != OBJ_WALL)
-			return (0);
+			return (false);
 		c++;
 	}
-	return (1);
+	return (true);
 }
 
-int	map_check_objects(t_map *map)
+bool	map_check_objects(t_map *map)
 {
 	int			reqs;
 	t_point		p;
@@ -58,9 +58,9 @@ int	map_check_objects(t_map *map)
 		while (p.x < map->dims.w - 1)
 		{
 			if (!check_object(map->objs[p.y][p.x], &reqs))
-				return (0);
+				return (false);
 			if (reqs & CHECK_COLL)
-				return (1);
+				return (true);
 			p.x++;
 		}
 		p.y++;
@@ -68,7 +68,7 @@ int	map_check_objects(t_map *map)
 	return (reqs & CHECK_COLL);
 }
 
-static int	check_object(t_object *obj, int *reqs)
+static bool	check_object(t_object *obj, int *reqs)
 {
 	if (obj != NULL)
 	{
@@ -77,17 +77,17 @@ static int	check_object(t_object *obj, int *reqs)
 		else if (obj->type == OBJ_EXIT)
 		{
 			if (*reqs & CHECK_EXIT)
-				return (0);
+				return (false);
 			*reqs |= CHECK_EXIT;
 		}
 		else if (obj->type == OBJ_PLYR)
 		{
 			if (*reqs & CHECK_PLYR)
-				return (0);
+				return (false);
 			*reqs |= CHECK_PLYR;
 		}
 	}
-	return (1);
+	return (true);
 }
 
 uint32_t	map_get_maxscore(t_map *map)

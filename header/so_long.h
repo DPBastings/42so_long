@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:43:56 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 13:06:32 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 # include "libft.h"
 # include "libftprintf.h"
 # include "MLX42/MLX42.h"
+# include <stdbool.h>
 # include <stdint.h>
 
 # include <stdio.h>
 
-# define SL_TITLE			"The Bach Game"
+# define SL_TITLE			"Verve"
 # define SL_FILEEXT			".ber"
 
 # define SL_KEY_UP			MLX_KEY_W
@@ -87,22 +88,25 @@ typedef struct s_texture {
 }	t_texture;
 
 typedef struct s_sprite {
-	mlx_image_t		*image;
-	unsigned int	frame;
-	mlx_t			*mlx;
+	mlx_image_t	*image;
+	uint32_t	frame;
+	mlx_t		*mlx;
 }	t_sprite;
 
 typedef struct s_object {
-	t_point			position;
-	unsigned int	type;
-	int				instance_id;
+	uint32_t		type;
+	int32_t			instance_id;
+	bool			passable;
 	t_sprite		*sprite;
+	t_point			position;
+	struct s_object	*obj_below;
 }	t_object;
 
 typedef struct s_map {
 	t_plane		dims;
 	t_object	***objs;
 	t_object	*player;
+	t_object	*exit;
 	t_object	*none;
 }	t_map;
 
@@ -169,13 +173,13 @@ uint8_t		*gradient_read(mlx_texture_t *gradient, uint32_t i);
 t_object	*object_init(unsigned int type);
 t_object	*object_move(t_object *obj, t_map *map,
 			uint32_t xdelta, uint32_t ydelta);
-int			player_move(t_game *game, uint32_t xdelta, uint32_t ydelta);
-int			object_is_passable(t_object *object);
+bool		player_move(t_game *game, uint32_t xdelta, uint32_t ydelta);
+bool		object_is_passable(t_object *object);
 void		object_destroy(t_object **obj);
 
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);
-int			map_check(t_map *map);
+bool		map_check(t_map *map);
 uint32_t	map_get_maxscore(t_map *map);	
 void		map_set(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_point p);

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:45:12 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 12:59:28 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static mlx_t	*screen_init(unsigned int width, unsigned int height)
 
 static void	game_abort(t_game *game, int errno)
 {
+	printf("%d\n", errno);
 	game_end(game);
 	sl_error(errno);
 }

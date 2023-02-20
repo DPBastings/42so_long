@@ -6,21 +6,23 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:42:48 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 12:54:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 #include "MLX42/MLX42.h"
+#include <stdbool.h>
 #include <stdint.h>
 
-int	player_move(t_game *game, uint32_t xdelta, uint32_t ydelta)
+bool	player_move(t_game *game, uint32_t xdelta, uint32_t ydelta)
 {
 	t_object	*other;
 
 	other = object_move(game->map->player, game->map, xdelta, ydelta);
 	if (other == game->NOWHERE)
-		return (0);
+		return (false);
 	if (other)
 	{
 		if (other->type == OBJ_COLL)
@@ -28,9 +30,12 @@ int	player_move(t_game *game, uint32_t xdelta, uint32_t ydelta)
 		else if (other->type == OBJ_EXIT && game->score >= game->score_max)
 		{
 			game_exit(game);
-			return (1);
+			return (true);
 		}
-	}	
-	ft_printf("You've made %u moves so far.\n", ++game->moves);
-	return (1);
+		else
+			game->map->player->obj_below = other;
+	}
+	game->moves++;
+	ft_printf("Moves: [%u].\n", game->moves);
+	return (true);
 }

@@ -6,20 +6,22 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:16:41 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 13:02:54 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "map_check.h"
+
 #include "libft.h"
+#include <stdbool.h>
 #include <stdlib.h>
 #include <limits.h>
 
 #define UNCHECKED	NULL
 #define CHECKED		(void *)NOWHERE
 
-static int		check_point(t_point p, t_map *map);
+static bool		check_point(t_point p, t_map *map);
 static void		map_clean(t_map *map);
 
 /* int map_check_path(t_map *map)
@@ -27,9 +29,9 @@ static void		map_clean(t_map *map);
  * starting position to the exit object.
  * Returns 0 if there is no such path, returns 1 if there is.
  */
-int	map_check_path(t_map *map)
+bool	map_check_path(t_map *map)
 {
-	int			res;
+	bool	res;
 
 	res = check_point(map->player->position, map);
 	map_clean(map);
@@ -44,7 +46,7 @@ int	map_check_path(t_map *map)
  * adjacent passable, unchecked points.
  * Returns 0 if the map doesn't contain a reachable exit.
  */
-static int	check_point(t_point p, t_map *map)
+static bool	check_point(t_point p, t_map *map)
 {
 	t_object	**obj;
 	t_point		*adj;
@@ -54,9 +56,9 @@ static int	check_point(t_point p, t_map *map)
 	if (*obj)
 	{
 		if ((*obj)->sprite == CHECKED)
-			return (0);
+			return (false);
 		if ((*obj)->type == OBJ_EXIT)
-			return (1);
+			return ((*obj)->passable = false, true);
 		(*obj)->sprite = CHECKED;
 	}
 	else
@@ -67,10 +69,10 @@ static int	check_point(t_point p, t_map *map)
 	{
 		if (object_is_passable(*map_index(map, adj[i]))
 			&& check_point(adj[i], map))
-			return (free(adj), 1);
+			return (free(adj), true);
 		i++;
 	}
-	return (free(adj), 0);
+	return (free(adj), false);
 }
 
 /* void	map_clean(t_map *map)

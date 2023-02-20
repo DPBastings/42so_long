@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 11:42:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:05:30 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 13:07:28 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ static int	object_set(t_map *map, t_point p, char type)
 	*map_index(map, p) = obj;
 	if (obj->type == OBJ_PLYR)
 		map->player = obj;
+	else if (obj->type == OBJ_EXIT)
+		map->exit = obj;
 	return (1);
 }
 

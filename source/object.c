@@ -6,13 +6,23 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/13 17:17:05 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/20 13:03:09 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 #include "libft.h"
+#include <stdbool.h>
 #include <stdlib.h>
+
+static bool	lookup_passable[N_OBJS] = {
+	false,
+	true,
+	true,
+	true,
+	false,
+};
 
 /* t_object *object_init(unsigned int type)
  * Initializes a new object of type `type`.
@@ -26,17 +36,18 @@ t_object	*object_init(unsigned int type)
 	if (new == NULL)
 		return (NULL);
 	new->type = type;
+	new->passable = lookup_passable[type];
 	new->sprite = NULL;
+	new->obj_below = NULL;
 	return (new);
 }
 
 /* int object_is_passable(t_object *obj)
  * Returns whether `obj` is passable.
  */
-int	object_is_passable(t_object *obj)
+bool	object_is_passable(t_object *obj)
 {
-	return (obj == NULL
-		|| (obj->type != OBJ_WALL && obj->type != OBJ_NONE));
+	return (obj == NULL || obj->passable);
 }
 
 /* t_object *object_move(t_object *obj, t_map *map,
@@ -56,7 +67,7 @@ t_object	*object_move(t_object *obj, t_map *map,
 	other = *map_index(map, np);
 	if (object_is_passable(other))
 	{
-		*map_index(map, obj->position) = NULL;
+		*map_index(map, obj->position) = obj->obj_below;
 		*map_index(map, np) = obj;
 		obj->position = np;
 		obj->sprite->image->instances[0].x = np.x * GRID_W;
