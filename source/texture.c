@@ -19,7 +19,9 @@
 
 static char const	*g_texture_files[] = {
 	"",
+	"./assets/textures/verve.png",
 	"./assets/textures/verve_idle.png",
+	"./assets/textures/verve_walk.png",
 	"./assets/textures/orb.png",
 	"./assets/textures/harpsichord.png",
 	"./assets/textures/wall.png",
@@ -61,15 +63,11 @@ void	textures_destroy(t_texture ***textures)
 {
 	size_t	i;
 
-	i = 0;
-	while (i < N_SPRITES)
-		texture_destroy(&(*textures)[i++]);
+	if (*textures == NULL)
+		return ;
+	i = 1;
+	while (i < N_TEXTURES)
+		mlx_delete_texture((*textures)[i++]);
 	free(*textures);
 	*textures = NULL;
-}
-
-void	texture_destroy(t_texture **texture)
-{
-	free(*texture);
-	*texture = NULL;
 }

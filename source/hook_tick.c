@@ -14,8 +14,6 @@
 
 #include <float.h>
 
-static void	sprites_animate(t_game *game);
-
 void	hook_tick(void *param)
 {
 	static double	time_prev;
@@ -27,22 +25,7 @@ void	hook_tick(void *param)
 	if (time_now - time_prev < SEC_PER_TICK)
 		return ;
 	time_prev = time_now;
-	game->ticks++;
+	objects_tick(game);
 	sprites_animate(game);
-}
-
-static void	sprites_animate(t_game *game)
-{
-	unsigned int	id;
-
-	if (game->ticks % T_PER_IDLE_ANIM == 0
-			|| game->map->player->sprite->frame % 12)
-		sprite_animate(game->map->player->sprite);
-	id = SPR_COLL_0;
-	while (id < SPR_COLL_MAX)
-	{
-		sprite_animate_coll(game->sprites[id], game);
-		game->sprites[id]->frame++;
-		id++;
-	}
+	game->ticks++;
 }

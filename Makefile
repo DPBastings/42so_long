@@ -20,6 +20,8 @@ HDR_DIR		:= ./header/
 LIB_DIR		:= ./lib/
 
 SRC_FILES	:= main.c\
+			animation.c\
+			animation_coll.c\
 			error.c\
 			game_init.c\
 			game_status.c\
@@ -35,9 +37,11 @@ SRC_FILES	:= main.c\
 			map_search.c\
 			movement.c\
 			object.c\
+			object_move.c\
+			object_tick.c\
 			sprite.c\
-			sprite_animate.c\
 			sprite_bind.c\
+			sprite_change.c\
 			sprite_hueshift.c\
 			sprite_shift.c\
 			texture.c\

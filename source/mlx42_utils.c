@@ -4,11 +4,8 @@
 #include "ft_math.h"
 #include <float.h>
 #include <limits.h>
-#include <math.h>
 #include <stddef.h>
 #include <stdint.h>
-
-#include <stdio.h>
 
 uint8_t	*pixel_get(uint8_t *pixels, uint32_t wh[2], uint32_t x, uint32_t y)
 {

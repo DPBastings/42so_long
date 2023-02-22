@@ -12,18 +12,19 @@
 
 #include "so_long.h"
 #include "map_check.h"
+
 #include "libft.h"
+#include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
 
-#include "sl_test.h"
-
-static unsigned int	chrtotype(char const chr);
-static int			object_set(t_map *map, t_point p, char type);
+static uint32_t	chrtotype(char const chr);
+static bool		object_setup(t_map *map, t_point p, char type);
 
 t_map	*map_init(t_plane dims)
 {
-	t_map			*map;
-	unsigned int	y;
+	t_map		*map;
+	uint32_t	y;
 
 	map = malloc(sizeof(t_map));
 	if (map == NULL)
@@ -43,6 +44,7 @@ t_map	*map_init(t_plane dims)
 	map->none = object_init(OBJ_NONE);
 	if (map->none == NULL)
 		return (map_destroy(&map), NULL);
+	map->none->obj_below = map->none;
 	return (map);
 }
 
@@ -60,7 +62,7 @@ void	map_set(t_map *map, t_list *bytemap)
 		{
 			if (row[p.x] != CHR_NONE)
 			{	
-				if (!object_set(map, p, row[p.x]))
+				if (!object_setup(map, p, row[p.x]))
 					sl_error(SL_MEMFAIL);
 			}
 			p.x++;
@@ -70,23 +72,23 @@ void	map_set(t_map *map, t_list *bytemap)
 	}
 }
 
-static int	object_set(t_map *map, t_point p, char type)
+static bool	object_setup(t_map *map, t_point p, char type)
 {
 	t_object	*obj;
 
 	obj = object_init(chrtotype(type));
 	if (obj == NULL)
-		return (0);
-	obj->position = p;
-	*map_index(map, p) = obj;
+		return (false);
+	obj->obj_below = NOWHERE;
+	object_place(obj, map, p);
 	if (obj->type == OBJ_PLYR)
 		map->player = obj;
 	else if (obj->type == OBJ_EXIT)
 		map->exit = obj;
-	return (1);
+	return (true);
 }
 
-static unsigned int	chrtotype(char const chr)
+static uint32_t	chrtotype(char const chr)
 {
 	char *const	chars = CHR_ALL;
 	char		*ptr;
@@ -94,12 +96,13 @@ static unsigned int	chrtotype(char const chr)
 	ptr = ft_strchr(chars, chr);
 	if (ptr == NULL)
 		sl_error(SL_INVMAP);
-	return ((unsigned int)(ptr - chars));
+	return ((uint32_t)(ptr - chars));
 }
 
 void	map_destroy(t_map **map)
 {
-	t_point	p;
+	t_point		p;
+	t_object	**slot;
 
 	if (*map == NULL)
 		return ;
@@ -109,7 +112,9 @@ void	map_destroy(t_map **map)
 		p.x = 0;
 		while (p.x < (*map)->dims.w)
 		{
-			object_destroy(map_index(*map, p));
+			slot = map_index(*map, p);
+			while (*slot)
+				object_destroy(slot);
 			p.x++;
 		}
 		free((*map)->objs[p.y]);

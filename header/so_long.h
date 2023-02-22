@@ -36,9 +36,7 @@
 # define SCREEN_MIN_H		864
 
 # define SEC_PER_TICK		0.05
-# define T_PER_IDLE_ANIM	12	
-# define INTV_ANIM_MOVE		0.04
-# define INTV_ANIM_BG		0.10
+# define PX_PER_STEP		12
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -52,6 +50,8 @@ typedef enum e_objs {
 typedef enum e_textures {
 	TXR_NONE = 0,
 	TXR_PLYR,
+	TXR_PLYR_IDLE,
+	TXR_PLYR_WALK,
 	TXR_COLL,
 	TXR_EXIT,
 	TXR_WALL,
@@ -61,6 +61,11 @@ typedef enum e_textures {
 typedef enum e_sprites {
 	SPR_NONE = 0,
 	SPR_PLYR,
+	SPR_PLYR_IDLE,
+	SPR_PLYR_MOVE_UP,
+	SPR_PLYR_MOVE_RIGHT,
+	SPR_PLYR_MOVE_DOWN,
+	SPR_PLYR_MOVE_LEFT,
 	SPR_COLL_0,
 	SPR_COLL_1,
 	SPR_COLL_2,
@@ -84,19 +89,34 @@ typedef enum e_dirs {
 
 typedef mlx_texture_t	t_texture;
 
+/* Sprite object.
+ * @param texture	The texture/spritesheet from which the sprite was created.
+ * @param image		The sprite's image.
+ * @param frame		The current animation frame.
+ * @param frame_max	The maximum number of frames.
+ */
 typedef struct s_sprite {
 	mlx_texture_t	*texture;
 	mlx_image_t		*image;
 	uint32_t		frame;
-	mlx_t			*mlx;
+	uint32_t		frame_max;
 }	t_sprite;
 
+/* Object object.
+ * @param type			The object's type.
+ * @param position		The position of the object.
+ * @param passable		Whether another object can move onto the same position as this object.
+ * @param sprite		The object's sprite.
+ * @param instance_id	The index of the sprite image instance corresponding to this object.
+ * @param obj_below		A pointer to the object below this one at the same coordinate.
+ */
 typedef struct s_object {
 	uint32_t		type;
-	int32_t			instance_id;
+	t_point			position;
+	uint16_t		facing;
 	bool			passable;
 	t_sprite		*sprite;
-	t_point			position;
+	int32_t			instance_id;
 	struct s_object	*obj_below;
 }	t_object;
 
@@ -117,6 +137,7 @@ typedef struct s_game {
 	mlx_texture_t	*gradient;
 	t_sprite		**sprites;
 	t_map			*map;
+	t_point			draw_offset;
 	unsigned int	score_max;
 	unsigned int	score;
 	unsigned int	moves;
@@ -133,8 +154,6 @@ typedef enum e_sl_errno {
 	SL_INVMAP,
 	N_SL_ERR,
 }	t_sl_errno;
-
-typedef unsigned int (*t_sprite_shifter)(t_object *obj, void *param);
 
 t_game		*game_init(char const *filename);
 void		object_collect(t_game *game, t_object **obj);
@@ -155,25 +174,40 @@ t_sprite	**sprites_init(t_game *game);
 t_sprite	*sprite_new(t_game *game, unsigned int spr_id);
 t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
 			unsigned int origin_i, unsigned int frame);
-void		sprites_destroy(t_sprite ***sprites);
-void		sprite_destroy(t_sprite **sprite);
 void		sprites_bind(t_game *game);
 void		sprite_bind(t_object *obj, t_game *game);
+void		sprite_change(t_object *obj, t_sprite *newspr, t_game *game);
+void		sprites_destroy(t_sprite ***sprites, mlx_t *mlx);
+void		sprite_destroy(t_sprite **sprite, mlx_t *mlx);
 
-void		sprite_animate(t_sprite *sprite);
-void		sprite_animate_coll(t_sprite *sprite, t_game *game);
-void		sprite_overlay_gradient(t_sprite *sprite, mlx_texture_t *gradient);
+typedef void (*t_spr_animator)(t_sprite *spr, void *param);
+void		sprites_animate(t_game *game);
+void		sprite_animate_pass(t_sprite *spr, void *param);
+void		sprite_animate(t_sprite *spr, void *param);
+void		sprite_animate_coll(t_sprite *spr, void *param);
+void		sprite_animate_move(t_sprite *spr, void *param);
+bool		sprite_animation_is_done(t_sprite *spr);
+
+typedef unsigned int (*t_spr_shifter)(t_object *obj, void *param);
 unsigned	sprite_shift_coll(t_object *obj, void *param);
 unsigned	sprite_shift_wall(t_object *obj, void *param);
 
+void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
 uint8_t		*gradient_read(mlx_texture_t *gradient, uint32_t i);
 
 t_object	*object_init(unsigned int type);
-t_object	*object_move(t_object *obj, t_map *map,
-			uint32_t xdelta, uint32_t ydelta);
-bool		player_move(t_game *game, uint32_t xdelta, uint32_t ydelta);
+t_object	**object_get_adjacent(t_object *obj, t_map *map, uint32_t dir);
 bool		object_is_passable(t_object *object);
+t_object	*object_move(t_object *obj, t_map *map, uint32_t dir);
+void		object_place(t_object *obj, t_map *map, t_point p);
 void		object_destroy(t_object **obj);
+bool		player_move(t_game *game, uint32_t dir);
+
+typedef void (*t_obj_ticker)(t_object *obj, void *param);
+void		objects_tick(t_game *game);
+void		object_tick_pass(t_object *obj, void *param);
+void		plyr_tick(t_object *plyr, void *param);
+void		enmy_tick(t_object *enmy, void *param);
 
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);

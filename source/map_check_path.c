@@ -18,8 +18,8 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define UNCHECKED	NULL
-#define CHECKED		(void *)NOWHERE
+#define UNCHECKED	-1
+#define CHECKED		1
 
 static bool		check_point(t_point p, t_map *map);
 static void		map_clean(t_map *map);
@@ -32,7 +32,8 @@ static void		map_clean(t_map *map);
 bool	map_check_path(t_map *map)
 {
 	bool	res;
-
+	
+	NOWHERE->instance_id = CHECKED;
 	res = check_point(map->player->position, map);
 	map_clean(map);
 	return (res);
@@ -52,14 +53,15 @@ static bool	check_point(t_point p, t_map *map)
 	t_point		*adj;
 	size_t		i;
 
+	printf("%u %u\n", p.x, p.y);
 	obj = map_index(map, p);
 	if (*obj)
 	{
-		if ((*obj)->sprite == CHECKED)
+		if ((*obj)->instance_id == CHECKED)
 			return (false);
 		if ((*obj)->type == OBJ_EXIT)
 			return ((*obj)->passable = false, true);
-		(*obj)->sprite = CHECKED;
+		(*obj)->instance_id = CHECKED;
 	}
 	else
 		*obj = NOWHERE;
@@ -96,8 +98,8 @@ static void	map_clean(t_map *map)
 			{
 				if (*obj == NOWHERE)
 					*obj = NULL;
-				else if ((*obj)->sprite == CHECKED)
-					(*obj)->sprite = UNCHECKED;
+				else if ((*obj)->instance_id == CHECKED)
+					(*obj)->instance_id = UNCHECKED;
 			}
 			p.x++;
 		}

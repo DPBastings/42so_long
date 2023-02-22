@@ -15,6 +15,13 @@
 #include "MLX42/MLX42.h"
 #include <stdbool.h>
 
+static const uint32_t	g_lookup_movekeys[N_DIRS] = {
+	SL_KEY_UP,
+	SL_KEY_RIGHT,
+	SL_KEY_DOWN,
+	SL_KEY_LEFT,
+};
+
 static void	hook_keys_move(t_game *game);
 static void	hook_esc(t_game *game);
 
@@ -30,14 +37,18 @@ void	hook_keys(void *param)
 
 static void	hook_keys_move(t_game *game)
 {
-	if (mlx_is_key_down(game->mlx, SL_KEY_UP))
-		player_move(game, 0, -1);
-	else if (mlx_is_key_down(game->mlx, SL_KEY_LEFT))
-		player_move(game, -1, 0);
-	else if (mlx_is_key_down(game->mlx, SL_KEY_DOWN))
-		player_move(game, 0, 1);
-	else if (mlx_is_key_down(game->mlx, SL_KEY_RIGHT))
-		player_move(game, 1, 0);
+	uint32_t	dir;
+
+	dir = 0;
+	while (dir < N_DIRS)
+	{	
+		if (mlx_is_key_down(game->mlx, g_lookup_movekeys[dir]))
+		{
+			player_move(game, dir);
+			break ;
+		}
+		dir++;
+	}
 }
 
 static void	hook_esc(t_game *game)

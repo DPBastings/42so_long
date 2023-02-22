@@ -17,17 +17,29 @@
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
 
-static const int	g_txr_id_lookup[N_SPRITES] = {
-	TXR_NONE,
-	TXR_PLYR,
-	TXR_COLL,
-	TXR_COLL,
-	TXR_COLL,
-	TXR_COLL,
-	TXR_COLL,
-	TXR_COLL,
-	TXR_EXIT,
-	TXR_WALL,
+// Lookup table for various t_sprite variables.
+// <texture ID>	<frame_max>
+typedef enum e_spr_param {
+	PARAM_TXR_ID = 0,
+	PARAM_FRAME_MAX,
+	N_SPR_PARAM,
+}	t_spr_param;
+static const uint32_t	g_lookup_spr_param[N_SPRITES * N_SPR_PARAM] = {
+	TXR_NONE,		0,
+	TXR_PLYR,		0,
+	TXR_PLYR_IDLE,	12,
+	TXR_PLYR_WALK,	GRID_H / PX_PER_STEP,
+	TXR_PLYR_WALK,	GRID_W / PX_PER_STEP,
+	TXR_PLYR_WALK,	GRID_H / PX_PER_STEP,
+	TXR_PLYR_WALK,	GRID_W / PX_PER_STEP,
+	TXR_COLL,		-1,
+	TXR_COLL,		-1,
+	TXR_COLL,		-1,
+	TXR_COLL,		-1,
+	TXR_COLL,		-1,
+	TXR_COLL,		-1,
+	TXR_EXIT,		-1,
+	TXR_WALL,		0,
 };
 
 t_sprite	**sprites_init(t_game *game)
@@ -44,7 +56,7 @@ t_sprite	**sprites_init(t_game *game)
 		sprites[id] = sprite_new(game, id);
 		if (sprites[id] == NULL)
 		{
-			sprites_destroy(&sprites);
+			sprites_destroy(&sprites, game->mlx);
 			sl_error(SL_MEMFAIL);
 		}
 		id++;
@@ -52,13 +64,13 @@ t_sprite	**sprites_init(t_game *game)
 	return (sprites);
 }
 
-t_sprite	*sprite_new(t_game *game, unsigned int spr_id)
+t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 {
-	t_sprite		*sprite;
-	unsigned int	txr_id;
-	t_texture		*texture;
+	t_sprite	*sprite;
+	uint32_t	txr_id;
+	t_texture	*texture;
 
-	txr_id = g_txr_id_lookup[spr_id];
+	txr_id = g_lookup_spr_param[spr_id * N_SPR_PARAM + PARAM_TXR_ID];
 	texture = game->textures[txr_id];
 	if (txr_id == TXR_COLL)
 		sprite = sprite_load(texture, game->mlx,
@@ -68,6 +80,7 @@ t_sprite	*sprite_new(t_game *game, unsigned int spr_id)
 				SPR_WALL_1111 - spr_id, 0);
 	else
 		sprite = sprite_load(texture, game->mlx, 0, 0);
+	sprite->frame_max = g_lookup_spr_param[spr_id * N_SPR_PARAM + PARAM_FRAME_MAX];
 	return (sprite);
 }
 
@@ -84,10 +97,9 @@ t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
 	if (sprite == NULL)
 		return (NULL);
 	sprite->texture = texture;
-	sprite->mlx = mlx;
 	set_point(&origin, origin_i * GRID_W, 0);
 	set_plane(&area, GRID_W, GRID_H);
-	sprite->image = mlx_texture_area_to_image(sprite->mlx, texture,
+	sprite->image = mlx_texture_area_to_image(mlx, texture,
 			(unsigned int *)&origin, (unsigned int *)&area);
 	if (sprite->image == NULL)
 		return (free(sprite), NULL);
@@ -95,39 +107,24 @@ t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
 	return (sprite);
 }
 
-void	sprites_destroy(t_sprite ***sprites)
+void	sprites_destroy(t_sprite ***sprites, mlx_t *mlx)
 {
 	size_t	i;
 
+	if (*sprites == NULL)
+		return ;
 	i = 1;
 	while (i < N_SPRITES)
-		sprite_destroy(&(*sprites)[i++]);
+		sprite_destroy(&(*sprites)[i++], mlx);
 	free(*sprites);
 	*sprites = NULL;
 }
 
-void	sprite_destroy(t_sprite **sprite)
+void	sprite_destroy(t_sprite **sprite, mlx_t *mlx)
 {
 	if (*sprite == NULL)
 		return ;
-	mlx_delete_image((*sprite)->mlx, (*sprite)->image);
+	mlx_delete_image(mlx, (*sprite)->image);
 	free(*sprite);
 	*sprite = NULL;
 }
-
-/*void	sprite_animate(t_sprite *sprite, uint32_t frame)
-{
-	uint8_t	*src;
-	uint8_t	*dst;
-	t_point	p;
-
-	p.x = frame * GRID_W % sprite->texture->width;
-	p.y = 0;
-	while (p.y < sprite->image->height)
-	{
-		src = &sprite->texture->pixels[p.y * sprite->texture->width + p.x * BPP];
-		dst = &sprite->image->pixels[p.y * GRID_H * BPP];
-		ft_memmove(dst, src, GRID_W * BPP);
-		y++;
-	}
-}*/

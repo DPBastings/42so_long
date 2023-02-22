@@ -40,6 +40,7 @@ t_game	*game_init(char const *filename)
 	game->textures = textures_load(game);
 	game->sprites = sprites_init(game);
 	sprites_bind(game);
+	ft_printf("Good luck!\n");
 	return (game);
 }
 
@@ -64,7 +65,6 @@ static mlx_t	*screen_init(unsigned int width, unsigned int height)
 
 static void	game_abort(t_game *game, int errno)
 {
-	printf("%d\n", errno);
 	game_end(game);
 	sl_error(errno);
 }
@@ -76,9 +76,12 @@ void	game_end(t_game *game)
 	ft_printf("Unloading map...\n");
 	map_destroy(&game->map);
 	ft_printf("Unloading assets...\n");
-	mlx_delete_texture(game->gradient);
+	sprites_destroy(&game->sprites, game->mlx);
+	if (game->gradient)
+		mlx_delete_texture(game->gradient);
 	textures_destroy(&game->textures);
-	mlx_terminate(game->mlx);
+	if (game->mlx)
+		mlx_terminate(game->mlx);
 	free(game);
 	ft_printf("Goodbye!\n");
 }

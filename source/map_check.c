@@ -10,8 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "so_long.h"
 #include "map_check.h"
+
 #include "libft.h"
+#include <stdbool.h>
+#include <stdint.h>
 
 static bool	check_object(t_object *obj, int *reqs);
 
@@ -24,21 +28,28 @@ bool	map_check(t_map *map)
 
 bool	map_check_walls(t_map *map)
 {
-	unsigned int	c;
+	uint32_t	c;
+	t_object	*obj;
 
 	c = 0;
 	while (c < map->dims.w)
 	{
-		if (map->objs[0][c]->type != OBJ_WALL
-				|| map->objs[map->dims.h - 1][c]->type != OBJ_WALL)
+		obj = map->objs[0][c];
+		if (obj == NULL || obj->type != OBJ_WALL)
+			return (false);
+		obj = map->objs[map->dims.h - 1][c];
+		if (obj == NULL || obj->type != OBJ_WALL)
 			return (false);
 		c++;
 	}
 	c = 1;
 	while (c < map->dims.h - 1)
 	{
-		if (map->objs[c][0]->type != OBJ_WALL
-				|| map->objs[c][map->dims.w - 1]->type != OBJ_WALL)
+		obj = map->objs[c][0];
+		if (obj == NULL || obj->type != OBJ_WALL)
+			return (false);
+		obj = map->objs[c][map->dims.w - 1];
+		if (obj == NULL || obj->type != OBJ_WALL)
 			return (false);
 		c++;
 	}

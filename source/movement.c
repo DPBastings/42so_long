@@ -16,27 +16,25 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-bool	player_move(t_game *game, uint32_t xdelta, uint32_t ydelta)
-{
-	t_object	*other;
+t_point	point_get_adjacent(t_point p, uint32_t dir);
 
-	game->lock_input = true;
-	other = object_move(game->map->player, game->map, xdelta, ydelta);
-	if (other == game->NOWHERE)
+bool	player_move(t_game *game, uint32_t dir)
+{
+	t_object	**other;
+
+	game->map->player->facing = dir;
+	other = map_index(game->map, point_get_adjacent(game->map->player->position, dir));
+	if (*other == game->NOWHERE || !object_is_passable(*other))
 		return (false);
-	if (other)
-	{
-		if (other->type == OBJ_COLL)
-			object_collect(game, &other);
-		else if (other->type == OBJ_EXIT && game->score >= game->score_max)
-		{
-			game_exit(game);
-			return (true);
-		}
-		else
-			game->map->player->obj_below = other;
-	}
+	sprite_change(game->map->player, game->sprites[SPR_PLYR_MOVE_UP + dir], game);
+	game->lock_input = true;
+	if (*other && (*other)->type == OBJ_COLL)
+		object_collect(game, other);
+	object_move(game->map->player, game->map, dir);
 	game->moves++;
 	ft_printf("Moves: [%u].\n", game->moves);
+	if (game->map->player->obj_below == game->map->exit
+			&& game->score >= game->score_max)
+		game_exit(game);
 	return (true);
 }
