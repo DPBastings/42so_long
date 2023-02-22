@@ -35,8 +35,9 @@
 # define SCREEN_MIN_W		1152
 # define SCREEN_MIN_H		864
 
-# define SEC_PER_TICK		0.05
-# define PX_PER_STEP		12
+# define SEC_PER_TICK		0.042
+// Movement speed in ticks per unit.
+# define MOVEMENT_SPEED		12
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -112,9 +113,11 @@ typedef struct s_sprite {
  */
 typedef struct s_object {
 	uint32_t		type;
+	uint32_t		facing;
+	int32_t			moving;
 	t_point			position;
-	uint16_t		facing;
 	bool			passable;
+	bool			ticked;
 	t_sprite		*sprite;
 	int32_t			instance_id;
 	struct s_object	*obj_below;
@@ -132,7 +135,7 @@ typedef struct s_map {
 
 typedef struct s_game {
 	size_t			ticks;
-	int				lock_input;
+	bool			lock_input;
 	t_texture		**textures;
 	mlx_texture_t	*gradient;
 	t_sprite		**sprites;
@@ -163,6 +166,7 @@ void		game_end(t_game *game);
 void		hook_set(t_game *game);
 void		hook_close(void *param);
 void		hook_keys(void *param);
+bool		hook_keys_move(t_game *game);
 void		hook_tick(void *param);
 
 t_texture	**textures_load();
@@ -198,16 +202,16 @@ uint8_t		*gradient_read(mlx_texture_t *gradient, uint32_t i);
 t_object	*object_init(unsigned int type);
 t_object	**object_get_adjacent(t_object *obj, t_map *map, uint32_t dir);
 bool		object_is_passable(t_object *object);
-t_object	*object_move(t_object *obj, t_map *map, uint32_t dir);
+void		object_move(t_object *obj, uint32_t dir, int32_t dist);
 void		object_place(t_object *obj, t_map *map, t_point p);
 void		object_destroy(t_object **obj);
 bool		player_move(t_game *game, uint32_t dir);
 
 typedef void (*t_obj_ticker)(t_object *obj, void *param);
 void		objects_tick(t_game *game);
-void		object_tick_pass(t_object *obj, void *param);
-void		plyr_tick(t_object *plyr, void *param);
-void		enmy_tick(t_object *enmy, void *param);
+void		object_tick_default(t_object *obj, void *param);
+void		object_tick_player(t_object *plyr, void *param);
+void		object_tick_enemy(t_object *enmy, void *param);
 
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);
@@ -217,6 +221,8 @@ void		map_set(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_point p);
 t_point		*map_get_adjacent(t_map *map, t_point p);
 void		map_destroy(t_map **map);
+
+t_point		point_get_adjacent(t_point p, uint32_t dir);
 
 void		sl_strerror(int errno);
 void		sl_error(int errno);

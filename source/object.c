@@ -38,6 +38,7 @@ t_object	*object_init(unsigned int type)
 	new->type = type;
 	set_point(&new->position, -1, -1);
 	new->facing = 0;
+	new->moving = 0;
 	new->passable = lookup_passable[type];
 	new->sprite = NULL;
 	new->instance_id = -1;

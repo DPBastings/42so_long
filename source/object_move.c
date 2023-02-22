@@ -2,18 +2,14 @@
 
 #include <stdint.h>
 
-typedef enum e_axis {
-	X = 0,
-	Y,
-	N_DIM,
-}	t_axis;
-
 static const uint32_t	g_lookup_dir[N_DIRS * N_DIM] = {
 	0, -1,
 	1, 0,
 	0, 1,
 	-1, 0,
 };
+
+static uint32_t	dir_invert(uint32_t dir);
 
 t_point	point_get_adjacent(t_point p, uint32_t dir)
 {
@@ -29,17 +25,18 @@ t_point	point_get_adjacent(t_point p, uint32_t dir)
  * that was there previously (or to NULL, if it was empty space).
  * Returns NOWHERE if the position was out of bounds or otherwise impassable.
  */
-t_object	*object_move(t_object *obj, t_map *map, uint32_t dir)
+void	object_move(t_object *obj, uint32_t dir, int32_t dist)
 {
-	t_object	*other;
-	t_point		p;
-
-	p = point_get_adjacent(obj->position, dir);
-	other = *map_index(map, p);
-	object_place(obj, map, p);
-	obj->sprite->image->instances[obj->instance_id].x = p.x * GRID_W;
-	obj->sprite->image->instances[obj->instance_id].y = p.y * GRID_H;
-	return (other);
+	if (dist > 0)
+	{
+		obj->moving = dist;
+		obj->facing = dir;
+	}
+	else if (dist < 0)
+	{
+		obj->moving = -dist;
+		obj->facing = dir_invert(dir);
+	}
 }
 
 void	object_place(t_object *obj, t_map *map, t_point p)
@@ -51,4 +48,12 @@ void	object_place(t_object *obj, t_map *map, t_point p)
 	obj->obj_below = *coordinate;
 	*coordinate = obj;
 	obj->position = p;
+}
+
+static uint32_t	dir_invert(uint32_t dir)
+{
+	if (dir >= N_DIRS / 2)
+		return (dir - N_DIRS / 2);
+	else
+		return (dir + N_DIRS / 2);
 }

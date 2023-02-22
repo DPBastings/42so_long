@@ -39,6 +39,8 @@ SRC_FILES	:= main.c\
 			object.c\
 			object_move.c\
 			object_tick.c\
+			object_tick_default.c\
+			object_tick_player.c\
 			sprite.c\
 			sprite_bind.c\
 			sprite_change.c\

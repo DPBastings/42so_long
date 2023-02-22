@@ -15,6 +15,12 @@
 
 # include <stddef.h>
 
+typedef enum e_axis {
+	X = 0,
+	Y,
+	N_DIM,
+}	t_axis;
+
 typedef struct	s_point {
 	unsigned int	x;
 	unsigned int	y;

@@ -22,7 +22,6 @@ static const uint32_t	g_lookup_movekeys[N_DIRS] = {
 	SL_KEY_LEFT,
 };
 
-static void	hook_keys_move(t_game *game);
 static void	hook_esc(t_game *game);
 
 void	hook_keys(void *param)
@@ -35,7 +34,7 @@ void	hook_keys(void *param)
 	hook_esc(game);
 }
 
-static void	hook_keys_move(t_game *game)
+bool	hook_keys_move(t_game *game)
 {
 	uint32_t	dir;
 
@@ -45,10 +44,11 @@ static void	hook_keys_move(t_game *game)
 		if (mlx_is_key_down(game->mlx, g_lookup_movekeys[dir]))
 		{
 			player_move(game, dir);
-			break ;
+			return (true);
 		}
 		dir++;
 	}
+	return (false);
 }
 
 static void	hook_esc(t_game *game)
