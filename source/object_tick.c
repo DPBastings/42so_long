@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:01:08 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:21:51 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 14:16:04 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_obj_ticker	g_lookup_ticker[N_OBJS] = {
 	object_tick_default,
 	object_tick_player,
 	object_tick_default,
-	object_tick_default,
+	object_tick_coll,
 	object_tick_default,
 };
 

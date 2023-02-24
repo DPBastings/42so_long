@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:31:41 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 16:20:20 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,29 @@
 
 static void	plyr_change_sprites(t_object *plyr, t_game *game);
 static void	plyr_check_collisions(t_object *plyr, t_game *game);
+static void	plyr_tick_move(t_object *plyr, t_game *game);
 
 void	object_tick_player(t_object *plyr, void *param)
 {
 	t_game		*game;
 
-	game = param;
 	object_tick_default(plyr, param);
+	game = param;
+	plyr_tick_move(plyr, game);
 	plyr_change_sprites(plyr, game);
 	plyr_check_collisions(plyr, game);
 }
 
+static void	plyr_tick_move(t_object *plyr, t_game *game)
+{
+	object_move_sprite(plyr);
+	if (object_align_grid(plyr, game->map))
+		plyr->speed = 0;
+}
+
 static void	plyr_change_sprites(t_object *plyr, t_game *game)
 {
-	if (plyr->moving == false && sprite_animation_is_done(plyr->sprite))
+	if (plyr->speed == 0 && sprite_animation_is_done(plyr->sprite))
 	{
 		game->lock_input = false;
 		sprite_change(plyr, game->sprites[SPR_PLYR], game);

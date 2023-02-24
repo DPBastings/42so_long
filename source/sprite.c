@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:56:13 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 16:15:03 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static const uint32_t	g_lookup_spr_param[N_SPRITES * N_SPR_PARAM] = {
 	TXR_NONE,		0,
 	TXR_PLYR,		0,
 	TXR_PLYR_IDLE,	12,
-	TXR_PLYR_WALK,	MOVEMENT_SPEED,
-	TXR_PLYR_WALK,	MOVEMENT_SPEED,
-	TXR_PLYR_WALK,	MOVEMENT_SPEED,
-	TXR_PLYR_WALK,	MOVEMENT_SPEED,
+	TXR_PLYR_WALK,	12,
+	TXR_PLYR_WALK,	12,
+	TXR_PLYR_WALK,	12,
+	TXR_PLYR_WALK,	12,
 	TXR_COLL,		-1,
 	TXR_COLL,		-1,
 	TXR_COLL,		-1,

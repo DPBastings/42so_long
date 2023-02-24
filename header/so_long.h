@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:50:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 16:18:28 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define SCREEN_MIN_H		864
 
 # define SEC_PER_TICK		0.042
-// Movement speed in ticks per unit.
-# define MOVEMENT_SPEED		12
+
+# define PLAYER_SPEED		4
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -117,8 +117,8 @@ typedef struct s_sprite {
  */
 typedef struct s_object {
 	t_obj_id		type;
-	t_dir			facing;
-	int32_t			moving;
+	uint16_t		dir;
+	uint16_t		speed;
 	t_point			position;
 	bool			passable;
 	bool			ticked;
@@ -212,9 +212,11 @@ void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
 uint8_t		*gradient_read(t_texture *gradient, uint32_t i);
 
 t_object	*object_init(t_obj_id type);
+bool		object_align_grid(t_object *obj, t_map *map);
 t_object	**object_get_adjacent(t_object *obj, t_map *map, t_dir dir);
 bool		object_is_passable(t_object *object);
-void		object_move(t_object *obj, t_dir dir, int32_t dist);
+void		object_move(t_object *obj, t_dir dir, uint16_t speed);
+void		object_move_sprite(t_object *obj);
 void		object_place(t_object *obj, t_map *map, t_point p);
 void		object_destroy(t_object **obj);
 bool		player_move(t_game *game, uint32_t dir);
@@ -222,8 +224,10 @@ bool		player_move(t_game *game, uint32_t dir);
 typedef void (*t_obj_ticker)(t_object *obj, void *param);
 void		objects_tick(t_game *game);
 void		object_tick_default(t_object *obj, void *param);
-void		object_tick_player(t_object *plyr, void *param);
+void		object_tick_move(t_object *obj, void *param);
+void		object_tick_coll(t_object *coll, void *param);
 void		object_tick_enemy(t_object *enmy, void *param);
+void		object_tick_player(t_object *plyr, void *param);
 
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);
