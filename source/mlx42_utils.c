@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   mlx42_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/24 13:07:58 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/02/24 13:19:35 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "MLX42/MLX42.h"
 #include "mlx42_utils.h"
 
@@ -27,7 +39,7 @@ void	pixel_overlay(uint8_t *pixel, uint8_t *overlay)
 	i = R;
 	while (i < A)
 	{
-		pixel[i] = (uint8_t) (factor * overlay[i]);
+		pixel[i] = (uint8_t)(factor * overlay[i]);
 		i++;
 	}
 }

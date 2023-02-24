@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 15:17:30 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 13:56:13 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 // Lookup table for various t_sprite variables.
 // <texture ID>	<frame_max>
 typedef enum e_spr_param {
-	PARAM_TXR_ID = 0,
-	PARAM_FRAME_MAX,
+	P_TXR_ID = 0,
+	P_FRAME_MAX,
 	N_SPR_PARAM,
 }	t_spr_param;
 static const uint32_t	g_lookup_spr_param[N_SPRITES * N_SPR_PARAM] = {
@@ -70,17 +70,17 @@ t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 	uint32_t	txr_id;
 	t_texture	*texture;
 
-	txr_id = g_lookup_spr_param[spr_id * N_SPR_PARAM + PARAM_TXR_ID];
+	txr_id = g_lookup_spr_param[spr_id * N_SPR_PARAM + P_TXR_ID];
 	texture = game->textures[txr_id];
 	if (txr_id == TXR_COLL)
-		sprite = sprite_load(texture, game->mlx,
-				0, (SPR_COLL_MAX - spr_id) * (GRID_H / (SPR_COLL_MAX - SPR_COLL_0)));
+		sprite = sprite_load(texture, game->mlx, 0,
+				(SPR_COLL_MAX - spr_id) * (GRID_W / N_COLL_SPR));
 	else if (txr_id == TXR_WALL)
 		sprite = sprite_load(texture, game->mlx,
 				SPR_WALL_1111 - spr_id, 0);
 	else
 		sprite = sprite_load(texture, game->mlx, 0, 0);
-	sprite->frame_max = g_lookup_spr_param[spr_id * N_SPR_PARAM + PARAM_FRAME_MAX];
+	sprite->frame_max = g_lookup_spr_param[spr_id * N_SPR_PARAM + P_FRAME_MAX];
 	return (sprite);
 }
 

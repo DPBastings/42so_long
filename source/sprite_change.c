@@ -1,4 +1,16 @@
-#include <so_long.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   sprite_change.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/24 13:31:49 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/02/24 13:47:34 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
 
 #include "MLX42/MLX42.h"
 #include <stdbool.h>
@@ -20,7 +32,7 @@ void	sprite_change(t_object *obj, t_sprite *newspr, t_game *game)
 	}
 	if (newinstance_id == newspr->image->count)
 	{
-		newinstance_id = mlx_image_to_window(game->mlx,	newspr->image,
+		newinstance_id = mlx_image_to_window(game->mlx, newspr->image,
 				obj->position.x * GRID_W, obj->position.y * GRID_H);
 		if (newinstance_id == -1)
 			sl_error(SL_MEMFAIL);

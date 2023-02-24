@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   animation.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/24 13:07:09 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/02/24 13:07:12 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #include "mlx42_utils.h"
@@ -24,7 +36,7 @@ static t_spr_animator	g_lookup_animator[N_SPRITES] = {
 
 void	sprites_animate(t_game *game)
 {
-	uint32_t	id;
+	t_spr_id	id;
 
 	id = 0;
 	while (id < N_SPRITES)
@@ -64,5 +76,4 @@ bool	sprite_animation_is_done(t_sprite *spr)
 	if (spr == NULL)
 		return (false);
 	return (spr->frame >= spr->frame_max);
-	//return (spr->frame * GRID_W % spr->texture->width == 0);
 }

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:20:41 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 17:59:33 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 13:44:34 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_map	*map_load(char const *filename)
 	map = map_init(dims);
 	if (map == NULL)
 		sl_error(SL_MEMFAIL);
-	map_set(map, bytemap);
+	map_setup(map, bytemap);
 	lst_destroy(&bytemap);
 	return (map);
 }
@@ -82,7 +82,7 @@ static t_list	*get_bytemap(int fd, t_plane *dims)
 		{
 			free(row);
 			ft_lstclear(&bytemap, free);
-			sl_error(SL_INVMAP);
+			sl_error(SL_INVMAP_DIMS);
 		}
 		ft_lstadd_back(&bytemap, ft_lstnew(row));
 		dims->h++;

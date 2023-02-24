@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   object_tick.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/24 13:01:08 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/02/24 13:21:51 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #include "geometry.h"
@@ -17,7 +29,7 @@ static void	object_tick_reset(t_object *obj);
 void	objects_tick(t_game *game)
 {
 	t_point	p;
-	
+
 	p.y = 0;
 	while (p.y < game->map->dims.h)
 	{
@@ -52,7 +64,7 @@ static void	object_tick(t_object *obj, void *param)
 	}
 }
 
-static void object_tick_reset(t_object *obj)
+static void	object_tick_reset(t_object *obj)
 {
 	if (obj)
 	{

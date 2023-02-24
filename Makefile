@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/02/20 17:00:28 by dbasting      ########   odam.nl          #
+#    Updated: 2023/02/24 13:47:17 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_FILES	:= main.c\
 			map_check_path.c\
 			map_load.c\
 			map_search.c\
+			map_setup.c\
 			movement.c\
 			object.c\
 			object_move.c\
@@ -42,10 +43,10 @@ SRC_FILES	:= main.c\
 			object_tick_default.c\
 			object_tick_player.c\
 			sprite.c\
-			sprite_bind.c\
+			sprite_adapt.c\
 			sprite_change.c\
 			sprite_hueshift.c\
-			sprite_shift.c\
+			sprite_setup.c\
 			texture.c\
 			\
 			mlx42_utils.c\

@@ -6,11 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 12:59:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 13:40:27 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 #include "libft.h"
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
@@ -29,7 +30,7 @@ t_game	*game_init(char const *filename)
 	ft_printf("Loading map...\n");
 	game->map = map_load(filename);
 	if (!map_check(game->map))
-		game_abort(game, SL_INVMAP);
+		game_abort(game, SL_INVMAP_BOUNDS);
 	game->score_max = map_get_maxscore(game->map);
 	game->mlx = screen_init(game->map->dims.w * GRID_W,
 			game->map->dims.h * GRID_H);
@@ -39,7 +40,7 @@ t_game	*game_init(char const *filename)
 	game->gradient = gradient_load();
 	game->textures = textures_load(game);
 	game->sprites = sprites_init(game);
-	sprites_bind(game);
+	sprites_setup(game);
 	ft_printf("Good luck!\n");
 	return (game);
 }

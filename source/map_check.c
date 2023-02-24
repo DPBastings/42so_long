@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/20 12:04:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 12:55:59 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 13:18:40 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,24 @@ bool	map_check(t_map *map)
 bool	map_check_walls(t_map *map)
 {
 	uint32_t	c;
-	t_object	*obj;
 
 	c = 0;
 	while (c < map->dims.w)
 	{
-		obj = map->objs[0][c];
-		if (obj == NULL || obj->type != OBJ_WALL)
-			return (false);
-		obj = map->objs[map->dims.h - 1][c];
-		if (obj == NULL || obj->type != OBJ_WALL)
+		if (map->objs[0][c] == NULL
+				|| map->objs[0][c]->type != OBJ_WALL
+				|| map->objs[map->dims.h - 1][c] == NULL
+				|| map->objs[map->dims.h - 1][c]->type != OBJ_WALL)
 			return (false);
 		c++;
 	}
 	c = 1;
 	while (c < map->dims.h - 1)
 	{
-		obj = map->objs[c][0];
-		if (obj == NULL || obj->type != OBJ_WALL)
-			return (false);
-		obj = map->objs[c][map->dims.w - 1];
-		if (obj == NULL || obj->type != OBJ_WALL)
+		if (map->objs[c][0] == NULL
+				|| map->objs[c][0]->type != OBJ_WALL
+				|| map->objs[c][map->dims.w - 1] == NULL
+				|| map->objs[c][map->dims.w - 1]->type != OBJ_WALL)
 			return (false);
 		c++;
 	}

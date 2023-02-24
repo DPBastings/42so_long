@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 13:02:54 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 13:19:17 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,28 @@
 static bool		check_point(t_point p, t_map *map);
 static void		map_clean(t_map *map);
 
-/* int map_check_path(t_map *map)
+/* bool map_check_path(t_map *map)
  * Determines whether `map` has an unobstructed path from the player's
  * starting position to the exit object.
- * Returns 0 if there is no such path, returns 1 if there is.
+ * Returns false if there is no such path, returns true if there is.
  */
 bool	map_check_path(t_map *map)
 {
 	bool	res;
-	
+
 	NOWHERE->instance_id = CHECKED;
 	res = check_point(map->player->position, map);
 	map_clean(map);
 	return (res);
 }
 
-/* int check_point(t_point p, t_map *map)
- * Checks if the exit has been reached; returns 1 if it has.
+/* bool check_point(t_point p, t_map *map)
+ * Checks if the exit has been reached; returns true if it has.
  * If the exit hasn't yet been reached, the current point is marked as checked
  * (either by setting a temporary flag on the object there or inserting a
  * reference to NOWHERE in empty space) and the function calls itself for all 
  * adjacent passable, unchecked points.
- * Returns 0 if the map doesn't contain a reachable exit.
+ * Returns false if the map doesn't contain a reachable exit.
  */
 static bool	check_point(t_point p, t_map *map)
 {
@@ -53,7 +53,6 @@ static bool	check_point(t_point p, t_map *map)
 	t_point		*adj;
 	size_t		i;
 
-	printf("%u %u\n", p.x, p.y);
 	obj = map_index(map, p);
 	if (*obj)
 	{

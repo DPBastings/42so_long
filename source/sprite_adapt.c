@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hook.c                                             :+:    :+:            */
+/*   sprite_adapt.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/13 15:21:16 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:05:01 by dbasting      ########   odam.nl         */
+/*   Created: 2023/02/24 13:34:54 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/02/24 13:37:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "MLX42/MLX42.h"
+#include "geometry.h"
 
-void	hook_set(t_game *game)
+unsigned int	sprite_adapt_wall(t_object *obj, void *param)
 {
-	mlx_close_hook(game->mlx, hook_close, game);
-	mlx_loop_hook(game->mlx, hook_keys, game);
-	mlx_loop_hook(game->mlx, hook_tick, game);
+	(void) obj;
+	(void) param;
+	return (0);
+}
+
+unsigned int	sprite_adapt_coll(t_object *obj, void *param)
+{
+	(void) param;
+	return ((obj->position.x + obj->position.y) % 4);
 }

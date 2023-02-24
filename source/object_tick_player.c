@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   object_tick_player.c                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/02/24 13:31:41 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #include <stdbool.h>
@@ -11,7 +23,7 @@ void	object_tick_player(t_object *plyr, void *param)
 
 	game = param;
 	object_tick_default(plyr, param);
-	plyr_change_sprites(plyr, game);	
+	plyr_change_sprites(plyr, game);
 	plyr_check_collisions(plyr, game);
 }
 

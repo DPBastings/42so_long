@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 15:29:08 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 13:50:28 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef enum e_objs {
 	OBJ_EXIT,
 	OBJ_WALL,
 	N_OBJS,
-}	t_obj_ids;
+}	t_obj_id;
 
 typedef enum e_textures {
 	TXR_NONE = 0,
@@ -56,8 +56,9 @@ typedef enum e_textures {
 	TXR_COLL,
 	TXR_EXIT,
 	TXR_WALL,
+	//TXR_RAINBOW,
 	N_TEXTURES,
-}	t_texture_ids;
+}	t_txr_id;
 
 typedef enum e_sprites {
 	SPR_NONE = 0,
@@ -76,9 +77,12 @@ typedef enum e_sprites {
 	SPR_EXIT,
 	SPR_WALL_1111,
 	N_SPRITES,
-}	t_sprite_ids;
+}	t_spr_id;
 
 # define SPR_COLL_MAX		SPR_COLL_5
+# define SPR_WALL_MAX		SPR_WALL_1111
+# define N_COLL_SPR			(SPR_COLL_MAX - SPR_COLL_0 + 1)
+# define N_WALL_SPR			(SPR_WALL_MAX - SPR_WALL_1111 + 1)
 
 typedef enum e_dirs {
 	DIR_UP = 0,
@@ -86,7 +90,7 @@ typedef enum e_dirs {
 	DIR_DOWN,
 	DIR_LEFT,
 	N_DIRS,
-}	t_dir_ids;
+}	t_dir;
 
 typedef mlx_texture_t	t_texture;
 
@@ -112,8 +116,8 @@ typedef struct s_sprite {
  * @param obj_below		A pointer to the object below this one at the same coordinate.
  */
 typedef struct s_object {
-	uint32_t		type;
-	uint32_t		facing;
+	t_obj_id		type;
+	t_dir			facing;
 	int32_t			moving;
 	t_point			position;
 	bool			passable;
@@ -134,17 +138,17 @@ typedef struct s_map {
 # define NOWHERE	map->none
 
 typedef struct s_game {
-	size_t			ticks;
-	bool			lock_input;
-	t_texture		**textures;
-	mlx_texture_t	*gradient;
-	t_sprite		**sprites;
-	t_map			*map;
-	t_point			draw_offset;
-	unsigned int	score_max;
-	unsigned int	score;
-	unsigned int	moves;
-	mlx_t			*mlx;
+	uint64_t	ticks;
+	bool		lock_input;
+	t_texture	**textures;
+	t_texture	*gradient;
+	t_sprite	**sprites;
+	t_map		*map;
+	t_point		draw_offset;
+	uint32_t	score_max;
+	uint32_t	score;
+	uint32_t	moves;
+	mlx_t		*mlx;
 }	t_game;
 
 typedef enum e_sl_errno {
@@ -154,7 +158,15 @@ typedef enum e_sl_errno {
 	SL_INVARGS,
 	SL_INVEXT,
 	SL_INVPATH,
-	SL_INVMAP,
+	SL_INVMAP_DIMS,
+	SL_INVMAP_UNKNOWNOBJ,
+	SL_INVMAP_BOUNDS,
+	SL_INVMAP_NOSTART,
+	SL_INVMAP_NOEXIT,
+	SL_INVMAP_EXCSTART,
+	SL_INVMAP_EXCEXIT,
+	SL_INVMAP_NOCOLL,
+	SL_INVMAP_NOPATH,
 	N_SL_ERR,
 }	t_sl_errno;
 
@@ -178,8 +190,8 @@ t_sprite	**sprites_init(t_game *game);
 t_sprite	*sprite_new(t_game *game, unsigned int spr_id);
 t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
 			unsigned int origin_i, unsigned int frame);
-void		sprites_bind(t_game *game);
-void		sprite_bind(t_object *obj, t_game *game);
+void		sprites_setup(t_game *game);
+void		sprite_setup(t_object *obj, t_game *game);
 void		sprite_change(t_object *obj, t_sprite *newspr, t_game *game);
 void		sprites_destroy(t_sprite ***sprites, mlx_t *mlx);
 void		sprite_destroy(t_sprite **sprite, mlx_t *mlx);
@@ -192,17 +204,17 @@ void		sprite_animate_coll(t_sprite *spr, void *param);
 void		sprite_animate_move(t_sprite *spr, void *param);
 bool		sprite_animation_is_done(t_sprite *spr);
 
-typedef unsigned int (*t_spr_shifter)(t_object *obj, void *param);
-unsigned	sprite_shift_coll(t_object *obj, void *param);
-unsigned	sprite_shift_wall(t_object *obj, void *param);
+typedef unsigned int (*t_spr_adapter)(t_object *obj, void *param);
+unsigned	sprite_adapt_coll(t_object *obj, void *param);
+unsigned	sprite_adapt_wall(t_object *obj, void *param);
 
 void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
-uint8_t		*gradient_read(mlx_texture_t *gradient, uint32_t i);
+uint8_t		*gradient_read(t_texture *gradient, uint32_t i);
 
-t_object	*object_init(unsigned int type);
-t_object	**object_get_adjacent(t_object *obj, t_map *map, uint32_t dir);
+t_object	*object_init(t_obj_id type);
+t_object	**object_get_adjacent(t_object *obj, t_map *map, t_dir dir);
 bool		object_is_passable(t_object *object);
-void		object_move(t_object *obj, uint32_t dir, int32_t dist);
+void		object_move(t_object *obj, t_dir dir, int32_t dist);
 void		object_place(t_object *obj, t_map *map, t_point p);
 void		object_destroy(t_object **obj);
 bool		player_move(t_game *game, uint32_t dir);
@@ -217,14 +229,14 @@ t_map		*map_load(char const *filename);
 t_map		*map_init(t_plane dims);
 bool		map_check(t_map *map);
 uint32_t	map_get_maxscore(t_map *map);	
-void		map_set(t_map *map, t_list *bytemap);
+void		map_setup(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_point p);
 t_point		*map_get_adjacent(t_map *map, t_point p);
 void		map_destroy(t_map **map);
 
 t_point		point_get_adjacent(t_point p, uint32_t dir);
 
-void		sl_strerror(int errno);
-void		sl_error(int errno);
+void		sl_strerror(t_sl_errno errno);
+void		sl_error(t_sl_errno errno);
 
 #endif

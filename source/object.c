@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 13:03:09 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/24 13:44:43 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-static bool	lookup_passable[N_OBJS] = {
+static bool	g_lookup_passable[N_OBJS] = {
 	false,
 	true,
 	true,
@@ -39,7 +39,7 @@ t_object	*object_init(unsigned int type)
 	set_point(&new->position, -1, -1);
 	new->facing = 0;
 	new->moving = 0;
-	new->passable = lookup_passable[type];
+	new->passable = g_lookup_passable[type];
 	new->sprite = NULL;
 	new->instance_id = -1;
 	new->obj_below = NULL;
