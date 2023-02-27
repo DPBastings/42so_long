@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:40:27 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 14:59:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_game	*game_init(char const *filename)
 	game->gradient = gradient_load();
 	game->textures = textures_load(game);
 	game->sprites = sprites_init(game);
+	game->seed = seed_get(game);
 	sprites_setup(game);
 	ft_printf("Good luck!\n");
 	return (game);

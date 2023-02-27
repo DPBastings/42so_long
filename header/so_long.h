@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 16:18:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 14:48:25 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ typedef struct s_map {
 # define NOWHERE	map->none
 
 typedef struct s_game {
+	int32_t		seed;
 	uint64_t	ticks;
 	bool		lock_input;
 	t_texture	**textures;
@@ -174,6 +175,7 @@ t_game		*game_init(char const *filename);
 void		object_collect(t_game *game, t_object **obj);
 void		game_exit(t_game *game);
 void		game_end(t_game *game);
+int32_t		seed_get(t_game *game);
 
 void		hook_set(t_game *game);
 void		hook_close(void *param);

@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/02/24 14:17:33 by dbasting      ########   odam.nl          #
+#    Updated: 2023/02/27 14:39:37 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC_FILES	:= main.c\
 			object_tick_coll.c\
 			object_tick_default.c\
 			object_tick_player.c\
+			seed.c\
 			sprite.c\
 			sprite_adapt.c\
 			sprite_change.c\
