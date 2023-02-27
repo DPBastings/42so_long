@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 15:20:36 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 15:33:33 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
 
-static char const	*g_texture_files[] = {
+static char const	*g_texture_files[N_TEXTURES] = {
 	"",
 	"./assets/textures/verve.png",
 	"./assets/textures/verve_idle.png",
-	"./assets/textures/verve_walk.png",
+	"./assets/textures/verve_walk_up.png",
+	"./assets/textures/verve_walk_right.png",
+	"./assets/textures/verve_walk_down.png",
+	"./assets/textures/verve_walk_left.png",
 	"./assets/textures/orb.png",
-	"./assets/textures/harpsichord.png",
-	"./assets/textures/wall.png",
+	"./assets/textures/door.png",
+	"./assets/textures/wall_tiles.png",
 };
 
 t_texture	**textures_load(void)

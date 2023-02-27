@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 14:41:53 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 15:24:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ t_object	*object_init(unsigned int type)
 	new->sprite = NULL;
 	new->instance_id = -1;
 	new->obj_below = NULL;
-	if (new->type == OBJ_COLL)
-		printf("%u %u\n", new->dir, new->speed);
 	return (new);
 }
 

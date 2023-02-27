@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 14:48:25 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 16:31:09 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,13 @@ typedef enum e_textures {
 	TXR_NONE = 0,
 	TXR_PLYR,
 	TXR_PLYR_IDLE,
-	TXR_PLYR_WALK,
+	TXR_PLYR_WALK_U,
+	TXR_PLYR_WALK_R,
+	TXR_PLYR_WALK_D,
+	TXR_PLYR_WALK_L,
 	TXR_COLL,
 	TXR_EXIT,
+	//TXR_VORTEX,
 	TXR_WALL,
 	//TXR_RAINBOW,
 	N_TEXTURES,
@@ -75,14 +79,30 @@ typedef enum e_sprites {
 	SPR_COLL_4,
 	SPR_COLL_5,
 	SPR_EXIT,
+	SPR_WALL_0000,
+	SPR_WALL_1000,
+	SPR_WALL_0100,
+	SPR_WALL_1100,
+	SPR_WALL_0010,
+	SPR_WALL_1010,
+	SPR_WALL_0110,
+	SPR_WALL_1110,
+	SPR_WALL_0001,
+	SPR_WALL_1001,
+	SPR_WALL_0101,
+	SPR_WALL_1101,
+	SPR_WALL_0011,
+	SPR_WALL_1011,
+	SPR_WALL_0111,
 	SPR_WALL_1111,
+	//SPR_WALL_JUNC,
 	N_SPRITES,
 }	t_spr_id;
 
 # define SPR_COLL_MAX		SPR_COLL_5
 # define SPR_WALL_MAX		SPR_WALL_1111
 # define N_COLL_SPR			(SPR_COLL_MAX - SPR_COLL_0 + 1)
-# define N_WALL_SPR			(SPR_WALL_MAX - SPR_WALL_1111 + 1)
+# define N_WALL_SPR			(SPR_WALL_MAX - SPR_WALL_0000 + 1)
 
 typedef enum e_dirs {
 	DIR_UP = 0,
@@ -206,9 +226,9 @@ void		sprite_animate_coll(t_sprite *spr, void *param);
 void		sprite_animate_move(t_sprite *spr, void *param);
 bool		sprite_animation_is_done(t_sprite *spr);
 
-typedef unsigned int (*t_spr_adapter)(t_object *obj, void *param);
-unsigned	sprite_adapt_coll(t_object *obj, void *param);
-unsigned	sprite_adapt_wall(t_object *obj, void *param);
+typedef t_spr_id (*t_spr_adapter)(t_object *obj, void *param);
+t_spr_id	sprite_adapt_coll(t_object *obj, void *param);
+t_spr_id	sprite_adapt_wall(t_object *obj, void *param);
 
 void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
 uint8_t		*gradient_read(t_texture *gradient, uint32_t i);

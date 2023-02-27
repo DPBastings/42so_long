@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:39:02 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 16:50:03 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static const int			g_spr_id_lookup[N_OBJS] = {
 	SPR_PLYR,
 	SPR_COLL_0,
 	SPR_EXIT,
-	SPR_WALL_1111
+	SPR_WALL_0000,
 };
 static const t_spr_adapter	g_spr_adapter_lookup[N_OBJS] = {
 	sprite_adapt_pass,
@@ -59,6 +59,7 @@ void	sprite_setup(t_object *obj, t_game *game)
 		return ;
 	f = g_spr_adapter_lookup[obj->type];
 	obj->sprite = game->sprites[g_spr_id_lookup[obj->type] + f(obj, game)];
+	//do this differently: `f` should return the sprite directly
 	obj->instance_id = mlx_image_to_window(game->mlx,
 			obj->sprite->image,
 			obj->position.x * GRID_W, obj->position.y * GRID_H);

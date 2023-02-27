@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 16:15:03 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 16:39:50 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,36 @@ typedef enum e_spr_param {
 	N_SPR_PARAM,
 }	t_spr_param;
 static const uint32_t	g_lookup_spr_param[N_SPRITES * N_SPR_PARAM] = {
-	TXR_NONE,		0,
-	TXR_PLYR,		0,
-	TXR_PLYR_IDLE,	12,
-	TXR_PLYR_WALK,	12,
-	TXR_PLYR_WALK,	12,
-	TXR_PLYR_WALK,	12,
-	TXR_PLYR_WALK,	12,
-	TXR_COLL,		-1,
-	TXR_COLL,		-1,
-	TXR_COLL,		-1,
-	TXR_COLL,		-1,
-	TXR_COLL,		-1,
-	TXR_COLL,		-1,
-	TXR_EXIT,		-1,
-	TXR_WALL,		0,
+	TXR_NONE,			0,
+	TXR_PLYR,			0,
+	TXR_PLYR_IDLE,		12,
+	TXR_PLYR_WALK_U,	12,
+	TXR_PLYR_WALK_R,	12,
+	TXR_PLYR_WALK_D,	12,
+	TXR_PLYR_WALK_L,	12,
+	TXR_COLL,			-1,
+	TXR_COLL,			-1,
+	TXR_COLL,			-1,
+	TXR_COLL,			-1,
+	TXR_COLL,			-1,
+	TXR_COLL,			-1,
+	TXR_EXIT,			-1,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
+	TXR_WALL,			0,
 };
 
 t_sprite	**sprites_init(t_game *game)
@@ -77,10 +92,11 @@ t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 				(SPR_COLL_MAX - spr_id) * (GRID_W / N_COLL_SPR));
 	else if (txr_id == TXR_WALL)
 		sprite = sprite_load(texture, game->mlx,
-				SPR_WALL_1111 - spr_id, 0);
+				spr_id - SPR_WALL_0000, 0);
 	else
 		sprite = sprite_load(texture, game->mlx, 0, 0);
 	sprite->frame_max = g_lookup_spr_param[spr_id * N_SPR_PARAM + P_FRAME_MAX];
+	printf("%p\n", sprite);
 	return (sprite);
 }
 
