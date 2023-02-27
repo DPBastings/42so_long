@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:45:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:46:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 13:59:51 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static bool	object_setup(t_map *map, t_point p, char type)
 		return (false);
 	obj->obj_below = NOWHERE;
 	object_place(obj, map, p);
+	if (obj->type == OBJ_COLL)
+		printf("<%u %u>\n", obj->dir, obj->speed);
 	if (obj->type == OBJ_PLYR)
 		map->player = obj;
 	else if (obj->type == OBJ_EXIT)

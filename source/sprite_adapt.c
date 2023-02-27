@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:34:54 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:37:46 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 14:18:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ unsigned int	sprite_adapt_wall(t_object *obj, void *param)
 unsigned int	sprite_adapt_coll(t_object *obj, void *param)
 {
 	(void) param;
-	return ((obj->position.x + obj->position.y) % 4);
+	obj->dir = ((obj->position.x + obj->position.y) % 2 * 2);
+	return ((obj->position.x + obj->position.y) % N_COLL_SPR);
 }

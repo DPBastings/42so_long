@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 16:03:58 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/02/27 14:41:53 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum e_obj_param {
 static uint16_t	g_lookup_obj_params[N_OBJS * N_OBJ_PARAMS] = {
 	0,	0,	false,
 	2,	0,	true,
-	2,	2,	true,
+	0,	1,	true,
 	0,	0,	true,
 	0,	0,	false,
 };
@@ -51,6 +51,8 @@ t_object	*object_init(unsigned int type)
 	new->sprite = NULL;
 	new->instance_id = -1;
 	new->obj_below = NULL;
+	if (new->type == OBJ_COLL)
+		printf("%u %u\n", new->dir, new->speed);
 	return (new);
 }
 

@@ -13,3 +13,5 @@ so_long
 
 # Misc
 *.swp
+.DS_Store
+test
