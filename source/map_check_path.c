@@ -59,7 +59,7 @@ static bool	check_point(t_point p, t_map *map)
 		if ((*obj)->instance_id == CHECKED)
 			return (false);
 		if ((*obj)->type == OBJ_EXIT)
-			return ((*obj)->passable = false, true);
+			return (true);
 		(*obj)->instance_id = CHECKED;
 	}
 	else

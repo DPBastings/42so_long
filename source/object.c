@@ -13,23 +13,25 @@
 #include "so_long.h"
 
 #include "libft.h"
+#include <limits.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
 //Lookup table for various t_object members.
 typedef enum e_obj_param {
-	P_OBJ_DIR = 0,
+	P_OBJ_Z	= 0,
+	P_OBJ_DIR,
 	P_OBJ_SPEED,
 	P_OBJ_PASSABLE,
 	N_OBJ_PARAMS,
 }	t_obj_param;
 
 static uint16_t	g_lookup_obj_params[N_OBJS * N_OBJ_PARAMS] = {
-	0,	0,	false,
-	2,	0,	true,
-	0,	1,	true,
-	0,	0,	true,
-	0,	0,	false,
+	2,	0,	0,	false,
+	2,	2,	0,	true,
+	1,	0,	1,	true,
+	0,	0,	0,	true,
+	1,	0,	0,	false,
 };
 
 /* t_object *object_init(unsigned int type)
@@ -45,6 +47,7 @@ t_object	*object_init(unsigned int type)
 		return (NULL);
 	new->type = type;
 	set_point(&new->position, -1, -1);
+	new->z = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_Z];
 	new->dir = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_DIR];
 	new->speed = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_SPEED];
 	new->passable = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_PASSABLE];

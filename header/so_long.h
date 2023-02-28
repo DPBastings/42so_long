@@ -148,6 +148,7 @@ typedef struct s_object {
 	uint16_t		dir;
 	uint16_t		speed;
 	t_point			position;
+	uint32_t		z;
 	bool			passable;
 	bool			ticked;
 	t_sprite		*sprite;

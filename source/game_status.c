@@ -23,7 +23,6 @@ void	object_collect(t_game *game, t_object **obj)
 	{
 		game->sprites[SPR_EXIT]->animator = sprite_animate;
 		game->map->exit->sprite->frame_max = 16;
-		game->map->exit->passable = true;
 	}
 }
 
