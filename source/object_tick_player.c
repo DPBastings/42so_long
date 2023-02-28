@@ -33,17 +33,16 @@ static void	plyr_tick_move(t_object *plyr, t_game *game)
 {
 	object_move_sprite(plyr);
 	if (object_align_grid(plyr, game->map))
+	{
 		plyr->speed = 0;
+		game->lock_input = false;
+		if (!hook_keys_move(game))
+			sprite_change(plyr, game->sprites[SPR_PLYR], game);
+	}
 }
 
 static void	plyr_change_sprites(t_object *plyr, t_game *game)
 {
-	if (plyr->speed == 0 && sprite_animation_is_done(plyr->sprite))
-	{
-		game->lock_input = false;
-		sprite_change(plyr, game->sprites[SPR_PLYR], game);
-		plyr->sprite->frame = 0;
-	}
 	if (plyr->sprite == game->sprites[SPR_PLYR] && game->ticks % 48 == 0)
 	{
 		sprite_change(plyr, game->sprites[SPR_PLYR_IDLE], game);

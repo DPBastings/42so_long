@@ -32,6 +32,21 @@ static t_spr_animator	g_lookup_animator[N_SPRITES] = {
 	sprite_animate_coll,
 	sprite_animate_pass,
 	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
+	sprite_animate_pass,
 };
 
 void	sprites_animate(t_game *game)

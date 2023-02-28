@@ -45,7 +45,6 @@ SRC_FILES	:= main.c\
 			object_tick_player.c\
 			seed.c\
 			sprite.c\
-			sprite_adapt.c\
 			sprite_change.c\
 			sprite_hueshift.c\
 			sprite_setup.c\

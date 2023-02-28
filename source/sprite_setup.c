@@ -15,27 +15,25 @@
 #include "MLX42/MLX42.h"
 #include "mlx42_utils.h"
 
-static unsigned int	sprite_adapt_pass(t_object *obj, void *param);
-
-static const int			g_spr_id_lookup[N_OBJS] = {
+static const t_spr_id		g_lkup_spr_id[N_OBJS] = {
 	SPR_NONE,
 	SPR_PLYR,
 	SPR_COLL_0,
 	SPR_EXIT,
 	SPR_WALL_0000,
 };
-static const t_spr_adapter	g_spr_adapter_lookup[N_OBJS] = {
-	sprite_adapt_pass,
-	sprite_adapt_pass,
-	sprite_adapt_coll,
-	sprite_adapt_pass,
-	sprite_adapt_wall,
+static const t_spr_setter	g_lkup_spr_setter[N_OBJS] = {
+	sprite_set_default,
+	sprite_set_default,
+	sprite_set_coll,
+	sprite_set_default,
+	sprite_set_wall,
 };
 
 void	sprites_setup(t_game *game)
 {
 	t_point		p;
-	t_object	**obj;
+	t_object	*obj;
 
 	p.y = 0;
 	while (p.y < game->map->dims.h)
@@ -43,33 +41,50 @@ void	sprites_setup(t_game *game)
 		p.x = 0;
 		while (p.x < game->map->dims.w)
 		{
-			obj = map_index(game->map, p);
-			sprite_setup(*obj, game);
+			obj = *map_index(game->map, p);
+			if (obj)
+				g_lkup_spr_setter[obj->type](obj, game);
 			p.x++;
 		}
 		p.y++;
 	}
 }
 
-void	sprite_setup(t_object *obj, t_game *game)
+void	sprite_set_default(t_object *obj, t_game *game)
 {
-	t_spr_adapter	f;
-
-	if (obj == NULL)
-		return ;
-	f = g_spr_adapter_lookup[obj->type];
-	obj->sprite = game->sprites[g_spr_id_lookup[obj->type] + f(obj, game)];
-	//do this differently: `f` should return the sprite directly
-	obj->instance_id = mlx_image_to_window(game->mlx,
-			obj->sprite->image,
-			obj->position.x * GRID_W, obj->position.y * GRID_H);
-	if (obj->instance_id == -1)
-		sl_error(SL_MEMFAIL);
+	t_spr_id	id;
+	
+	id = g_lkup_spr_id[obj->type];
+	sprite_change(obj, game->sprites[id], game);
 }
 
-static unsigned int	sprite_adapt_pass(t_object *obj, void *param)
+void	sprite_set_coll(t_object *obj, t_game *game)
 {
-	(void) obj;
-	(void) param;
-	return (0);
+	t_spr_id	id;
+	int32_t		x;
+
+	x = game->seed / (obj->position.x * obj->position.y + 1);
+	id = SPR_COLL_0 + (x % N_COLL_SPR);
+	sprite_change(obj, game->sprites[id], game);
+	obj->dir = ((x - (int32_t) obj->position.y) % 2 * 2);
+}
+
+void	sprite_set_wall(t_object *obj, t_game *game)
+{
+	t_spr_id	id;
+	t_dir		dir;
+	t_object	*adj;
+
+	id = 0;
+	dir = 0;
+	while (dir < N_DIRS)
+	{
+		id <<= 1;
+		adj = *map_index(game->map, point_get_adjacent(obj->position, dir));
+		if (!(adj && (adj->type == OBJ_WALL || adj == game->NOWHERE)))
+			id++;
+		dir++;
+	}
+	id += SPR_WALL_0000;
+	sprite_change(obj, game->sprites[id], game);
 }

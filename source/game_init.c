@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 static mlx_texture_t	*gradient_load(void);
-static mlx_t			*screen_init(unsigned int width, unsigned int height);
+static mlx_t			*screen_init(uint32_t width, uint32_t height);
 static void				game_abort(t_game *game, int errno);
 
 t_game	*game_init(char const *filename)
@@ -34,14 +34,14 @@ t_game	*game_init(char const *filename)
 	game->score_max = map_get_maxscore(game->map);
 	game->mlx = screen_init(game->map->dims.w * GRID_W,
 			game->map->dims.h * GRID_H);
-	if (game->mlx == NULL)
-		game_abort(game, SL_MEMFAIL);
 	ft_printf("Loading assets...\n");
 	game->gradient = gradient_load();
 	game->textures = textures_load(game);
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
 	sprites_setup(game);
+	for (int spr = 0; spr < N_SPRITES; spr++)
+		printf("%d: %p\n", spr, game->sprites[spr]);
 	ft_printf("Good luck!\n");
 	return (game);
 }
@@ -56,13 +56,18 @@ static mlx_texture_t	*gradient_load(void)
 	return (gradient);
 }
 
-static mlx_t	*screen_init(unsigned int width, unsigned int height)
+static mlx_t	*screen_init(uint32_t width, uint32_t height)
 {
+	mlx_t	*mlx;
+
 	if (width < SCREEN_MIN_W)
 		width = SCREEN_MIN_W;
 	if (height < SCREEN_MIN_H)
 		height = SCREEN_MIN_H;
-	return (mlx_init(width, height, SL_TITLE, false));
+	mlx = mlx_init(width, height, SL_TITLE, false);
+	if (mlx == NULL)
+		sl_error(SL_MEMFAIL);
+	return (mlx);
 }
 
 static void	game_abort(t_game *game, int errno)

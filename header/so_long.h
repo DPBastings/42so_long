@@ -32,8 +32,8 @@
 
 # define GRID_W				48
 # define GRID_H				48
-# define SCREEN_MIN_W		1152
-# define SCREEN_MIN_H		864
+# define SCREEN_MIN_W		768
+# define SCREEN_MIN_H		432
 
 # define SEC_PER_TICK		0.042
 
@@ -226,9 +226,10 @@ void		sprite_animate_coll(t_sprite *spr, void *param);
 void		sprite_animate_move(t_sprite *spr, void *param);
 bool		sprite_animation_is_done(t_sprite *spr);
 
-typedef t_spr_id (*t_spr_adapter)(t_object *obj, void *param);
-t_spr_id	sprite_adapt_coll(t_object *obj, void *param);
-t_spr_id	sprite_adapt_wall(t_object *obj, void *param);
+typedef void (*t_spr_setter)(t_object *obj, t_game *game);
+void		sprite_set_default(t_object *obj, t_game *game);
+void		sprite_set_coll(t_object *obj, t_game *game);
+void		sprite_set_wall(t_object *obj, t_game *game);
 
 void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
 uint8_t		*gradient_read(t_texture *gradient, uint32_t i);

@@ -96,7 +96,6 @@ t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 	else
 		sprite = sprite_load(texture, game->mlx, 0, 0);
 	sprite->frame_max = g_lookup_spr_param[spr_id * N_SPR_PARAM + P_FRAME_MAX];
-	printf("%p\n", sprite);
 	return (sprite);
 }
 
