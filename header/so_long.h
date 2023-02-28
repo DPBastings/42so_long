@@ -37,7 +37,11 @@
 
 # define SEC_PER_TICK		0.042
 
+/* These values should be divisors of both GRID_W and GRID_H (if not, grid
+ * alignment will no longer work properly."
+ */
 # define PLAYER_SPEED		6
+# define ENEMY_SPEED		8
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -115,17 +119,21 @@ typedef enum e_dirs {
 typedef mlx_texture_t	t_texture;
 
 /* Sprite object.
- * @param texture	The texture/spritesheet from which the sprite was created.
- * @param image		The sprite's image.
+ * @param texture	The texture/spritesheet from which this sprite was created.
+ * @param image		This sprite's image.
  * @param frame		The current animation frame.
  * @param frame_max	The maximum number of frames.
+ * @param animator	The function used to animate this sprite.
  */
 typedef struct s_sprite {
 	mlx_texture_t	*texture;
 	mlx_image_t		*image;
 	uint32_t		frame;
 	uint32_t		frame_max;
+	void 			(*animator)(struct s_sprite *, void *);
 }	t_sprite;
+
+typedef void (*t_spr_animator)(t_sprite *spr, void *param);
 
 /* Object object.
  * @param type			The object's type.
@@ -218,7 +226,6 @@ void		sprite_change(t_object *obj, t_sprite *newspr, t_game *game);
 void		sprites_destroy(t_sprite ***sprites, mlx_t *mlx);
 void		sprite_destroy(t_sprite **sprite, mlx_t *mlx);
 
-typedef void (*t_spr_animator)(t_sprite *spr, void *param);
 void		sprites_animate(t_game *game);
 void		sprite_animate_pass(t_sprite *spr, void *param);
 void		sprite_animate(t_sprite *spr, void *param);
@@ -250,6 +257,7 @@ void		object_tick_default(t_object *obj, void *param);
 void		object_tick_move(t_object *obj, void *param);
 void		object_tick_coll(t_object *coll, void *param);
 void		object_tick_enemy(t_object *enmy, void *param);
+void		object_tick_exit(t_object *exit, void *param);
 void		object_tick_player(t_object *plyr, void *param);
 
 t_map		*map_load(char const *filename);

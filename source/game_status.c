@@ -21,7 +21,8 @@ void	object_collect(t_game *game, t_object **obj)
 		game->score, game->score_max);
 	if (game->score == game->score_max)
 	{
-		game->map->exit->sprite->frame_max = 12;
+		game->sprites[SPR_EXIT]->animator = sprite_animate;
+		game->map->exit->sprite->frame_max = 16;
 		game->map->exit->passable = true;
 	}
 }

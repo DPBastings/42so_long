@@ -40,8 +40,6 @@ t_game	*game_init(char const *filename)
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
 	sprites_setup(game);
-	for (int spr = 0; spr < N_SPRITES; spr++)
-		printf("%d: %p\n", spr, game->sprites[spr]);
 	ft_printf("Good luck!\n");
 	return (game);
 }

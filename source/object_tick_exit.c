@@ -17,9 +17,8 @@
 
 void	object_tick_exit(t_object *exit, void *param)
 {
-	t_game			*game;
-
-	game = param;
-	if (game->score >= game->score_max)
-		exit->sprite->frame_max = 12;
+	(void) param;
+	if (exit->sprite->animator == sprite_animate
+			&& sprite_animation_is_done(exit->sprite))
+		exit->sprite->animator = sprite_animate_pass;
 }

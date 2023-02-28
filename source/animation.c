@@ -16,47 +16,14 @@
 #include <math.h>
 #include <stdbool.h>
 
-static t_spr_animator	g_lookup_animator[N_SPRITES] = {
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate,
-	sprite_animate,
-	sprite_animate,
-	sprite_animate,
-	sprite_animate,
-	sprite_animate_coll,
-	sprite_animate_coll,
-	sprite_animate_coll,
-	sprite_animate_coll,
-	sprite_animate_coll,
-	sprite_animate_coll,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-	sprite_animate_pass,
-};
-
 void	sprites_animate(t_game *game)
 {
 	t_spr_id	id;
 
-	id = 0;
+	id = 1;
 	while (id < N_SPRITES)
 	{
-		g_lookup_animator[id](game->sprites[id], game);
+		game->sprites[id]->animator(game->sprites[id], game);
 		id++;
 	}
 }

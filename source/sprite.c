@@ -24,7 +24,7 @@ typedef enum e_spr_param {
 	P_FRAME_MAX,
 	N_SPR_PARAM,
 }	t_spr_param;
-static const uint32_t	g_lookup_spr_param[N_SPRITES * N_SPR_PARAM] = {
+static const uint32_t	g_lut_spr_param[N_SPRITES * N_SPR_PARAM] = {
 	TXR_NONE,			0,
 	TXR_PLYR,			0,
 	TXR_PLYR_IDLE,		12,
@@ -38,7 +38,7 @@ static const uint32_t	g_lookup_spr_param[N_SPRITES * N_SPR_PARAM] = {
 	TXR_COLL,			-1,
 	TXR_COLL,			-1,
 	TXR_COLL,			-1,
-	TXR_EXIT,			-1,
+	TXR_EXIT,			0,
 	TXR_WALL,			0,
 	TXR_WALL,			0,
 	TXR_WALL,			0,
@@ -85,7 +85,7 @@ t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 	uint32_t	txr_id;
 	t_texture	*texture;
 
-	txr_id = g_lookup_spr_param[spr_id * N_SPR_PARAM + P_TXR_ID];
+	txr_id = g_lut_spr_param[spr_id * N_SPR_PARAM + P_TXR_ID];
 	texture = game->textures[txr_id];
 	if (txr_id == TXR_COLL)
 		sprite = sprite_load(texture, game->mlx, 0,
@@ -95,7 +95,13 @@ t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 				spr_id - SPR_WALL_0000, 0);
 	else
 		sprite = sprite_load(texture, game->mlx, 0, 0);
-	sprite->frame_max = g_lookup_spr_param[spr_id * N_SPR_PARAM + P_FRAME_MAX];
+	sprite->frame_max = g_lut_spr_param[spr_id * N_SPR_PARAM + P_FRAME_MAX];
+	if (sprite->frame_max == 0)
+		sprite->animator = sprite_animate_pass;
+	else if (spr_id >= SPR_COLL_0 && spr_id <= SPR_COLL_MAX)
+		sprite->animator = sprite_animate_coll;
+	else
+		sprite->animator = sprite_animate;
 	return (sprite);
 }
 
