@@ -32,12 +32,12 @@
 
 # define GRID_W				48
 # define GRID_H				48
-# define SCREEN_MIN_W		768
-# define SCREEN_MIN_H		432
+# define SCREEN_MIN_W		384
+# define SCREEN_MIN_H		240
 
 # define SEC_PER_TICK		0.042
 
-# define PLAYER_SPEED		4
+# define PLAYER_SPEED		6
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
