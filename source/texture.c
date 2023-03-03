@@ -27,6 +27,7 @@ static char const	*g_texture_files[N_TEXTURES] = {
 	"./assets/textures/verve_walk_left.png",
 	"./assets/textures/orb.png",
 	"./assets/textures/door.png",
+	"./assets/textures/vortex.png",
 	"./assets/textures/wall_tiles.png",
 };
 

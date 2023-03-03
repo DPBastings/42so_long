@@ -21,6 +21,7 @@ static t_obj_ticker	g_lookup_ticker[N_OBJS] = {
 	object_tick_coll,
 	object_tick_exit,
 	object_tick_default,
+	object_tick_default,
 };
 
 static void	object_tick(t_object *obj, void *param);

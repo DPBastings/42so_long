@@ -11,7 +11,11 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+#include "libft.h"
 #include "MLX42/MLX42.h"
+
+static void	create_vortex(t_game *game);
 
 void	object_collect(t_game *game, t_object **obj)
 {
@@ -21,9 +25,28 @@ void	object_collect(t_game *game, t_object **obj)
 		game->score, game->score_max);
 	if (game->score == game->score_max)
 	{
+		create_vortex(game);
 		game->sprites[SPR_EXIT]->animator = sprite_animate;
 		game->map->exit->sprite->frame_max = 16;
 	}
+}
+
+static void	create_vortex(t_game *game)
+{
+	t_object	*vortex;
+
+	vortex = ft_calloc(1, sizeof(t_object));
+	if (vortex == NULL)
+		sl_error(SL_MEMFAIL);
+	vortex->type = OBJ_ANIM;
+	vortex->position = game->map->exit->position;
+	vortex->z = game->map->exit->z + 1;
+	sprite_change(vortex, game->sprites[SPR_VORTEX], game);
+	vortex->sprite->frame_max = -1;
+	vortex->sprite->animator = sprite_animate_vortex;
+	mlx_set_instance_depth(&vortex->sprite->image->instances[vortex->instance_id],
+			vortex->z);
+	game->map->exit->obj_below = vortex;
 }
 
 void	game_exit(t_game *game)

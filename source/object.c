@@ -27,11 +27,12 @@ typedef enum e_obj_param {
 }	t_obj_param;
 
 static uint16_t	g_lookup_obj_params[N_OBJS * N_OBJ_PARAMS] = {
-	2,	0,	0,	false,
-	2,	2,	0,	true,
-	1,	0,	1,	true,
+	3,	0,	0,	false,
+	3,	2,	0,	true,
+	2,	0,	1,	true,
 	0,	0,	0,	true,
 	1,	0,	0,	false,
+	0,	0,	0,	true,
 };
 
 /* t_object *object_init(unsigned int type)

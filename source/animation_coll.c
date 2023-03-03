@@ -22,3 +22,12 @@ void	sprite_animate_coll(t_sprite *spr, void *param)
 	sprite_overlay_gradient(spr, game->gradient);
 	spr->frame++;
 }
+
+void	sprite_animate_vortex(t_sprite *spr, void *param)
+{
+	t_game	*game;
+	
+	game = param;
+	sprite_animate(spr, game);
+	sprite_overlay_gradient(spr, game->gradient);
+}

@@ -50,5 +50,5 @@ static void	instance_update_position(t_object *obj)
 	instance = &obj->sprite->image->instances[obj->instance_id];
 	instance->x = obj->position.x * GRID_W;
 	instance->y = obj->position.y * GRID_H;
-	mlx_set_instance_depth(instance, obj->z);
+	//mlx_set_instance_depth(instance, obj->z);
 }
