@@ -29,13 +29,17 @@ uint8_t	*pixel_get(uint8_t *pixels, uint32_t wh[2], uint32_t x, uint32_t y)
 void	pixel_overlay(uint8_t *pixel, uint8_t *overlay)
 {
 	double	factor;
+	uint8_t	max;
+	uint8_t	min;
 	size_t	i;
 
 	if (pixel == NULL || overlay == NULL)
 		return ;
 	if (pixel[R] == pixel[G] && pixel[G] == pixel[B])
 		return ;
-	factor = (double) ft_uintmax(3, pixel[R], pixel[G], pixel[B]) / UCHAR_MAX;
+	max = ft_uintmax(3, pixel[R], pixel[G], pixel[B]);
+	min = ft_uintmin(3, pixel[R], pixel[G], pixel[B]);
+	factor = (double) (max - min) / UCHAR_MAX;
 	i = R;
 	while (i < A)
 	{
