@@ -24,5 +24,5 @@ void	object_tick_move(t_object *obj, void *param)
 
 	game = param;
 	object_move_sprite(obj);
-	object_align_grid(obj, game->map);
+	object_align_grid(obj, game);
 }

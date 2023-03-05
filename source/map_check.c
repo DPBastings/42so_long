@@ -31,22 +31,22 @@ bool	map_check_walls(t_map *map)
 	uint32_t	c;
 
 	c = 0;
-	while (c < map->dims.w)
+	while (c < map->dims.x)
 	{
 		if (map->objs[0][c] == NULL
 				|| map->objs[0][c]->type != OBJ_WALL
-				|| map->objs[map->dims.h - 1][c] == NULL
-				|| map->objs[map->dims.h - 1][c]->type != OBJ_WALL)
+				|| map->objs[map->dims.y - 1][c] == NULL
+				|| map->objs[map->dims.y - 1][c]->type != OBJ_WALL)
 			return (false);
 		c++;
 	}
 	c = 1;
-	while (c < map->dims.h - 1)
+	while (c < map->dims.y - 1)
 	{
 		if (map->objs[c][0] == NULL
 				|| map->objs[c][0]->type != OBJ_WALL
-				|| map->objs[c][map->dims.w - 1] == NULL
-				|| map->objs[c][map->dims.w - 1]->type != OBJ_WALL)
+				|| map->objs[c][map->dims.x - 1] == NULL
+				|| map->objs[c][map->dims.x - 1]->type != OBJ_WALL)
 			return (false);
 		c++;
 	}
@@ -56,14 +56,14 @@ bool	map_check_walls(t_map *map)
 bool	map_check_objects(t_map *map)
 {
 	int			reqs;
-	t_point		p;
+	t_upoint	p;
 
 	reqs = 0;
 	p.y = 1;
-	while (p.y < map->dims.h - 1)
+	while (p.y < map->dims.y - 1)
 	{
 		p.x = 1;
-		while (p.x < map->dims.w - 1)
+		while (p.x < map->dims.x - 1)
 		{
 			if (!check_object(map->objs[p.y][p.x], &reqs))
 				return (false);
@@ -101,15 +101,15 @@ static bool	check_object(t_object *obj, int *reqs)
 uint32_t	map_get_maxscore(t_map *map)
 {
 	uint32_t	c;
-	t_point		p;
+	t_upoint	p;
 	t_object	*obj;
 
 	c = 0;
 	p.y = 1;
-	while (p.y < map->dims.h - 1)
+	while (p.y < map->dims.y - 1)
 	{
 		p.x = 1;
-		while (p.x < map->dims.w - 1)
+		while (p.x < map->dims.x - 1)
 		{
 			obj = *map_index(map, p);
 			if (obj && obj->type == OBJ_COLL)

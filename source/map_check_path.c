@@ -21,7 +21,7 @@
 #define UNCHECKED	-1
 #define CHECKED		1
 
-static bool		check_point(t_point p, t_map *map);
+static bool		check_point(t_upoint p, t_map *map);
 static void		map_clean(t_map *map);
 
 /* bool map_check_path(t_map *map)
@@ -47,11 +47,12 @@ bool	map_check_path(t_map *map)
  * adjacent passable, unchecked points.
  * Returns false if the map doesn't contain a reachable exit.
  */
-static bool	check_point(t_point p, t_map *map)
+static bool	check_point(t_upoint p, t_map *map)
 {
 	t_object	**obj;
-	t_point		*adj;
-	size_t		i;
+	//t_upoint	*adj;
+	t_upoint	adj;
+	t_dir		dir;
 
 	obj = map_index(map, p);
 	if (*obj)
@@ -64,16 +65,17 @@ static bool	check_point(t_point p, t_map *map)
 	}
 	else
 		*obj = NOWHERE;
-	adj = map_get_adjacent(map, p);
-	i = 0;
-	while (i < N_DIRS)
+	//adj = map_get_adjacent(map, p);
+	dir = 0;
+	while (dir < N_DIRS)
 	{
-		if (object_is_passable(*map_index(map, adj[i]))
-			&& check_point(adj[i], map))
-			return (free(adj), true);
-		i++;
+		adj = upoint_get_adjacent(p, dir);
+		if (object_is_passable(*map_index(map, adj))
+			&& check_point(adj, map))
+			return (true);
+		dir++;
 	}
-	return (free(adj), false);
+	return (false);
 }
 
 /* void	map_clean(t_map *map)
@@ -83,14 +85,14 @@ static bool	check_point(t_point p, t_map *map)
  */
 static void	map_clean(t_map *map)
 {
-	t_point		p;
+	t_upoint	p;
 	t_object	**obj;
 
 	p.y = 1;
-	while (p.y < map->dims.h - 1)
+	while (p.y < map->dims.y - 1)
 	{
 		p.x = 1;
-		while (p.x < map->dims.w - 1)
+		while (p.x < map->dims.x - 1)
 		{
 			obj = map_index(map, p);
 			if (*obj)

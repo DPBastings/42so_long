@@ -32,8 +32,9 @@
 
 # define GRID_W				48
 # define GRID_H				48
-# define SCREEN_MIN_W		384
-# define SCREEN_MIN_H		240
+# define SCREEN_W			GRID_W * 21
+# define SCREEN_H			GRID_H * 15
+# define HUD_H				144
 
 # define SEC_PER_TICK		0.042
 
@@ -49,6 +50,7 @@ typedef enum e_objs {
 	OBJ_COLL,
 	OBJ_EXIT,
 	OBJ_WALL,
+	OBJ_ANIM,
 	N_OBJS,
 }	t_obj_id;
 
@@ -62,7 +64,7 @@ typedef enum e_textures {
 	TXR_PLYR_WALK_L,
 	TXR_COLL,
 	TXR_EXIT,
-	//TXR_VORTEX,
+	TXR_VORTEX,
 	TXR_WALL,
 	//TXR_RAINBOW,
 	N_TEXTURES,
@@ -83,6 +85,7 @@ typedef enum e_sprites {
 	SPR_COLL_4,
 	SPR_COLL_5,
 	SPR_EXIT,
+	SPR_VORTEX,
 	SPR_WALL_0000,
 	SPR_WALL_1000,
 	SPR_WALL_0100,
@@ -147,7 +150,7 @@ typedef struct s_object {
 	t_obj_id		type;
 	uint16_t		dir;
 	uint16_t		speed;
-	t_point			position;
+	t_upoint		position;
 	uint32_t		z;
 	bool			passable;
 	bool			ticked;
@@ -157,7 +160,7 @@ typedef struct s_object {
 }	t_object;
 
 typedef struct s_map {
-	t_plane		dims;
+	t_upoint	dims;
 	t_object	***objs;
 	t_object	*player;
 	t_object	*exit;
@@ -165,6 +168,11 @@ typedef struct s_map {
 }	t_map;
 
 # define NOWHERE	map->none
+
+typedef struct s_view {
+	t_point	origin;
+	t_point	offset;
+}	t_view;
 
 typedef struct s_game {
 	int32_t		seed;
@@ -178,11 +186,13 @@ typedef struct s_game {
 	uint32_t	score_max;
 	uint32_t	score;
 	uint32_t	moves;
+	t_view		view;
 	mlx_t		*mlx;
 }	t_game;
 
 typedef enum e_sl_errno {
 	SL_SUCCESS = 0,
+	SL_GENERIC,
 	SL_MEMFAIL,
 	SL_BADASS,
 	SL_INVARGS,
@@ -231,7 +241,7 @@ void		sprites_animate(t_game *game);
 void		sprite_animate_pass(t_sprite *spr, void *param);
 void		sprite_animate(t_sprite *spr, void *param);
 void		sprite_animate_coll(t_sprite *spr, void *param);
-void		sprite_animate_move(t_sprite *spr, void *param);
+void		sprite_animate_vortex(t_sprite *spr, void *param);
 bool		sprite_animation_is_done(t_sprite *spr);
 
 typedef void (*t_spr_setter)(t_object *obj, t_game *game);
@@ -243,14 +253,14 @@ void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
 uint8_t		*gradient_read(t_texture *gradient, uint32_t i);
 
 t_object	*object_init(t_obj_id type);
-bool		object_align_grid(t_object *obj, t_map *map);
+bool		object_align_grid(t_object *obj, t_game *game);
 t_object	**object_get_adjacent(t_object *obj, t_map *map, t_dir dir);
 bool		object_is_passable(t_object *object);
-void		object_move(t_object *obj, t_dir dir, uint16_t speed);
+void		object_move(t_object *obj, t_dir dir, uint32_t speed);
 void		object_move_sprite(t_object *obj);
-void		object_place(t_object *obj, t_map *map, t_point p);
+void		object_place(t_object *obj, t_map *map, t_upoint p);
 void		object_destroy(t_object **obj);
-bool		player_move(t_game *game, uint32_t dir);
+bool		player_move(t_game *game, t_dir dir);
 
 typedef void (*t_obj_ticker)(t_object *obj, void *param);
 void		objects_tick(t_game *game);
@@ -262,15 +272,20 @@ void		object_tick_exit(t_object *exit, void *param);
 void		object_tick_player(t_object *plyr, void *param);
 
 t_map		*map_load(char const *filename);
-t_map		*map_init(t_plane dims);
+t_map		*map_init(t_upoint dims);
 bool		map_check(t_map *map);
 uint32_t	map_get_maxscore(t_map *map);	
 void		map_setup(t_map *map, t_list *bytemap);
-t_object	**map_index(t_map *map, t_point p);
+t_object	**map_index(t_map *map, t_upoint p);
 t_point		*map_get_adjacent(t_map *map, t_point p);
 void		map_destroy(t_map **map);
 
-t_point		point_get_adjacent(t_point p, uint32_t dir);
+int32_t		view_xview(int32_t x, t_view view);
+int32_t		view_yview(int32_t y, t_view view);
+t_point		view_pview(t_point p, t_view view);
+uint32_t	view_xgrid(int32_t x, t_view view);
+uint32_t	view_ygrid(int32_t y, t_view view);
+t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
 
 void		sl_strerror(t_sl_errno errno);
 void		sl_error(t_sl_errno errno);

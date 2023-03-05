@@ -36,9 +36,9 @@ void	sprite_animate_pass(t_sprite *spr, void *param)
 
 void	sprite_animate(t_sprite *spr, void *param)
 {
-	uint8_t	*src;
-	uint8_t	*dst;
-	t_point	p;
+	uint8_t		*src;
+	uint8_t		*dst;
+	t_upoint	p;
 
 	(void) param;
 	p.x = spr->frame * GRID_W % spr->texture->width;

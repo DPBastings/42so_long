@@ -17,6 +17,7 @@
 
 static const char	*g_sl_errors[] = {
 	"Everything went better than expected.",
+	"Something went wrong.",
 	"Couldn't allocate memory.",
 	"Bad asset detected.",
 	"Usage: so_long <map>.",

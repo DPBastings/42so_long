@@ -18,8 +18,8 @@
 
 void	sprite_overlay_gradient(t_sprite *sprite, mlx_texture_t *gradient)
 {
-	t_point	p;
-	t_plane	a;
+	t_upoint	p;
+	t_plane		a;
 
 	if (sprite == NULL || gradient == NULL)
 		return ;
@@ -41,8 +41,8 @@ void	sprite_overlay_gradient(t_sprite *sprite, mlx_texture_t *gradient)
 
 void	sprite_overlay_gradient_line(t_sprite *sprite, mlx_texture_t *gradient)
 {
-	t_point	p;
-	t_plane	a;
+	t_upoint	p;
+	t_plane		a;
 
 	if (sprite == NULL || gradient == NULL)
 		return ;

@@ -32,14 +32,14 @@ static const t_spr_setter	g_lkup_spr_setter[N_OBJS] = {
 
 void	sprites_setup(t_game *game)
 {
-	t_point		p;
+	t_upoint	p;
 	t_object	*obj;
 
 	p.y = 0;
-	while (p.y < game->map->dims.h)
+	while (p.y < game->map->dims.y)
 	{
 		p.x = 0;
-		while (p.x < game->map->dims.w)
+		while (p.x < game->map->dims.x)
 		{
 			obj = *map_index(game->map, p);
 			if (obj)
@@ -80,7 +80,7 @@ void	sprite_set_wall(t_object *obj, t_game *game)
 	while (dir < N_DIRS)
 	{
 		id <<= 1;
-		adj = *map_index(game->map, point_get_adjacent(obj->position, dir));
+		adj = *map_index(game->map, upoint_get_adjacent(obj->position, dir));
 		if (!(adj && (adj->type == OBJ_WALL || adj == game->NOWHERE)))
 			id++;
 		dir++;

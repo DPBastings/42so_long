@@ -19,19 +19,19 @@
 #include <stdlib.h>
 
 static t_obj_id	chrtotype(char const chr);
-static bool		object_setup(t_map *map, t_point p, char type);
+static bool		object_setup(t_map *map, t_upoint p, char type);
 
 void	map_setup(t_map *map, t_list *bytemap)
 {
-	t_point		p;
+	t_upoint	p;
 	char		*row;
 
 	p.y = 0;
-	while (p.y < map->dims.h)
+	while (p.y < map->dims.y)
 	{
 		p.x = 0;
 		row = (char *)bytemap->content;
-		while (p.x < map->dims.w)
+		while (p.x < map->dims.x)
 		{
 			if (row[p.x] != CHR_NONE)
 			{	
@@ -45,7 +45,7 @@ void	map_setup(t_map *map, t_list *bytemap)
 	}
 }
 
-static bool	object_setup(t_map *map, t_point p, char type)
+static bool	object_setup(t_map *map, t_upoint p, char type)
 {
 	t_object	*obj;
 
@@ -69,5 +69,5 @@ static t_obj_id	chrtotype(char const chr)
 	ptr = ft_strchr(chars, chr);
 	if (ptr == NULL)
 		sl_error(SL_INVMAP_UNKNOWNOBJ);
-	return ((uint32_t)(ptr - chars));
+	return ((t_obj_id)(ptr - chars));
 }

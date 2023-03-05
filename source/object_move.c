@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+#include "geometry.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -22,7 +23,7 @@ static const uint32_t	g_lookup_dir[N_DIRS * N_DIM] = {
 	-1, 0,
 };
 
-void	object_move(t_object *obj, t_dir dir, uint16_t speed)
+void	object_move(t_object *obj, t_dir dir, uint32_t speed)
 {
 	obj->dir = dir;
 	obj->speed = speed;
@@ -37,7 +38,7 @@ void	object_move_sprite(t_object *obj)
 	instance->y += g_lookup_dir[obj->dir * N_DIM + Y] * obj->speed;
 }
 
-void	object_place(t_object *obj, t_map *map, t_point p)
+void	object_place(t_object *obj, t_map *map, t_upoint p)
 {
 	t_object	**coordinate;
 
@@ -48,22 +49,25 @@ void	object_place(t_object *obj, t_map *map, t_point p)
 	obj->position = p;
 }
 
-bool	object_align_grid(t_object *obj, t_map *map)
+bool	object_align_grid(t_object *obj, t_game *game)
 {
 	mlx_instance_t	instance;
-	t_point			p;
+	t_upoint		p;
 
 	instance = obj->sprite->image->instances[obj->instance_id];
-	if (instance.x % GRID_W == 0 && instance.y % GRID_H == 0)
+	set_upoint(&p,
+			view_xgrid(instance.x, game->view),
+			view_ygrid(instance.y, game->view));
+	if (p.x % GRID_W == 0 && p.y % GRID_H == 0)
 	{
-		set_point(&p, instance.x / GRID_W, instance.y / GRID_H);
-		object_place(obj, map, p);
+		set_upoint(&p, p.x / GRID_W, p.y / GRID_H);
+		object_place(obj, game->map, p);
 		return (true);
 	}
 	return (false);
 }
 
-t_point	point_get_adjacent(t_point p, t_dir dir)
+t_upoint	upoint_get_adjacent(t_upoint p, t_dir dir)
 {
 	p.x += g_lookup_dir[dir * N_DIM + X];
 	p.y += g_lookup_dir[dir * N_DIM + Y];

@@ -32,7 +32,7 @@ void	object_tick_player(t_object *plyr, void *param)
 static void	plyr_tick_move(t_object *plyr, t_game *game)
 {
 	object_move_sprite(plyr);
-	if (object_align_grid(plyr, game->map))
+	if (object_align_grid(plyr, game))
 	{
 		plyr->speed = 0;
 		game->lock_input = false;

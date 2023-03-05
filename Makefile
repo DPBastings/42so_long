@@ -50,15 +50,13 @@ SRC_FILES	:= main.c\
 			sprite_hueshift.c\
 			sprite_setup.c\
 			texture.c\
+			view.c\
 			\
-			mlx42_utils.c\
-			sl_test.c
+			mlx42_utils.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
 			map_check.h\
-			geometry.h\
-			\
-			sl_test.h
+			geometry.h
 LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a

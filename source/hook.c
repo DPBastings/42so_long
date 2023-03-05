@@ -17,5 +17,5 @@ void	hook_set(t_game *game)
 {
 	mlx_close_hook(game->mlx, hook_close, game);
 	mlx_loop_hook(game->mlx, hook_keys, game);
-	mlx_loop_hook(game->mlx, hook_tick, game);
+	//mlx_loop_hook(game->mlx, hook_tick, game);
 }

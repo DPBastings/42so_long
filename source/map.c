@@ -18,7 +18,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-t_map	*map_init(t_plane dims)
+t_map	*map_init(t_upoint dims)
 {
 	t_map		*map;
 	uint32_t	y;
@@ -27,13 +27,13 @@ t_map	*map_init(t_plane dims)
 	if (map == NULL)
 		return (NULL);
 	map->dims = dims;
-	map->objs = ft_calloc(map->dims.h, sizeof(t_object **));
+	map->objs = ft_calloc(map->dims.y, sizeof(t_object **));
 	if (map->objs == NULL)
 		return (map_destroy(&map), NULL);
 	y = 0;
-	while (y < map->dims.h)
+	while (y < map->dims.y)
 	{
-		map->objs[y] = ft_calloc(map->dims.w, sizeof(t_object *));
+		map->objs[y] = ft_calloc(map->dims.x, sizeof(t_object *));
 		if (map->objs[y] == NULL)
 			return (map_destroy(&map), NULL);
 		y++;
@@ -47,16 +47,16 @@ t_map	*map_init(t_plane dims)
 
 void	map_destroy(t_map **map)
 {
-	t_point		p;
+	t_upoint	p;
 	t_object	**slot;
 
 	if (*map == NULL)
 		return ;
 	p.y = 0;
-	while (p.y < (*map)->dims.h)
+	while (p.y < (*map)->dims.y)
 	{
 		p.x = 0;
-		while (p.x < (*map)->dims.w)
+		while (p.x < (*map)->dims.x)
 		{
 			slot = map_index(*map, p);
 			while (*slot)

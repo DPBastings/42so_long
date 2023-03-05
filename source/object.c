@@ -12,6 +12,7 @@
 
 #include "so_long.h"
 
+#include "geometry.h"
 #include "libft.h"
 #include <limits.h>
 #include <stdbool.h>
@@ -39,7 +40,7 @@ static uint16_t	g_lookup_obj_params[N_OBJS * N_OBJ_PARAMS] = {
  * Initializes a new object of type `type`.
  * Returns NULL on failure.
  */
-t_object	*object_init(unsigned int type)
+t_object	*object_init(t_obj_id type)
 {
 	t_object	*new;
 
@@ -47,7 +48,7 @@ t_object	*object_init(unsigned int type)
 	if (new == NULL)
 		return (NULL);
 	new->type = type;
-	set_point(&new->position, -1, -1);
+	set_upoint(&new->position, -1, -1);
 	new->z = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_Z];
 	new->dir = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_DIR];
 	new->speed = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_SPEED];

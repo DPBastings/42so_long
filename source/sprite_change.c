@@ -15,7 +15,7 @@
 #include "MLX42/MLX42.h"
 #include <stdbool.h>
 
-static void	instance_update_position(t_object *obj);
+static void	instance_update_position(t_object *obj, t_view view);
 
 void	sprite_change(t_object *obj, t_sprite *newspr, t_game *game)
 {
@@ -32,23 +32,22 @@ void	sprite_change(t_object *obj, t_sprite *newspr, t_game *game)
 	}
 	if (newinstance_id == newspr->image->count)
 	{
-		newinstance_id = mlx_image_to_window(game->mlx, newspr->image,
-				obj->position.x * GRID_W, obj->position.y * GRID_H);
+		newinstance_id = mlx_image_to_window(game->mlx, newspr->image, 0, 0);
 		if (newinstance_id == -1)
 			sl_error(SL_MEMFAIL);
 	}
 	newspr->image->instances[newinstance_id].enabled = true;
 	obj->instance_id = newinstance_id;
 	obj->sprite = newspr;
-	instance_update_position(obj);
+	instance_update_position(obj, game->view);
 }
 
-static void	instance_update_position(t_object *obj)
+static void	instance_update_position(t_object *obj, t_view view)
 {
 	mlx_instance_t	*instance;
-
+	
 	instance = &obj->sprite->image->instances[obj->instance_id];
-	instance->x = obj->position.x * GRID_W;
-	instance->y = obj->position.y * GRID_H;
+	instance->x = view_xview(obj->position.x * GRID_W, view);
+	instance->y = view_yview(obj->position.y * GRID_H, view);
 	//mlx_set_instance_depth(instance, obj->z);
 }

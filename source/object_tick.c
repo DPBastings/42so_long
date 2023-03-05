@@ -29,13 +29,13 @@ static void	object_tick_reset(t_object *obj);
 
 void	objects_tick(t_game *game)
 {
-	t_point	p;
+	t_upoint	p;
 
 	p.y = 0;
-	while (p.y < game->map->dims.h)
+	while (p.y < game->map->dims.y)
 	{
 		p.x = 0;
-		while (p.x < game->map->dims.w)
+		while (p.x < game->map->dims.x)
 		{
 			object_tick(*map_index(game->map, p), game);
 			p.x++;
@@ -43,10 +43,10 @@ void	objects_tick(t_game *game)
 		p.y++;
 	}
 	p.y = 0;
-	while (p.y < game->map->dims.h)
+	while (p.y < game->map->dims.y)
 	{
 		p.x = 0;
-		while (p.x < game->map->dims.w)
+		while (p.x < game->map->dims.x)
 		{
 			object_tick_reset(*map_index(game->map, p));
 			p.x++;

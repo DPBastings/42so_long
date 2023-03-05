@@ -12,11 +12,20 @@
 
 #include "geometry.h"
 
-t_point	*set_point(t_point *point, unsigned int x, unsigned int y)
+#include <stdint.h>
+
+t_point	*set_point(t_point *point, int32_t x, int32_t y)
 {
 	point->x = x;
 	point->y = y;
 	return (point);
+}
+
+t_upoint *set_upoint(t_upoint *upoint, uint32_t x, uint32_t y)
+{
+	upoint->x = x;
+	upoint->y = y;
+	return (upoint);
 }
 
 t_plane	*set_plane(t_plane *plane, unsigned int w, unsigned int h)

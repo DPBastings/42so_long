@@ -16,14 +16,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-bool	player_move(t_game *game, uint32_t dir)
+bool	player_move(t_game *game, t_dir dir)
 {
 	t_object	*player;
 	t_object	**other;
 
 	player = game->map->player;
 	player->dir = dir;
-	other = map_index(game->map, point_get_adjacent(player->position, dir));
+	other = map_index(game->map, upoint_get_adjacent(player->position, dir));
 	if (*other == game->NOWHERE || !object_is_passable(*other))
 		return (false);
 	sprite_change(player, game->sprites[SPR_PLYR_MOVE_UP + dir], game);

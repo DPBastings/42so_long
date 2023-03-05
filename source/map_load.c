@@ -17,16 +17,16 @@
 #include "libft.h"
 
 static int		check_ext(char const *filename);
-static t_list	*get_bytemap(int fd, t_plane *dims);
+static t_list	*get_bytemap(int fd, t_upoint *dims);
 static void		lst_destroy(t_list **list);
 static int		open_file(char const *filename);
 
 t_map	*map_load(char const *filename)
 {
-	t_map	*map;
-	t_list	*bytemap;
-	t_plane	dims;
-	int		fd;
+	t_map		*map;
+	t_list		*bytemap;
+	t_upoint	dims;
+	int			fd;
 
 	fd = open_file(filename);
 	bytemap = get_bytemap(fd, &dims);
@@ -67,28 +67,28 @@ static int	check_ext(char const *filename)
 	return (0);
 }
 
-static t_list	*get_bytemap(int fd, t_plane *dims)
+static t_list	*get_bytemap(int fd, t_upoint *dims)
 {
 	t_list	*bytemap;
 	char	*row;
 
 	bytemap = NULL;
-	dims->h = 0;
+	dims->y = 0;
 	row = ft_getline(fd);
-	dims->w = ft_strlen(row);
+	dims->x = ft_strlen(row);
 	while (row)
 	{
-		if (ft_strlen(row) != dims->w)
+		if (ft_strlen(row) != dims->x)
 		{
 			free(row);
 			ft_lstclear(&bytemap, free);
 			sl_error(SL_INVMAP_DIMS);
 		}
 		ft_lstadd_back(&bytemap, ft_lstnew(row));
-		dims->h++;
+		dims->y++;
 		row = ft_getline(fd);
 	}
-	dims->w--;
+	dims->x--;
 	return (bytemap);
 }
 

@@ -22,7 +22,7 @@ void	object_tick_coll(t_object *coll, void *param)
 	mlx_instance_t	*instance;
 
 	(void) param;
-	object_move_sprite(coll);
+	//object_move_sprite(coll);
 	instance = &coll->sprite->image->instances[coll->instance_id];
 	if (instance->y <= (int32_t) coll->position.y * GRID_H - AMPLITUDE)
 		coll->dir = DIR_DOWN;

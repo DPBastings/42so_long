@@ -15,13 +15,13 @@
 #include <stdlib.h>
 #include <limits.h>
 
-/* t_object **map_index(t_map *map, t_point p)
+/* t_object **map_index(t_map *map, t_upoint p)
  * Return the address of the pointer at point p in map.
  * Return the address of NOWHERE if p is out of bounds.
  */
-t_object	**map_index(t_map *map, t_point p)
+t_object	**map_index(t_map *map, t_upoint p)
 {
-	if (p.y >= map->dims.h || p.x >= map->dims.w)
+	if (p.y >= map->dims.y || p.x >= map->dims.x)
 		return (&NOWHERE);
 	return (&map->objs[p.y][p.x]);
 }
@@ -35,12 +35,12 @@ t_object	**map_index(t_map *map, t_point p)
  * The memory at the address returned by this function is dynamically allocated
  * and must therefore be passed to free() once no longer in use.
  */
-t_point	*map_get_adjacent(t_map *map, t_point p)
+/*t_point	*map_get_adjacent(t_map *map, t_point p)
 {
 	t_point	*adjacent;
 	size_t	i;
 
-	if (p.y >= map->dims.h || p.x >= map->dims.w)
+	if (p.y >= map->dims.y || p.x >= map->dims.x)
 		return (NULL);
 	adjacent = malloc(N_DIRS * sizeof(t_point));
 	if (adjacent == NULL)
@@ -50,13 +50,13 @@ t_point	*map_get_adjacent(t_map *map, t_point p)
 	if (p.y > 0)
 		set_point(&adjacent[i], p.x, p.y - 1);
 	set_point(&adjacent[++i], UINT_MAX, UINT_MAX);
-	if (p.x < map->dims.w - 1)
+	if (p.x < map->dims.x - 1)
 		set_point(&adjacent[i], p.x + 1, p.y);
 	set_point(&adjacent[++i], UINT_MAX, UINT_MAX);
-	if (p.y < map->dims.h - 1)
+	if (p.y < map->dims.y - 1)
 		set_point(&adjacent[i], p.x, p.y + 1);
 	set_point(&adjacent[++i], UINT_MAX, UINT_MAX);
 	if (p.x > 0)
 		set_point(&adjacent[i], p.x - 1, p.y);
 	return (adjacent);
-}
+}*/

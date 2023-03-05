@@ -21,7 +21,7 @@ int32_t	seed_get(t_game *game)
 	int32_t	c;
 	int64_t	d;
 
-	a = game->map->dims.h * game->map->dims.w;
+	a = game->map->dims.x * game->map->dims.y;
 	b = game->map->player->position.x * game->map->player->position.y;
 	c = (int32_t) game->score_max;
 	d = (int64_t) game->mlx;
