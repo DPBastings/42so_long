@@ -32,8 +32,8 @@
 
 # define GRID_W				48
 # define GRID_H				48
-# define SCREEN_W			GRID_W * 21
-# define SCREEN_H			GRID_H * 15
+# define SCREEN_W			(GRID_W * 21)
+# define SCREEN_H			(GRID_H * 15)
 # define HUD_H				144
 
 # define SEC_PER_TICK		0.042
@@ -66,6 +66,7 @@ typedef enum e_textures {
 	TXR_EXIT,
 	TXR_VORTEX,
 	TXR_WALL,
+	TXR_BG,
 	//TXR_RAINBOW,
 	N_TEXTURES,
 }	t_txr_id;
@@ -103,6 +104,7 @@ typedef enum e_sprites {
 	SPR_WALL_0111,
 	SPR_WALL_1111,
 	//SPR_WALL_JUNC,
+	SPR_BG,
 	N_SPRITES,
 }	t_spr_id;
 
@@ -110,6 +112,7 @@ typedef enum e_sprites {
 # define SPR_WALL_MAX		SPR_WALL_1111
 # define N_COLL_SPR			(SPR_COLL_MAX - SPR_COLL_0 + 1)
 # define N_WALL_SPR			(SPR_WALL_MAX - SPR_WALL_0000 + 1)
+# define SPR_FILLER			SPR_WALL_0000
 
 typedef enum e_dirs {
 	DIR_UP = 0,
@@ -282,10 +285,12 @@ void		map_destroy(t_map **map);
 
 int32_t		view_xview(int32_t x, t_view view);
 int32_t		view_yview(int32_t y, t_view view);
-t_point		view_pview(t_point p, t_view view);
 uint32_t	view_xgrid(int32_t x, t_view view);
 uint32_t	view_ygrid(int32_t y, t_view view);
 t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
+
+void		hud_init(t_game *game);
+void		draw_bg(t_game *game);
 
 void		sl_strerror(t_sl_errno errno);
 void		sl_error(t_sl_errno errno);

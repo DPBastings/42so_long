@@ -56,6 +56,7 @@ static const uint32_t	g_lut_spr_param[N_SPRITES * N_SPR_PARAM] = {
 	TXR_WALL,			0,
 	TXR_WALL,			0,
 	TXR_WALL,			0,
+	TXR_BG,				0,
 };
 
 t_sprite	**sprites_init(t_game *game)

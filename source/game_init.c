@@ -35,6 +35,7 @@ t_game	*game_init(char const *filename)
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
 	sprites_setup(game);
+	draw_bg(game);
 	return (game);
 }
 
@@ -52,22 +53,19 @@ static void	screen_init(t_game *game)
 {
 	if (game->map->dims.x * GRID_W < SCREEN_W)
 		game->view.offset.x += (SCREEN_W - game->map->dims.x * GRID_W) / 2;
-	//game->view.offset.y = HUD_H;
+	game->view.offset.y = HUD_H;
 	if (game->map->dims.y * GRID_H < SCREEN_H)
-		game->view.offset.y += (SCREEN_H - game->map->dims.y * GRID_W) / 2;
+		game->view.offset.y += (SCREEN_H - HUD_H - game->map->dims.y * GRID_W) / 2;
 	game->mlx = mlx_init(SCREEN_W, SCREEN_H, SL_TITLE, false);
 	if (game->mlx == NULL)
 		sl_error(SL_MEMFAIL);
-	printf("%u %u\n", game->view.offset.x, game->view.offset.y);
 }
 
 void	game_end(t_game *game)
 {
 	if (game == NULL)
 		return ;
-	ft_printf("Unloading map...\n");
 	map_destroy(&game->map);
-	ft_printf("Unloading assets...\n");
 	sprites_destroy(&game->sprites, game->mlx);
 	if (game->gradient)
 		mlx_delete_texture(game->gradient);
@@ -75,5 +73,4 @@ void	game_end(t_game *game)
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 	free(game);
-	ft_printf("Goodbye!\n");
 }

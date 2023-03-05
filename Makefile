@@ -22,6 +22,7 @@ LIB_DIR		:= ./lib/
 SRC_FILES	:= main.c\
 			animation.c\
 			animation_coll.c\
+			background.c\
 			error.c\
 			game_init.c\
 			game_status.c\
@@ -30,6 +31,7 @@ SRC_FILES	:= main.c\
 			hook_close.c\
 			hook_keys.c\
 			hook_tick.c\
+			hud.c\
 			map.c\
 			map_check.c\
 			map_check_path.c\

@@ -29,6 +29,7 @@ static char const	*g_texture_files[N_TEXTURES] = {
 	"./assets/textures/door.png",
 	"./assets/textures/vortex.png",
 	"./assets/textures/wall_tiles.png",
+	"./assets/textures/background.png",
 };
 
 t_texture	**textures_load(void)

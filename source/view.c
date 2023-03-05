@@ -30,10 +30,3 @@ uint32_t	view_ygrid(int32_t y, t_view view)
 		sl_error(SL_GENERIC);
 	return ((uint32_t) y);
 }
-
-t_point	view_pview(t_point p, t_view view)
-{
-	p.x = view_xview(p.x, view);
-	p.y = view_yview(p.y, view);
-	return (p);
-}
