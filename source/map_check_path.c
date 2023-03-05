@@ -39,7 +39,7 @@ bool	map_check_path(t_map *map)
 	return (res);
 }
 
-/* bool check_point(t_point p, t_map *map)
+/* bool check_point(t_upoint p, t_map *map)
  * Checks if the exit has been reached; returns true if it has.
  * If the exit hasn't yet been reached, the current point is marked as checked
  * (either by setting a temporary flag on the object there or inserting a
@@ -50,7 +50,6 @@ bool	map_check_path(t_map *map)
 static bool	check_point(t_upoint p, t_map *map)
 {
 	t_object	**obj;
-	//t_upoint	*adj;
 	t_upoint	adj;
 	t_dir		dir;
 
@@ -65,13 +64,11 @@ static bool	check_point(t_upoint p, t_map *map)
 	}
 	else
 		*obj = NOWHERE;
-	//adj = map_get_adjacent(map, p);
 	dir = 0;
 	while (dir < N_DIRS)
 	{
 		adj = upoint_get_adjacent(p, dir);
-		if (object_is_passable(*map_index(map, adj))
-			&& check_point(adj, map))
+		if (object_is_passable(*map_index(map, adj)) && check_point(adj, map))
 			return (true);
 		dir++;
 	}
