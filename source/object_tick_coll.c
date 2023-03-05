@@ -19,13 +19,16 @@
 
 void	object_tick_coll(t_object *coll, void *param)
 {
-	mlx_instance_t	*instance;
-
-	(void) param;
-	//object_move_sprite(coll);
-	instance = &coll->sprite->image->instances[coll->instance_id];
-	if (instance->y <= (int32_t) coll->position.y * GRID_H - AMPLITUDE)
+	int32_t			y;
+	int32_t			zero;
+	t_view			view;
+	
+	view = ((t_game *)param)->view;
+	object_move_sprite(coll);
+	y = coll->sprite->image->instances[coll->instance_id].y;
+	zero = view_yview((int32_t) coll->position.y * GRID_H, view);
+	if (y <= zero - AMPLITUDE)
 		coll->dir = DIR_DOWN;
-	else if (instance->y >= (int32_t) coll->position.y * GRID_H + AMPLITUDE)
+	else if (y >= zero + AMPLITUDE)
 		coll->dir = DIR_UP;
 }

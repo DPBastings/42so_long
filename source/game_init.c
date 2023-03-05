@@ -52,7 +52,7 @@ static void	screen_init(t_game *game)
 {
 	if (game->map->dims.x * GRID_W < SCREEN_W)
 		game->view.offset.x += (SCREEN_W - game->map->dims.x * GRID_W) / 2;
-	game->view.offset.y = HUD_H;
+	//game->view.offset.y = HUD_H;
 	if (game->map->dims.y * GRID_H < SCREEN_H)
 		game->view.offset.y += (SCREEN_H - game->map->dims.y * GRID_W) / 2;
 	game->mlx = mlx_init(SCREEN_W, SCREEN_H, SL_TITLE, false);
