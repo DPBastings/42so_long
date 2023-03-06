@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   view.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/06 11:47:06 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/06 11:47:15 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #include "geometry.h"
@@ -9,7 +21,7 @@ int32_t	view_xview(int32_t x, t_view view)
 	return (x);
 }
 
-int32_t view_yview(int32_t y, t_view view)
+int32_t	view_yview(int32_t y, t_view view)
 {
 	y = y + view.offset.y - view.origin.y;
 	return (y);

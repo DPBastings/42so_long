@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:31:49 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:47:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:46:44 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ void	sprite_change(t_object *obj, t_sprite *newspr, t_game *game)
 static void	instance_update_position(t_object *obj, t_view view)
 {
 	mlx_instance_t	*instance;
-	
+
 	instance = &obj->sprite->image->instances[obj->instance_id];
 	instance->x = view_xview(obj->position.x * GRID_W, view);
 	instance->y = view_yview(obj->position.y * GRID_H, view);
-	//mlx_set_instance_depth(instance, obj->z);
 }

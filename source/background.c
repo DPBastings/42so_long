@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   background.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/06 11:37:01 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/06 11:37:44 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #include "geometry.h"
@@ -8,7 +20,7 @@ void	draw_bg(t_game *game)
 {
 	t_point	p;
 	int32_t	xstart;
-	
+
 	p.y = HUD_H - (game->view.offset.y % GRID_H);
 	xstart = -(game->view.offset.x % GRID_W);
 	while (p.y < SCREEN_H)
@@ -32,9 +44,9 @@ static void	draw_bg_element(t_point p, t_game *game)
 	fill = game->sprites[SPR_FILLER]->image;
 	bg = game->sprites[SPR_BG]->image;
 	if (p.x >= game->view.offset.x
-			&& p.x < SCREEN_W - game->view.offset.x
-			&& p.y >= game->view.offset.y
-			&& p.y < SCREEN_H - (game->view.offset.y - HUD_H))
+		&& p.x < SCREEN_W - game->view.offset.x
+		&& p.y >= game->view.offset.y
+		&& p.y < SCREEN_H - (game->view.offset.y - HUD_H))
 	{
 		id = mlx_image_to_window(game->mlx, bg, p.x, p.y);
 		if (id == -1)

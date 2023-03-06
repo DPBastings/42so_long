@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 14:59:21 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:39:45 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static mlx_texture_t	*gradient_load(void)
 static void	screen_init(t_game *game)
 {
 	if (game->map->dims.x * GRID_W < SCREEN_W)
-		game->view.offset.x += (SCREEN_W - game->map->dims.x * GRID_W) / 2;
+		game->view.offset.x += (VIEW_MAXW - game->map->dims.x * GRID_W) / 2;
 	game->view.offset.y = HUD_H;
 	if (game->map->dims.y * GRID_H < SCREEN_H)
-		game->view.offset.y += (SCREEN_H - HUD_H - game->map->dims.y * GRID_W) / 2;
+		game->view.offset.y += (VIEW_MAXH - game->map->dims.y * GRID_H) / 2;
 	game->mlx = mlx_init(SCREEN_W, SCREEN_H, SL_TITLE, false);
 	if (game->mlx == NULL)
 		sl_error(SL_MEMFAIL);

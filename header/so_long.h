@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:32:19 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:39:42 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define SCREEN_W			(GRID_W * 21)
 # define SCREEN_H			(GRID_H * 15)
 # define HUD_H				144
+# define VIEW_MAXW			SCREEN_W
+# define VIEW_MAXH			SCREEN_H - HUD_H
 
 # define SEC_PER_TICK		0.042
 

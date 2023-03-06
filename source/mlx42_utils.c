@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:07:58 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:19:35 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:45:18 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	pixel_overlay(uint8_t *pixel, uint8_t *overlay)
 		return ;
 	max = ft_uintmax(3, pixel[R], pixel[G], pixel[B]);
 	min = ft_uintmin(3, pixel[R], pixel[G], pixel[B]);
-	factor = (double) (max - min) / UCHAR_MAX;
+	factor = (double)(max - min) / UCHAR_MAX;
 	i = R;
 	while (i < A)
 	{

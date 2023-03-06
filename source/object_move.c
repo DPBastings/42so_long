@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:00:55 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 14:13:16 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:45:41 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	object_move(t_object *obj, t_dir dir, uint32_t speed)
 void	object_move_sprite(t_object *obj)
 {
 	mlx_instance_t	*instance;
-	
+
 	instance = &obj->sprite->image->instances[obj->instance_id];
 	instance->x += g_lookup_dir[obj->dir * N_DIM + X] * obj->speed;
 	instance->y += g_lookup_dir[obj->dir * N_DIM + Y] * obj->speed;
@@ -56,8 +56,8 @@ bool	object_align_grid(t_object *obj, t_game *game)
 
 	instance = obj->sprite->image->instances[obj->instance_id];
 	set_upoint(&p,
-			view_xgrid(instance.x, game->view),
-			view_ygrid(instance.y, game->view));
+		view_xgrid(instance.x, game->view),
+		view_ygrid(instance.y, game->view));
 	if (p.x % GRID_W == 0 && p.y % GRID_H == 0)
 	{
 		set_upoint(&p, p.x / GRID_W, p.y / GRID_H);

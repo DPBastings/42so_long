@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 14:07:54 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 14:42:16 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:45:55 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	object_tick_coll(t_object *coll, void *param)
 	int32_t			y;
 	int32_t			zero;
 	t_view			view;
-	
+
 	view = ((t_game *)param)->view;
 	object_move_sprite(coll);
 	y = coll->sprite->image->instances[coll->instance_id].y;

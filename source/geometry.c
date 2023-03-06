@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 14:07:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 14:07:24 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:43:16 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_point	*set_point(t_point *point, int32_t x, int32_t y)
 	return (point);
 }
 
-t_upoint *set_upoint(t_upoint *upoint, uint32_t x, uint32_t y)
+t_upoint	*set_upoint(t_upoint *upoint, uint32_t x, uint32_t y)
 {
 	upoint->x = x;
 	upoint->y = y;

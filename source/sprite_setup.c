@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:33:13 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:47:02 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	sprites_setup(t_game *game)
 void	sprite_set_default(t_object *obj, t_game *game)
 {
 	t_spr_id	id;
-	
+
 	id = g_lkup_spr_id[obj->type];
 	sprite_change(obj, game->sprites[id], game);
 }
