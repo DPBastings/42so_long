@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/02/27 16:25:24 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/06 13:58:41 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,9 @@ SRC_FILES	:= main.c\
 			sprite_hueshift.c\
 			sprite_setup.c\
 			texture.c\
+			utils.c\
 			view.c\
+			view_update.c\
 			\
 			mlx42_utils.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
@@ -63,7 +65,7 @@ LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a
 
-CFLAGS 		?= -Wall -Wextra -I$(HDR_DIR) -I$(LIB_DIR) -g -fsanitize=address
+CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR) -g -fsanitize=address
 ifeq ($(OS),Linux)
 	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread -lm
 endif

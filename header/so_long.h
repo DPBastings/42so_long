@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:39:42 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 17:00:42 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@
 
 # define GRID_W				48
 # define GRID_H				48
-# define SCREEN_W			(GRID_W * 21)
-# define SCREEN_H			(GRID_H * 15)
+//SCREEN_W = GRID_W * 21; SCREEN_H = GRID_H * 15
+# define SCREEN_W			1008
+# define SCREEN_H			720
 # define HUD_H				144
-# define VIEW_MAXW			SCREEN_W
-# define VIEW_MAXH			SCREEN_H - HUD_H
+//VIEW_MAXW = SCREEN_W; VIEW_MAXH = SCREEN_H - HUD_H
+# define VIEW_MAXW			1008
+# define VIEW_MAXH			576
 
 # define SEC_PER_TICK		0.042
 
@@ -109,11 +111,11 @@ typedef enum e_sprites {
 	N_SPRITES,
 }	t_spr_id;
 
-# define SPR_COLL_MAX		SPR_COLL_5
-# define SPR_WALL_MAX		SPR_WALL_1111
-# define N_COLL_SPR			(SPR_COLL_MAX - SPR_COLL_0 + 1)
-# define N_WALL_SPR			(SPR_WALL_MAX - SPR_WALL_0000 + 1)
-# define SPR_FILLER			SPR_WALL_0000
+# define SPR_COLL_MAX		11 // SPR_COLL_5
+# define SPR_WALL_MAX		19 //SPR_WALL_1111
+# define N_COLL_SPR			5 //(SPR_COLL_MAX - SPR_COLL_0 + 1)
+# define N_WALL_SPR			16 //(SPR_WALL_MAX - SPR_WALL_0000 + 1)
+# define SPR_FILLER			14 //SPR_WALL_0000
 
 typedef enum e_dirs {
 	DIR_UP = 0,
@@ -137,10 +139,10 @@ typedef struct s_sprite {
 	mlx_image_t		*image;
 	uint32_t		frame;
 	uint32_t		frame_max;
-	void 			(*animator)(struct s_sprite *, void *);
+	void			(*animator)(struct s_sprite *, void *);
 }	t_sprite;
 
-typedef void (*t_spr_animator)(t_sprite *spr, void *param);
+typedef void			(*t_spr_animator)(t_sprite *spr, void *param);
 
 /* Object object.
  * @param type			The object's type.
@@ -171,11 +173,10 @@ typedef struct s_map {
 	t_object	*none;
 }	t_map;
 
-# define NOWHERE	map->none
-
 typedef struct s_view {
 	t_point	origin;
 	t_point	offset;
+	t_point	size;
 }	t_view;
 
 typedef struct s_game {
@@ -226,7 +227,7 @@ void		hook_keys(void *param);
 bool		hook_keys_move(t_game *game);
 void		hook_tick(void *param);
 
-t_texture	**textures_load();
+void		textures_load(t_game *game);
 t_texture	*texture_load(char const *filename);
 void		textures_destroy(t_texture ***textures);
 void		texture_destroy(t_texture **texture);
@@ -234,7 +235,7 @@ void		texture_destroy(t_texture **texture);
 t_sprite	**sprites_init(t_game *game);
 t_sprite	*sprite_new(t_game *game, unsigned int spr_id);
 t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
-			unsigned int origin_i, unsigned int frame);
+				unsigned int origin_i, unsigned int frame);
 void		sprites_setup(t_game *game);
 void		sprite_setup(t_object *obj, t_game *game);
 void		sprite_change(t_object *obj, t_sprite *newspr, t_game *game);
@@ -248,7 +249,7 @@ void		sprite_animate_coll(t_sprite *spr, void *param);
 void		sprite_animate_vortex(t_sprite *spr, void *param);
 bool		sprite_animation_is_done(t_sprite *spr);
 
-typedef void (*t_spr_setter)(t_object *obj, t_game *game);
+typedef void			(*t_spr_setter)(t_object *obj, t_game *game);
 void		sprite_set_default(t_object *obj, t_game *game);
 void		sprite_set_coll(t_object *obj, t_game *game);
 void		sprite_set_wall(t_object *obj, t_game *game);
@@ -266,7 +267,7 @@ void		object_place(t_object *obj, t_map *map, t_upoint p);
 void		object_destroy(t_object **obj);
 bool		player_move(t_game *game, t_dir dir);
 
-typedef void (*t_obj_ticker)(t_object *obj, void *param);
+typedef void			(*t_obj_ticker)(t_object *obj, void *param);
 void		objects_tick(t_game *game);
 void		object_tick_default(t_object *obj, void *param);
 void		object_tick_move(t_object *obj, void *param);
@@ -288,7 +289,12 @@ int32_t		view_xview(int32_t x, t_view view);
 int32_t		view_yview(int32_t y, t_view view);
 uint32_t	view_xgrid(int32_t x, t_view view);
 uint32_t	view_ygrid(int32_t y, t_view view);
+void		view_update(t_point diff, t_game *game);
+void		view_centre(t_point anchor, t_game *game);
+void		view_shift(t_point anchor, t_game *game);
+
 t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
+t_point		instance_to_point(mlx_instance_t instance);
 
 void		hud_init(t_game *game);
 void		draw_bg(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:39:45 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 17:00:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,14 @@ t_game	*game_init(char const *filename)
 	game->score_max = map_get_maxscore(game->map);
 	screen_init(game);
 	game->gradient = gradient_load();
-	game->textures = textures_load(game);
+	textures_load(game);
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
 	sprites_setup(game);
 	draw_bg(game);
+	view_centre(
+		instance_to_point(game->map->player->sprite->image->instances[0]),
+		game);
 	return (game);
 }
 
@@ -51,11 +54,13 @@ static mlx_texture_t	*gradient_load(void)
 
 static void	screen_init(t_game *game)
 {
-	if (game->map->dims.x * GRID_W < SCREEN_W)
+	if (game->map->dims.x * GRID_W < VIEW_MAXW)
 		game->view.offset.x += (VIEW_MAXW - game->map->dims.x * GRID_W) / 2;
+	game->view.size.x = VIEW_MAXW - game->view.offset.x;
 	game->view.offset.y = HUD_H;
-	if (game->map->dims.y * GRID_H < SCREEN_H)
+	if (game->map->dims.y * GRID_W < VIEW_MAXH)
 		game->view.offset.y += (VIEW_MAXH - game->map->dims.y * GRID_H) / 2;
+	game->view.size.y = VIEW_MAXH - game->view.offset.y;
 	game->mlx = mlx_init(SCREEN_W, SCREEN_H, SL_TITLE, false);
 	if (game->mlx == NULL)
 		sl_error(SL_MEMFAIL);

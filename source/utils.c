@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tools.c                                            :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/06 14:14:08 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 14:45:30 by dbasting      ########   odam.nl         */
+/*   Created: 2023/03/06 12:52:47 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/06 12:53:39 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "geometry.h"
+#include "MLX42/MLX42.h"
 
-int	ft_talloc(void **ptr, size_t size)
+t_point	instance_to_point(mlx_instance_t instance)
 {
-	*ptr = malloc(size);
-	if (*ptr == NULL)
-		return (0);
-	return (1);
-}
+	t_point	p;
 
-int	ft_tcalloc(void **ptr, size_t count, size_t size)
-{
-	*ptr = malloc(size);
-	if (*ptr == NULL)
-		return (0);
-	ft_memset(*ptr, '\0', count * size);
-	return (1);
+	set_point(&p, instance.x, instance.y);
+	return (p);
 }

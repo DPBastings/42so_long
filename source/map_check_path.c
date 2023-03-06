@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:19:17 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 16:49:53 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	map_check_path(t_map *map)
 {
 	bool	res;
 
-	NOWHERE->instance_id = CHECKED;
+	map->none->instance_id = CHECKED;
 	res = check_point(map->player->position, map);
 	map_clean(map);
 	return (res);
@@ -43,7 +43,7 @@ bool	map_check_path(t_map *map)
  * Checks if the exit has been reached; returns true if it has.
  * If the exit hasn't yet been reached, the current point is marked as checked
  * (either by setting a temporary flag on the object there or inserting a
- * reference to NOWHERE in empty space) and the function calls itself for all 
+ * reference to map->none in empty space) and the function calls itself for all 
  * adjacent passable, unchecked points.
  * Returns false if the map doesn't contain a reachable exit.
  */
@@ -63,7 +63,7 @@ static bool	check_point(t_upoint p, t_map *map)
 		(*obj)->instance_id = CHECKED;
 	}
 	else
-		*obj = NOWHERE;
+		*obj = map->none;
 	dir = 0;
 	while (dir < N_DIRS)
 	{
@@ -77,7 +77,7 @@ static bool	check_point(t_upoint p, t_map *map)
 
 /* void	map_clean(t_map *map)
  * Cleans up after map_check_path has been executed: removes all references
- * to NOWHERE in the map area and unsets the CHECKED flags for all non-NOWHERE
+ * to map->none in the map area and unsets the CHECKED flags for all non-NOWHERE
  * objects.
  */
 static void	map_clean(t_map *map)
@@ -94,7 +94,7 @@ static void	map_clean(t_map *map)
 			obj = map_index(map, p);
 			if (*obj)
 			{
-				if (*obj == NOWHERE)
+				if (*obj == map->none)
 					*obj = NULL;
 				else if ((*obj)->instance_id == CHECKED)
 					(*obj)->instance_id = UNCHECKED;

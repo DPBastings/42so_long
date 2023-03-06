@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 15:33:33 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 16:53:58 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,24 @@ static char const	*g_texture_files[N_TEXTURES] = {
 	"./assets/textures/background.png",
 };
 
-t_texture	**textures_load(void)
+void	textures_load(t_game *game)
 {
-	t_texture	**textures;
 	size_t		i;
 
 	i = 1;
-	textures = ft_calloc(N_TEXTURES, sizeof(t_texture *));
-	if (textures == NULL)
+	game->textures = ft_calloc(N_TEXTURES, sizeof(t_texture *));
+	if (game->textures == NULL)
 		sl_error(SL_MEMFAIL);
 	while (i < N_TEXTURES)
 	{
-		textures[i] = texture_load(g_texture_files[i]);
-		if (textures[i] == NULL)
+		game->textures[i] = texture_load(g_texture_files[i]);
+		if (game->textures[i] == NULL)
 		{
-			textures_destroy(&textures);
+			textures_destroy(&game->textures);
 			sl_error(SL_MEMFAIL);
 		}
 		i++;
 	}
-	return (textures);
 }
 
 t_texture	*texture_load(char const *filename)

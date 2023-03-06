@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 12:21:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/01/27 14:50:27 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 16:36:52 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ typedef enum e_axis {
 	N_DIM,
 }	t_axis;
 
-typedef struct	s_point {
+typedef struct s_point {
 	int32_t	x;
 	int32_t	y;
 }	t_point;
 
-typedef struct	s_upoint {
+typedef struct s_upoint {
 	uint32_t	x;
 	uint32_t	y;
 }	t_upoint;
 
-typedef struct	s_plane {
+typedef struct s_plane {
 	unsigned int	w;
 	unsigned int	h;
 }	t_plane;

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:47:02 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 16:51:29 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	sprite_set_wall(t_object *obj, t_game *game)
 	{
 		id <<= 1;
 		adj = *map_index(game->map, upoint_get_adjacent(obj->position, dir));
-		if (!(adj && (adj->type == OBJ_WALL || adj == game->NOWHERE)))
+		if (!(adj && (adj->type == OBJ_WALL || adj == game->map->none)))
 			id++;
 		dir++;
 	}
