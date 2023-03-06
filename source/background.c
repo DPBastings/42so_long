@@ -10,7 +10,6 @@ void	draw_bg(t_game *game)
 	int32_t	xstart;
 	
 	p.y = HUD_H - (game->view.offset.y % GRID_H);
-	printf("%u\n", game->view.offset.y);
 	xstart = -(game->view.offset.x % GRID_W);
 	while (p.y < SCREEN_H)
 	{

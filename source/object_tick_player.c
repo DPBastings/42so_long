@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 16:20:20 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:32:40 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,18 @@ static void	plyr_tick_move(t_object *plyr, t_game *game)
 		plyr->speed = 0;
 		game->lock_input = false;
 		if (!hook_keys_move(game))
-			sprite_change(plyr, game->sprites[SPR_PLYR], game);
+			sprite_change(plyr, game->sprites[SPR_PLYR_IDLE], game);
 	}
 }
 
 static void	plyr_change_sprites(t_object *plyr, t_game *game)
 {
-	if (plyr->sprite == game->sprites[SPR_PLYR] && game->ticks % 48 == 0)
+	if (game->ticks % 48 == 24)
+		plyr->sprite->animator = sprite_animate;
+	else if (sprite_animation_is_done(plyr->sprite))
 	{
-		sprite_change(plyr, game->sprites[SPR_PLYR_IDLE], game);
 		plyr->sprite->frame = 0;
+		plyr->sprite->animator = sprite_animate_pass;
 	}
 }	
 

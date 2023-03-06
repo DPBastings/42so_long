@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 16:39:50 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:31:02 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ typedef enum e_spr_param {
 }	t_spr_param;
 static const uint32_t	g_lut_spr_param[N_SPRITES * N_SPR_PARAM] = {
 	TXR_NONE,			0,
-	TXR_PLYR,			0,
-	TXR_PLYR_IDLE,		12,
+	TXR_PLYR_IDLE,		13,
 	TXR_PLYR_WALK_U,	12,
 	TXR_PLYR_WALK_R,	12,
 	TXR_PLYR_WALK_D,	12,

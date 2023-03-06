@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 16:31:09 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/06 11:32:19 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef enum e_textures {
 
 typedef enum e_sprites {
 	SPR_NONE = 0,
-	SPR_PLYR,
 	SPR_PLYR_IDLE,
 	SPR_PLYR_MOVE_UP,
 	SPR_PLYR_MOVE_RIGHT,
