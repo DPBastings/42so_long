@@ -32,12 +32,12 @@
 
 # define GRID_W				48
 # define GRID_H				48
-//SCREEN_W = GRID_W * 21; SCREEN_H = GRID_H * 15
-# define SCREEN_W			1008
+//SCREEN_W = GRID_W * 26; SCREEN_H = GRID_H * 15
+# define SCREEN_W			1248
 # define SCREEN_H			720
 # define HUD_H				144
 //VIEW_MAXW = SCREEN_W; VIEW_MAXH = SCREEN_H - HUD_H
-# define VIEW_MAXW			1008
+# define VIEW_MAXW			1248
 # define VIEW_MAXH			576
 
 # define SEC_PER_TICK		0.042
@@ -175,8 +175,10 @@ typedef struct s_map {
 
 typedef struct s_view {
 	t_point	origin;
-	t_point	offset;
-	t_point	size;
+	t_point	origin_max;
+	t_point	port_min;
+	t_point	port_size;
+	t_point	port_max;
 }	t_view;
 
 typedef struct s_game {
@@ -285,6 +287,7 @@ t_object	**map_index(t_map *map, t_upoint p);
 t_point		*map_get_adjacent(t_map *map, t_point p);
 void		map_destroy(t_map **map);
 
+void		view_init(t_game *game);
 int32_t		view_xview(int32_t x, t_view view);
 int32_t		view_yview(int32_t y, t_view view);
 uint32_t	view_xgrid(int32_t x, t_view view);

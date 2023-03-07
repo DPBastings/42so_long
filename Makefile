@@ -54,6 +54,7 @@ SRC_FILES	:= main.c\
 			texture.c\
 			utils.c\
 			view.c\
+			view_init.c\
 			view_update.c\
 			\
 			mlx42_utils.c

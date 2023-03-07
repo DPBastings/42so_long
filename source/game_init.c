@@ -30,6 +30,7 @@ t_game	*game_init(char const *filename)
 	map_check(game->map);
 	game->score_max = map_get_maxscore(game->map);
 	screen_init(game);
+	view_init(game);
 	game->gradient = gradient_load();
 	textures_load(game);
 	game->sprites = sprites_init(game);
@@ -54,13 +55,6 @@ static mlx_texture_t	*gradient_load(void)
 
 static void	screen_init(t_game *game)
 {
-	if (game->map->dims.x * GRID_W < VIEW_MAXW)
-		game->view.offset.x += (VIEW_MAXW - game->map->dims.x * GRID_W) / 2;
-	game->view.size.x = VIEW_MAXW - game->view.offset.x;
-	game->view.offset.y = HUD_H;
-	if (game->map->dims.y * GRID_W < VIEW_MAXH)
-		game->view.offset.y += (VIEW_MAXH - game->map->dims.y * GRID_H) / 2;
-	game->view.size.y = VIEW_MAXH - game->view.offset.y;
 	game->mlx = mlx_init(SCREEN_W, SCREEN_H, SL_TITLE, false);
 	if (game->mlx == NULL)
 		sl_error(SL_MEMFAIL);

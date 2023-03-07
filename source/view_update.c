@@ -16,15 +16,22 @@
 #include "geometry.h"
 #include <stdint.h>
 
-#define VIEW_BORDER_W	192
-#define VIEW_BORDER_H	192
+#define MARGIN	192
 
 static void	objects_reposition(t_map *map, t_point diff);
 static void	object_reposition(t_object *obj, t_point diff);
 
 void	view_update(t_point diff, t_game *game)
 {
-	if (!(diff.x || diff.y))
+	if (game->view.origin.x + diff.x < 0)
+		diff.x = 0;
+	if (game->view.origin.x + diff.x > game->view.origin_max.x)
+		diff.x = game->view.origin_max.x - game->view.origin.x;
+	if (game->view.origin.y + diff.y < 0)
+		diff.y = 0;
+	if (game->view.origin.y + diff.y > game->view.origin_max.y)
+		diff.y = game->view.origin_max.y - game->view.origin.y;
+	if (diff.x == 0 && diff.y == 0)
 		return ;
 	objects_reposition(game->map, diff);
 	game->view.origin.x += diff.x;
@@ -36,15 +43,10 @@ void	view_centre(t_point anchor, t_game *game)
 	t_point	diff;
 
 	diff = game->view.origin;
-	if (game->view.offset.x == 0)
-		diff.x += ft_intmin(2,
-				anchor.x - (VIEW_MAXW / 2),
-				game->map->dims.x * GRID_W - VIEW_MAXW);
-	if (game->view.offset.y == HUD_H)
-		diff.y += ft_intmin(2,
-				anchor.y - (SCREEN_H / 2),
-				game->map->dims.y * GRID_H - VIEW_MAXH);
+	diff.x += anchor.x - ((game->view.port_max.x + game->view.port_min.x) / 2);
+	diff.y += anchor.y - ((game->view.port_max.y + game->view.port_min.y) / 2);
 	view_update(diff, game);
+	printf(">origin: %4d %4d\n", game->view.origin.x, game->view.origin.y);
 }
 
 void	view_shift(t_point anchor, t_game *game)
@@ -52,22 +54,14 @@ void	view_shift(t_point anchor, t_game *game)
 	t_point	diff;
 
 	set_point(&diff, 0, 0);
-	if (game->view.offset.x == 0)
-	{
-		if (anchor.x <= VIEW_BORDER_W && game->view.origin.x > 0)
-			diff.x = anchor.x - VIEW_BORDER_W;
-		else if (anchor.x >= VIEW_MAXW - VIEW_BORDER_W
-			&& game->view.origin.x <= game->map->dims.x * GRID_W - VIEW_MAXW)
-			diff.x = anchor.x - (VIEW_MAXW - VIEW_BORDER_W);
-	}
-	if (game->view.offset.y == HUD_H)
-	{
-		if (anchor.y <= VIEW_BORDER_H && game->view.origin.y > 0)
-			diff.y = anchor.y - VIEW_BORDER_H;
-		else if (anchor.y >= VIEW_MAXH - VIEW_BORDER_H
-			&& game->view.origin.y < game->map->dims.y * GRID_H - VIEW_MAXH)
-			diff.y = anchor.y - (VIEW_MAXH - VIEW_BORDER_H);
-	}
+	if (anchor.x < game->view.port_min.x + MARGIN)
+		diff.x = anchor.x - (game->view.port_min.x + MARGIN);
+	else if (anchor.x > game->view.port_max.x - GRID_W - MARGIN)
+		diff.x = anchor.x - (game->view.port_max.x - GRID_W - MARGIN);
+	if (anchor.y < game->view.port_min.y + MARGIN)
+		diff.y = anchor.y - (game->view.port_min.y + MARGIN);
+	else if (anchor.y > game->view.port_max.y - MARGIN) // +min.x
+		diff.y = anchor.y - (game->view.port_max.y - MARGIN); //+min.x
 	view_update(diff, game);
 }
 
