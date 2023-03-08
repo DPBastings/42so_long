@@ -24,9 +24,9 @@ void	object_tick_player(t_object *plyr, void *param)
 
 	object_tick_default(plyr, param);
 	game = param;
+	plyr_change_sprites(plyr, game);
 	if (plyr->speed)
 		plyr_tick_move(plyr, game);
-	plyr_change_sprites(plyr, game);
 	plyr_check_collisions(plyr, game);
 }
 
