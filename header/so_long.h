@@ -177,7 +177,6 @@ typedef struct s_view {
 	t_point	origin;
 	t_point	origin_max;
 	t_point	port_min;
-	t_point	port_size;
 	t_point	port_max;
 }	t_view;
 

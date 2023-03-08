@@ -46,7 +46,6 @@ void	view_centre(t_point anchor, t_game *game)
 	diff.x += anchor.x - ((game->view.port_max.x + game->view.port_min.x) / 2);
 	diff.y += anchor.y - ((game->view.port_max.y + game->view.port_min.y) / 2);
 	view_update(diff, game);
-	printf(">origin: %4d %4d\n", game->view.origin.x, game->view.origin.y);
 }
 
 void	view_shift(t_point anchor, t_game *game)
@@ -60,8 +59,8 @@ void	view_shift(t_point anchor, t_game *game)
 		diff.x = anchor.x - (game->view.port_max.x - GRID_W - MARGIN);
 	if (anchor.y < game->view.port_min.y + MARGIN)
 		diff.y = anchor.y - (game->view.port_min.y + MARGIN);
-	else if (anchor.y > game->view.port_max.y - MARGIN) // +min.x
-		diff.y = anchor.y - (game->view.port_max.y - MARGIN); //+min.x
+	else if (anchor.y > game->view.port_max.y - GRID_H - MARGIN)
+		diff.y = anchor.y - (game->view.port_max.y - GRID_H - MARGIN);
 	view_update(diff, game);
 }
 
