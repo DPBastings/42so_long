@@ -16,7 +16,7 @@
 #include "geometry.h"
 #include <stdint.h>
 
-#define MARGIN	192
+#define MARGIN	240
 
 static void	objects_reposition(t_map *map, t_point diff);
 static void	object_reposition(t_object *obj, t_point diff);
@@ -55,12 +55,12 @@ void	view_shift(t_point anchor, t_game *game)
 	set_point(&diff, 0, 0);
 	if (anchor.x < game->view.port_min.x + MARGIN)
 		diff.x = anchor.x - (game->view.port_min.x + MARGIN);
-	else if (anchor.x > game->view.port_max.x - GRID_W - MARGIN)
-		diff.x = anchor.x - (game->view.port_max.x - GRID_W - MARGIN);
+	else if (anchor.x > game->view.port_max.x - MARGIN)
+		diff.x = anchor.x - (game->view.port_max.x - MARGIN);
 	if (anchor.y < game->view.port_min.y + MARGIN)
 		diff.y = anchor.y - (game->view.port_min.y + MARGIN);
-	else if (anchor.y > game->view.port_max.y - GRID_H - MARGIN)
-		diff.y = anchor.y - (game->view.port_max.y - GRID_H - MARGIN);
+	else if (anchor.y > game->view.port_max.y - MARGIN)
+		diff.y = anchor.y - (game->view.port_max.y - MARGIN);
 	view_update(diff, game);
 }
 

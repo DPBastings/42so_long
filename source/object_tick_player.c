@@ -32,6 +32,8 @@ void	object_tick_player(t_object *plyr, void *param)
 
 static void	plyr_tick_move(t_object *plyr, t_game *game)
 {
+	t_point	a;
+
 	object_move_sprite(plyr);
 	if (object_align_grid(plyr, game))
 	{
@@ -43,9 +45,9 @@ static void	plyr_tick_move(t_object *plyr, t_game *game)
 			plyr->sprite->frame = 0;
 		}
 	}
-	view_shift(
-		instance_to_point(plyr->sprite->image->instances[plyr->instance_id]),
-		game);
+	a = instance_to_point(plyr->sprite->image->instances[plyr->instance_id]),
+	set_point(&a, a.x + GRID_W / 2, a.y + GRID_H / 2);
+	view_shift(a, game);
 }
 
 static void	plyr_change_sprites(t_object *plyr, t_game *game)
