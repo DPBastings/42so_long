@@ -52,6 +52,7 @@ void	sprite_animate(t_sprite *spr, void *param)
 	}
 	spr->frame++;
 }
+//replace with texture_area_copy_to_image()
 
 bool	sprite_animation_is_done(t_sprite *spr)
 {

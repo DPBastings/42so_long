@@ -25,8 +25,10 @@ void	view_init(t_game *game)
 		game->view.port_min.y = (VIEW_MAXH - pixel_dims.y) / 2;
 	game->view.port_max.x = VIEW_MAXW - game->view.port_min.x;
 	game->view.port_max.y = VIEW_MAXH - game->view.port_min.y;
-	game->view.origin_max.x = ft_intmax(2, 0, pixel_dims.x - game->view.port_max.x);
-	game->view.origin_max.y = ft_intmax(2, 0, pixel_dims.y - game->view.port_max.y);
+	game->view.origin_max.x = ft_intmax(2,
+			0, pixel_dims.x - game->view.port_max.x);
+	game->view.origin_max.y = ft_intmax(2,
+			0, pixel_dims.y - game->view.port_max.y);
 	apply_offset(&game->view);
 }
 

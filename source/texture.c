@@ -30,6 +30,7 @@ static char const	*g_texture_files[N_TEXTURES] = {
 	"./assets/textures/vortex.png",
 	"./assets/textures/wall_tiles.png",
 	"./assets/textures/background.png",
+	"./assets/textures/hud_bg.png",
 };
 
 void	textures_load(t_game *game)

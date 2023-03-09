@@ -14,6 +14,7 @@
 # define MLX42_UTILS_H
 
 # include "MLX42/MLX42.h"
+# include <stdint.h>
 
 typedef enum {
 	R = 0,
@@ -23,6 +24,8 @@ typedef enum {
 	BPP,
 }	t_rgba;
 
+void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
+		uint32_t dstxy[2], uint32_t srcxy[2]);
 uint8_t	*pixel_get(uint8_t *pixels, uint32_t wh[2], uint32_t x, uint32_t y);
 void	pixel_overlay(uint8_t *pixel, uint8_t *overlay);
 

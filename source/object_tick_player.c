@@ -45,19 +45,22 @@ static void	plyr_tick_move(t_object *plyr, t_game *game)
 			plyr->sprite->frame = 0;
 		}
 	}
-	a = instance_to_point(plyr->sprite->image->instances[plyr->instance_id]),
+	a = instance_to_point(plyr->sprite->image->instances[plyr->instance_id]);
 	set_point(&a, a.x + GRID_W / 2, a.y + GRID_H / 2);
 	view_shift(a, game);
 }
 
 static void	plyr_change_sprites(t_object *plyr, t_game *game)
 {
-	if (game->ticks % 48 == 24)
-		plyr->sprite->animator = sprite_animate;
-	else if (sprite_animation_is_done(plyr->sprite))
+	if (plyr->sprite == game->sprites[SPR_PLYR_IDLE])
 	{
-		plyr->sprite->frame = 0;
-		plyr->sprite->animator = sprite_animate_pass;
+		if (game->ticks % 48 == 24)
+			plyr->sprite->animator = sprite_animate;
+		else if (sprite_animation_is_done(plyr->sprite))
+		{
+			plyr->sprite->frame = 0;
+			plyr->sprite->animator = sprite_animate_pass;
+		}
 	}
 }	
 

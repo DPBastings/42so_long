@@ -72,6 +72,7 @@ typedef enum e_textures {
 	TXR_WALL,
 	TXR_BG,
 	//TXR_RAINBOW,
+	TXR_HUD_BG,
 	N_TEXTURES,
 }	t_txr_id;
 
@@ -180,6 +181,17 @@ typedef struct s_view {
 	t_point	port_max;
 }	t_view;
 
+typedef struct s_bar {
+	mlx_image_t	*bar;
+	mlx_image_t	*frame;
+}	t_bar;
+
+typedef struct s_hud {
+	mlx_image_t	*bg;
+	mlx_image_t	*text;
+	t_bar		*bar;
+}	t_hud;
+
 typedef struct s_game {
 	int32_t		seed;
 	uint64_t	ticks;
@@ -187,6 +199,7 @@ typedef struct s_game {
 	t_texture	**textures;
 	t_texture	*gradient;
 	t_sprite	**sprites;
+	t_hud		*hud;
 	t_map		*map;
 	t_point		draw_offset;
 	uint32_t	score_max;
@@ -285,6 +298,9 @@ void		map_setup(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_upoint p);
 t_point		*map_get_adjacent(t_map *map, t_point p);
 void		map_destroy(t_map **map);
+
+void		hud_init(t_game *game);
+void		hud_destroy(t_hud **hud, mlx_t *mlx);
 
 void		view_init(t_game *game);
 int32_t		view_xview(int32_t x, t_view view);

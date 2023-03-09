@@ -36,6 +36,8 @@ t_game	*game_init(char const *filename)
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
 	sprites_setup(game);
+	hud_init(game);
+	mlx_image_to_window(game->mlx, game->hud->bg, 0, 0);
 	draw_bg(game);
 	view_centre(
 		instance_to_point(game->map->player->sprite->image->instances[0]),
@@ -65,6 +67,7 @@ void	game_end(t_game *game)
 	if (game == NULL)
 		return ;
 	map_destroy(&game->map);
+	hud_destroy(&game->hud, game->mlx);
 	sprites_destroy(&game->sprites, game->mlx);
 	if (game->gradient)
 		mlx_delete_texture(game->gradient);
