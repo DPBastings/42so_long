@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/06 13:58:41 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/10 13:49:36 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRC_FILES	:= main.c\
 			hook_keys.c\
 			hook_tick.c\
 			hud.c\
+			hud_bar.c\
+			hud_render.c\
 			map.c\
 			map_check.c\
 			map_check_path.c\

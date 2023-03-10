@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 17:00:46 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 14:06:41 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_game	*game_init(char const *filename)
 	game->seed = seed_get(game);
 	sprites_setup(game);
 	hud_init(game);
-	mlx_image_to_window(game->mlx, game->hud->bg, 0, 0);
+	hud_render(game->hud, game->mlx);
 	draw_bg(game);
 	view_centre(
 		instance_to_point(game->map->player->sprite->image->instances[0]),

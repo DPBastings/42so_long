@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 17:00:42 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 14:04:24 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "geometry.h"
 # include "libft.h"
 # include "libftprintf.h"
+# include <limits.h>
 # include "MLX42/MLX42.h"
 # include <stdbool.h>
 # include <stdint.h>
@@ -35,6 +36,7 @@
 //SCREEN_W = GRID_W * 26; SCREEN_H = GRID_H * 15
 # define SCREEN_W			1248
 # define SCREEN_H			720
+# define HUD_W				1248
 # define HUD_H				144
 //VIEW_MAXW = SCREEN_W; VIEW_MAXH = SCREEN_H - HUD_H
 # define VIEW_MAXW			1248
@@ -73,6 +75,7 @@ typedef enum e_textures {
 	TXR_BG,
 	//TXR_RAINBOW,
 	TXR_HUD_BG,
+	TXR_PROGRESS_BAR_FRAME,
 	N_TEXTURES,
 }	t_txr_id;
 
@@ -117,6 +120,19 @@ typedef enum e_sprites {
 # define N_COLL_SPR			5 //(SPR_COLL_MAX - SPR_COLL_0 + 1)
 # define N_WALL_SPR			16 //(SPR_WALL_MAX - SPR_WALL_0000 + 1)
 # define SPR_FILLER			14 //SPR_WALL_0000
+
+typedef enum e_z {
+	Z_BG0 = 0,
+	Z_BG1,
+	Z_BG2,
+	Z_HUD,
+	Z_MAP,
+	Z_COLL0,
+	Z_COLL1,
+	Z_PLYR,
+	Z_ENMY,
+	Z_FG = INT_MAX,
+}	t_z;
 
 typedef enum e_dirs {
 	DIR_UP = 0,
@@ -182,6 +198,7 @@ typedef struct s_view {
 }	t_view;
 
 typedef struct s_bar {
+	t_point		origin;
 	mlx_image_t	*bar;
 	mlx_image_t	*frame;
 }	t_bar;
@@ -300,7 +317,10 @@ t_point		*map_get_adjacent(t_map *map, t_point p);
 void		map_destroy(t_map **map);
 
 void		hud_init(t_game *game);
+void		hud_bar_init(t_game *game, int32_t x, int32_t y);
+void		hud_render(t_hud *hud, mlx_t *mlx);
 void		hud_destroy(t_hud **hud, mlx_t *mlx);
+void		hud_bar_destroy(t_bar **bar, mlx_t *mlx);
 
 void		view_init(t_game *game);
 int32_t		view_xview(int32_t x, t_view view);
@@ -314,7 +334,6 @@ void		view_shift(t_point anchor, t_game *game);
 t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
 t_point		instance_to_point(mlx_instance_t instance);
 
-void		hud_init(t_game *game);
 void		draw_bg(t_game *game);
 
 void		sl_strerror(t_sl_errno errno);

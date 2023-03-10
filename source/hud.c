@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   hud.c                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dbasting <marvin@codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/10 14:14:51 by dbasting      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 #include "mlx42_utils.h"
 #include <stdlib.h>
-
-#define HUD_W	SCREEN_W
 
 static void	hud_bg_init(t_game *game);
 static void	hud_bg_fill(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst);
@@ -16,7 +26,7 @@ void	hud_init(t_game *game)
 		sl_error(SL_MEMFAIL);
 	hud_bg_init(game);
 	//hud_text_init(game);
-	//hud_bar_init(game);
+	hud_bar_init(game, GRID_W, 96);
 }
 
 static void	hud_bg_init(t_game *game)
@@ -44,16 +54,15 @@ static void	hud_bg_fill(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst)
 	t_upoint	src;
 
 	set_upoint(&src, 0, 0);
-	if (dst.x >= HUD_W - GRID_W)
+	if (dst.x >= bg->width - GRID_W)
 		src.x = 2 * GRID_W;
 	else if (dst.x > 0)
 		src.x = GRID_W;
-	if (dst.y >= HUD_H - GRID_H)
+	if (dst.y >= bg->height - GRID_H)
 		src.y = 2 * GRID_H;
 	else if (dst.y > 0)
 		src.y = GRID_H;
-	texture_area_copy_to_image(bg, txr,
-		(uint32_t *)&dst, (uint32_t *)&src);
+	texture_area_copy_to_image(bg, txr, (uint32_t *)&dst, (uint32_t *)&src);
 }
 
 static void	hud_text_init(t_game *game)
@@ -63,6 +72,7 @@ static void	hud_text_init(t_game *game)
 
 void	hud_destroy(t_hud **hud, mlx_t *mlx)
 {
+	hud_bar_destroy(&(*hud)->bar, mlx);
 	mlx_delete_image(mlx, (*hud)->bg);
 	free(*hud);
 	*hud = NULL;

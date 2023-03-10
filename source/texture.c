@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 16:53:58 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 13:51:00 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static char const	*g_texture_files[N_TEXTURES] = {
 	"./assets/textures/wall_tiles.png",
 	"./assets/textures/background.png",
 	"./assets/textures/hud_bg.png",
+	"./assets/textures/hud_bar.png",
 };
 
 void	textures_load(t_game *game)
