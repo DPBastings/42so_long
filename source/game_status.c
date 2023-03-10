@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 17:20:53 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:43:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 14:50:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	create_vortex(t_game *game)
 		sl_error(SL_MEMFAIL);
 	obj->type = OBJ_ANIM;
 	obj->position = game->map->exit->position;
-	obj->z = game->map->exit->z + 1;
+	obj->z = Z_BG1;
 	sprite_change(obj, game->sprites[SPR_VORTEX], game);
 	obj->sprite->frame_max = -1;
 	obj->sprite->animator = sprite_animate_vortex;

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:04:24 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 14:52:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,15 @@ typedef enum e_sprites {
 typedef enum e_z {
 	Z_BG0 = 0,
 	Z_BG1,
-	Z_BG2,
-	Z_HUD,
 	Z_MAP,
 	Z_COLL0,
 	Z_COLL1,
 	Z_PLYR,
 	Z_ENMY,
-	Z_FG = INT_MAX,
+	Z_HUD0,
+	Z_HUD1,
+	Z_HUD2,
+	Z_FG,
 }	t_z;
 
 typedef enum e_dirs {

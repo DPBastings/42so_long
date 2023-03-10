@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 16:51:29 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 15:01:32 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	sprite_set_coll(t_object *obj, t_game *game)
 	t_spr_id	id;
 	int32_t		x;
 
+	if ((obj->position.x + obj->position.y) % 2 == 1)
+		obj->z = Z_COLL1;
 	x = game->seed / (obj->position.x * obj->position.y + 1);
 	id = SPR_COLL_0 + (x % N_COLL_SPR);
 	sprite_change(obj, game->sprites[id], game);

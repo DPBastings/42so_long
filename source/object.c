@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 15:24:05 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 14:44:43 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ typedef enum e_obj_param {
 	N_OBJ_PARAMS,
 }	t_obj_param;
 
-static uint16_t	g_lookup_obj_params[N_OBJS * N_OBJ_PARAMS] = {
-	3,	0,	0,	false,
-	3,	2,	0,	true,
-	2,	0,	1,	true,
-	0,	0,	0,	true,
-	1,	0,	0,	false,
-	0,	0,	0,	true,
+static int32_t	g_lookup_obj_params[N_OBJS][N_OBJ_PARAMS] = {
+	{Z_FG,		0,	0,	false},
+	{Z_PLYR,	2,	0,	true},
+	{Z_COLL0,	0,	1,	true},
+	{Z_MAP,		0,	0,	true},
+	{Z_MAP,		0,	0,	false},
+	{Z_BG1,		0,	0,	true},
 };
 
 /* t_object *object_init(unsigned int type)
@@ -49,10 +49,10 @@ t_object	*object_init(t_obj_id type)
 		return (NULL);
 	new->type = type;
 	set_upoint(&new->position, -1, -1);
-	new->z = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_Z];
-	new->dir = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_DIR];
-	new->speed = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_SPEED];
-	new->passable = g_lookup_obj_params[type * N_OBJ_PARAMS + P_OBJ_PASSABLE];
+	new->z = g_lookup_obj_params[type][P_OBJ_Z];
+	new->dir = g_lookup_obj_params[type][P_OBJ_DIR];
+	new->speed = g_lookup_obj_params[type][P_OBJ_SPEED];
+	new->passable = g_lookup_obj_params[type][P_OBJ_PASSABLE];
 	new->sprite = NULL;
 	new->instance_id = -1;
 	new->obj_below = NULL;
