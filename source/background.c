@@ -6,17 +6,18 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:37:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:37:44 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 15:20:02 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 #include "geometry.h"
+#include "MLX42/MLX42.h"
 
 static void	draw_bg_element(t_point p, t_game *game);
 
-void	draw_bg(t_game *game)
+void	bg_render(t_game *game)
 {
 	t_point	p;
 	int32_t	xstart;

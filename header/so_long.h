@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:52:05 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/10 15:46:37 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,7 @@ void		hud_bar_init(t_game *game, int32_t x, int32_t y);
 void		hud_render(t_hud *hud, mlx_t *mlx);
 void		hud_destroy(t_hud **hud, mlx_t *mlx);
 void		hud_bar_destroy(t_bar **bar, mlx_t *mlx);
+void		bg_render(t_game *game);
 
 void		view_init(t_game *game);
 int32_t		view_xview(int32_t x, t_view view);
@@ -334,8 +335,6 @@ void		view_shift(t_point anchor, t_game *game);
 
 t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
 t_point		instance_to_point(mlx_instance_t instance);
-
-void		draw_bg(t_game *game);
 
 void		sl_strerror(t_sl_errno errno);
 void		sl_error(t_sl_errno errno);
