@@ -192,10 +192,11 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_view {
-	t_point	origin;
-	t_point	origin_max;
-	t_point	port_min;
-	t_point	port_max;
+	t_point		origin;
+	t_point		origin_max;
+	t_point		port_min;
+	t_point		port_max;
+	mlx_image_t	*background;
 }	t_view;
 
 typedef struct s_bar {
@@ -219,7 +220,6 @@ typedef struct s_game {
 	t_sprite	**sprites;
 	t_hud		*hud;
 	t_map		*map;
-	t_point		draw_offset;
 	uint32_t	score_max;
 	uint32_t	score;
 	uint32_t	moves;

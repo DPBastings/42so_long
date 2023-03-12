@@ -23,7 +23,7 @@ void	bg_render(t_game *game)
 	int32_t	xstart;
 
 	p.y = HUD_H - game->view.port_min.y % GRID_H;
-	xstart = -(game->view.port_min.x % GRID_W);
+	xstart = 0 - (game->view.port_min.x % GRID_W);
 	while (p.y < SCREEN_H)
 	{
 		p.x = xstart;
@@ -50,13 +50,13 @@ static void	draw_bg_element(t_point p, t_game *game)
 		id = mlx_image_to_window(game->mlx, bg, p.x, p.y);
 		if (id == -1)
 			sl_error(SL_MEMFAIL);
-		mlx_set_instance_depth(&bg->instances[id], -1);
+		mlx_set_instance_depth(&bg->instances[id], Z_BG0);
 	}
 	else
 	{
 		id = mlx_image_to_window(game->mlx, fill, p.x, p.y);
 		if (id == -1)
 			sl_error(SL_MEMFAIL);
-		mlx_set_instance_depth(&fill->instances[id], 0);
+		mlx_set_instance_depth(&fill->instances[id], Z_BG0);
 	}
 }

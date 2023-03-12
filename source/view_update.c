@@ -18,10 +18,10 @@
 
 #define MARGIN	240
 
-static void	sprites_reposition(t_sprite **sprites, t_point diff);
-static void	sprite_reposition(t_sprite *sprite, t_point diff);
-//static void	objects_reposition(t_map *map, t_point diff);
-//static void	object_reposition(t_object *obj, t_point diff);
+//static void	sprites_reposition(t_sprite **sprites, t_point diff);
+//static void	sprite_reposition(t_sprite *sprite, t_point diff);
+static void	objects_reposition(t_map *map, t_point diff);
+static void	object_reposition(t_object *obj, t_point diff);
 
 void	view_update(t_point diff, t_game *game)
 {
@@ -35,8 +35,7 @@ void	view_update(t_point diff, t_game *game)
 		diff.y = game->view.origin_max.y - game->view.origin.y;
 	if (diff.x == 0 && diff.y == 0)
 		return ;
-	sprites_reposition(game->sprites, diff);
-	//objects_reposition(game->map, diff);
+	objects_reposition(game->map, diff);
 	game->view.origin.x += diff.x;
 	game->view.origin.y += diff.y;
 }
@@ -67,7 +66,7 @@ void	view_shift(t_point anchor, t_game *game)
 	view_update(diff, game);
 }
 
-static void	sprites_reposition(t_sprite **sprites, t_point diff)
+/*static void	sprites_reposition(t_sprite **sprites, t_point diff)
 {
 	t_spr_id	spr;
 
@@ -88,19 +87,19 @@ static void	sprite_reposition(t_sprite *sprite, t_point diff)
 		if (sprite->image->instances[i].z <= Z_BG1)
 		{
 			if (sprite->image->instances[i].x < -GRID_W)
-				sprite->image->instances[i].x += GRID_W;
+				sprite->image->instances[i].x += VIEW_MAXW + 2 * GRID_W;
 			else if (sprite->image->instances[i].x > VIEW_MAXW + GRID_W)
-				sprite->image->instances[i].x -= GRID_W;
+				sprite->image->instances[i].x -= VIEW_MAXW + 2 * GRID_W;
 			if (sprite->image->instances[i].y < -GRID_H)
-				sprite->image->instances[i].y += GRID_H;
+				sprite->image->instances[i].y += VIEW_MAXH + 2 * GRID_H;
 			else if (sprite->image->instances[i].y > VIEW_MAXH + GRID_H)
-				sprite->image->instances[i].y -= GRID_H;
+				sprite->image->instances[i].y -= VIEW_MAXH + 2 * GRID_H;
 		}
 		i++;
 	}
-}
+}*/
 
-/*static void	objects_reposition(t_map *map, t_point diff)
+static void	objects_reposition(t_map *map, t_point diff)
 {
 	t_upoint	p;
 	t_object	*obj;
@@ -126,4 +125,4 @@ static void	object_reposition(t_object *obj, t_point diff)
 		obj->sprite->image->instances[obj->instance_id].y -= diff.y;
 		object_reposition(obj->obj_below, diff);
 	}
-}*/
+}
