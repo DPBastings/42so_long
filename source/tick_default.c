@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   object_tick_default.c                              :+:    :+:            */
+/*   tick_default.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -12,17 +12,14 @@
 
 #include "so_long.h"
 
-void	object_tick_default(t_object *obj, void *param)
+void	tick_default(t_object *obj, void *param)
 {
 	(void) param;
 	obj->ticked = true;
 }
 
-void	object_tick_move(t_object *obj, void *param)
+bool	tick_move(t_object *obj, t_game *game)
 {
-	t_game	*game;
-
-	game = param;
 	object_move_sprite(obj);
-	object_align_grid(obj, game);
+	return (object_align_grid(obj, game));
 }

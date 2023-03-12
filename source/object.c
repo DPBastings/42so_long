@@ -33,6 +33,8 @@ static int32_t	g_lookup_obj_params[N_OBJS][N_OBJ_PARAMS] = {
 	{Z_COLL0,	0,	1,	true},
 	{Z_MAP,		0,	0,	true},
 	{Z_MAP,		0,	0,	false},
+	{Z_ENMY,	0,	8,	true},
+	{Z_ENMY,	0,	8,	true},
 	{Z_BG1,		0,	0,	true},
 };
 

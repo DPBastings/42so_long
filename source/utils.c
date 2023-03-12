@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "so_long.h"
 #include "geometry.h"
 #include "MLX42/MLX42.h"
+
+t_dir	dir_invert(t_dir dir)
+{
+	if (dir >= N_DIR / 2)
+		return (dir - N_DIR / 2);
+	return (dir + N_DIR / 2);
+}
 
 t_point	instance_to_point(mlx_instance_t instance)
 {

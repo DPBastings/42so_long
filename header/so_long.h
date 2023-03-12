@@ -56,6 +56,8 @@ typedef enum e_objs {
 	OBJ_COLL,
 	OBJ_EXIT,
 	OBJ_WALL,
+	OBJ_ENMY_EASY,
+	OBJ_ENMY_HARD,
 	OBJ_ANIM,
 	N_OBJS,
 }	t_obj_id;
@@ -68,6 +70,10 @@ typedef enum e_textures {
 	TXR_PLYR_WALK_R,
 	TXR_PLYR_WALK_D,
 	TXR_PLYR_WALK_L,
+	TXR_ENMY_WALK_U,
+	TXR_ENMY_WALK_R,
+	TXR_ENMY_WALK_D,
+	TXR_ENMY_WALK_L,
 	TXR_COLL,
 	TXR_EXIT,
 	TXR_VORTEX,
@@ -86,6 +92,10 @@ typedef enum e_sprites {
 	SPR_PLYR_MOVE_RIGHT,
 	SPR_PLYR_MOVE_DOWN,
 	SPR_PLYR_MOVE_LEFT,
+	SPR_ENMY_MOVE_UP,
+	SPR_ENMY_MOVE_RIGHT,
+	SPR_ENMY_MOVE_DOWN,
+	SPR_ENMY_MOVE_LEFT,
 	SPR_COLL_0,
 	SPR_COLL_1,
 	SPR_COLL_2,
@@ -284,6 +294,7 @@ bool		sprite_animation_is_done(t_sprite *spr);
 typedef void			(*t_spr_setter)(t_object *obj, t_game *game);
 void		sprite_set_default(t_object *obj, t_game *game);
 void		sprite_set_coll(t_object *obj, t_game *game);
+void		sprite_set_enemy(t_object *obj, t_game *game);
 void		sprite_set_wall(t_object *obj, t_game *game);
 
 void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
@@ -297,16 +308,19 @@ void		object_move(t_object *obj, t_dir dir, uint32_t speed);
 void		object_move_sprite(t_object *obj);
 void		object_place(t_object *obj, t_map *map, t_upoint p);
 void		object_destroy(t_object **obj);
+
 bool		player_move(t_game *game, t_dir dir);
+bool		enemy_move(t_object *enmy, t_game *game);
 
 typedef void			(*t_obj_ticker)(t_object *obj, void *param);
 void		objects_tick(t_game *game);
-void		object_tick_default(t_object *obj, void *param);
-void		object_tick_move(t_object *obj, void *param);
-void		object_tick_coll(t_object *coll, void *param);
-void		object_tick_enemy(t_object *enmy, void *param);
-void		object_tick_exit(t_object *exit, void *param);
-void		object_tick_player(t_object *plyr, void *param);
+bool		tick_move(t_object *obj, t_game *game);
+void		tick_default(t_object *obj, void *param);
+void		tick_coll(t_object *coll, void *param);
+void		tick_enemy_easy(t_object *enmy, void *param);
+void		tick_enemy_hard(t_object *enmy, void *param);
+void		tick_exit(t_object *exit, void *param);
+void		tick_player(t_object *plyr, void *param);
 
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_upoint dims);

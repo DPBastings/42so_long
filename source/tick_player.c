@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   object_tick_player.c                               :+:    :+:            */
+/*   tick_player.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -18,11 +18,11 @@ static void	plyr_change_sprites(t_object *plyr, t_game *game);
 static void	plyr_check_collisions(t_object *plyr, t_game *game);
 static void	plyr_tick_move(t_object *plyr, t_game *game);
 
-void	object_tick_player(t_object *plyr, void *param)
+void	tick_player(t_object *plyr, void *param)
 {
 	t_game		*game;
 
-	object_tick_default(plyr, param);
+	tick_default(plyr, param);
 	game = param;
 	plyr_change_sprites(plyr, game);
 	if (plyr->speed)

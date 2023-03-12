@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   object_tick.c                                      :+:    :+:            */
+/*   tick_object.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
@@ -15,17 +15,17 @@
 #include "geometry.h"
 #include <stdint.h>
 
-static t_obj_ticker	g_lookup_ticker[N_OBJS] = {
-	object_tick_default,
-	object_tick_player,
-	object_tick_coll,
-	object_tick_exit,
-	object_tick_default,
-	object_tick_default,
+static t_obj_ticker	g_lut_ticker[N_OBJS] = {
+	tick_default,
+	tick_player,
+	tick_coll,
+	tick_exit,
+	tick_default,
+	tick_default,
 };
 
-static void	object_tick(t_object *obj, void *param);
-static void	object_tick_reset(t_object *obj);
+static void	tick(t_object *obj, void *param);
+static void	tick_reset(t_object *obj);
 
 void	objects_tick(t_game *game)
 {
@@ -37,7 +37,7 @@ void	objects_tick(t_game *game)
 		p.x = 0;
 		while (p.x < game->map->dims.x)
 		{
-			object_tick(*map_index(game->map, p), game);
+			tick(*map_index(game->map, p), game);
 			p.x++;
 		}
 		p.y++;
@@ -48,28 +48,28 @@ void	objects_tick(t_game *game)
 		p.x = 0;
 		while (p.x < game->map->dims.x)
 		{
-			object_tick_reset(*map_index(game->map, p));
+			tick_reset(*map_index(game->map, p));
 			p.x++;
 		}
 		p.y++;
 	}
 }
 
-static void	object_tick(t_object *obj, void *param)
+static void	tick(t_object *obj, void *param)
 {
 	if (obj)
 	{
 		if (obj->ticked == false)
-			g_lookup_ticker[obj->type](obj, param);
-		object_tick(obj->obj_below, param);
+			g_lut_ticker[obj->type](obj, param);
+		tick(obj->obj_below, param);
 	}
 }
 
-static void	object_tick_reset(t_object *obj)
+static void	tick_reset(t_object *obj)
 {
 	if (obj)
 	{
 		obj->ticked = false;
-		object_tick_reset(obj->obj_below);
+		tick_reset(obj->obj_below);
 	}
 }

@@ -21,6 +21,8 @@ static const t_spr_id		g_lkup_spr_id[N_OBJS] = {
 	SPR_COLL_0,
 	SPR_EXIT,
 	SPR_WALL_0000,
+	SPR_ENMY_WALK_UP,
+	SPR_NONE,
 };
 static const t_spr_setter	g_lkup_spr_setter[N_OBJS] = {
 	sprite_set_default,
@@ -28,6 +30,8 @@ static const t_spr_setter	g_lkup_spr_setter[N_OBJS] = {
 	sprite_set_coll,
 	sprite_set_default,
 	sprite_set_wall,
+	sprite_set_enemy,
+	NULL,
 };
 
 void	sprites_setup(t_game *game)
@@ -70,6 +74,14 @@ void	sprite_set_coll(t_object *obj, t_game *game)
 	sprite_change(obj, game->sprites[id], game);
 	obj->dir = ((x - (int32_t) obj->position.y) % 2 * 2);
 	obj->sprite->image->instances[obj->instance_id].y += x % 8 - 4;
+}
+
+void	sprite_set_enemy(t_object *obj, t_game *game)
+{
+	t_spr_id	id;
+
+	id = SPR_ENMY_WALK_UP + obj->dir;
+	sprite_change(obj, game->sprites[id], game);
 }
 
 void	sprite_set_wall(t_object *obj, t_game *game)

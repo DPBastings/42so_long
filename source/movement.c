@@ -34,3 +34,13 @@ bool	player_move(t_game *game, t_dir dir)
 	ft_printf("Moves: [%u].\n", game->moves);
 	return (true);
 }
+
+bool	enemy_move(t_object *enmy, t_game *game)
+{	
+	t_object	**other;
+	
+	other = map_index(game->map, upoint_get_adjacent(enmy->position, enmy->dir));
+	if (*other && ((*other)->type == OBJ_WALL || (*other)->type == OBJ_WALL))
+		return (false);
+	return (true);
+}

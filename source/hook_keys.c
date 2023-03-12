@@ -42,10 +42,7 @@ bool	hook_keys_move(t_game *game)
 	while (dir < N_DIRS)
 	{	
 		if (mlx_is_key_down(game->mlx, g_lookup_movekeys[dir]))
-		{
-			player_move(game, dir);
-			return (true);
-		}
+			return (player_move(game, dir));
 		dir++;
 	}
 	return (false);

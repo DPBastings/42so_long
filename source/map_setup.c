@@ -34,7 +34,7 @@ void	map_setup(t_map *map, t_list *bytemap)
 		while (p.x < map->dims.x)
 		{
 			if (row[p.x] != CHR_NONE)
-			{	
+			{
 				if (!object_setup(map, p, row[p.x]))
 					sl_error(SL_MEMFAIL);
 			}
