@@ -18,47 +18,51 @@
 
 void	sprite_overlay_gradient(t_sprite *sprite, mlx_texture_t *gradient)
 {
-	t_upoint	p;
-	t_plane		a;
-
 	if (sprite == NULL || gradient == NULL)
 		return ;
-	set_plane(&a, GRID_W, GRID_H);
-	p.y = 0;
-	while (p.y < sprite->image->height)
+	image_overlay_gradient(sprite->image, gradient, sprite->frame);
+}
+
+void	image_overlay_gradient(mlx_image_t *img, mlx_texture_t *gradient,
+		uint32_t i)
+{
+	t_upoint		px;
+	uint32_t const	wh[2] = {img->width, img->height};
+
+	px.y = 0;
+	while (px.y < img->height)
 	{
-		p.x = 0;
-		while (p.x < sprite->image->width)
+		px.x = 0;
+		while (px.x < img->width)
 		{
 			pixel_overlay(
-				pixel_get(sprite->image->pixels, (uint32_t *)&a, p.x, p.y),
-				gradient_read(gradient, sprite->frame));
-			p.x++;
+				pixel_get(img->pixels, wh, px.x, px.y),
+				gradient_read(gradient, i));
+			px.x++;
 		}
-		p.y++;
+		px.y++;
 	}
 }
 
-void	sprite_overlay_gradient_line(t_sprite *sprite, mlx_texture_t *gradient)
+void	bar_overlay_gradient(mlx_image_t *bar, mlx_texture_t *gradient,
+		uint32_t i)
 {
-	t_upoint	p;
-	t_plane		a;
+	t_upoint		px;
+	uint32_t const	wh[2] = {bar->width, bar->height};
 
-	if (sprite == NULL || gradient == NULL)
-		return ;
-	set_plane(&a, GRID_W, GRID_H);
-	p.y = 0;
-	while (p.y < sprite->image->height)
+	px.y = 0;
+	while (px.y < bar->height)
 	{
-		p.x = 0;
-		while (p.x < sprite->image->width)
+		px.x = 0;
+		while (px.x < bar->width)
 		{
 			pixel_overlay(
-				pixel_get(sprite->image->pixels, (uint32_t *)&a, p.x, p.y),
-				gradient_read(gradient, p.x + sprite->frame));
-			p.x++;
+				pixel_get(bar->pixels, wh, px.x, px.y),
+				gradient_read(gradient,
+					(gradient->width - i % gradient->width) + px.x / 4 + px.y / 2));
+			px.x++;
 		}
-		p.y++;
+		px.y++;
 	}
 }
 

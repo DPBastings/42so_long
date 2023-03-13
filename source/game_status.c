@@ -24,7 +24,6 @@ void	object_collect(t_game *game, t_object **obj)
 	object_destroy(obj);
 	game->score++;
 	ft_printf("> Score:  %u out of %u.\n", game->score, game->score_max);
-	hud_bar_fill(game->hud->bar, (double) game->score / game->score_max);
 	if (game->score == game->score_max)
 	{
 		create_vortex(game);

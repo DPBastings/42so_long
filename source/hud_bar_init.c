@@ -30,6 +30,7 @@ void	hud_bar_init(t_game *game, int32_t x, int32_t y)
 	if (game->hud->bar == NULL)
 		sl_error(SL_MEMFAIL);
 	set_point(&game->hud->bar->origin, x, y);
+	game->hud->bar->filled = 0.0;
 	game->hud->bar->frame = mlx_new_image(game->mlx,
 			HUD_W - 2 * GRID_W,
 			GRID_H);
@@ -50,7 +51,8 @@ void	hud_bar_init(t_game *game, int32_t x, int32_t y)
 
 static void	bar_draw(mlx_t *mlx, t_bar *bar, mlx_texture_t **txrs)
 {
-	t_upoint	p;
+	uint8_t const	mask[BPP] = {10, 10, 10, 255};
+	t_upoint		p;
 
 	set_upoint(&p, 0, 0);
 	while (p.x < bar->frame->width)
@@ -59,7 +61,7 @@ static void	bar_draw(mlx_t *mlx, t_bar *bar, mlx_texture_t **txrs)
 		p.x += GRID_W;
 	}
 	measure_draw(bar->bar, txrs[TXR_GRADIENT]);
-	//ft_memset(bar->mask->pixels, 255, bar->mask->width * bar->mask->height * BPP);
+	pixels_set(bar->mask->pixels, bar->mask->width * bar->mask->height, mask);
 }
 
 static void	frame_draw(mlx_image_t *img, mlx_texture_t *txr, t_upoint dst)
@@ -76,8 +78,9 @@ static void	frame_draw(mlx_image_t *img, mlx_texture_t *txr, t_upoint dst)
 
 static void	measure_draw(mlx_image_t *img, mlx_texture_t *txr)
 {
-	t_upoint	p;
-	uint8_t		*px;
+	t_upoint		p;
+	uint8_t			*px;
+	uint8_t const	mask[BPP] = {255, 0, 0, 255};
 	
 	p.y = 0;
 	while (p.y < img->height)
@@ -86,8 +89,8 @@ static void	measure_draw(mlx_image_t *img, mlx_texture_t *txr)
 		while (p.x < img->width)
 		{
 			px = &img->pixels[(p.y * img->width + p.x) * BPP];
-			px[A] = 255;
-			pixel_overlay(px, gradient_read(txr, p.x + p.y));
+			pixels_set(px, 1, mask);
+			pixel_overlay(px, gradient_read(txr, p.x / 4 + p.y / 2));
 			p.x++;
 		}
 		p.y++;

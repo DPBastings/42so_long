@@ -213,6 +213,7 @@ typedef struct s_view {
 
 typedef struct s_bar {
 	t_point		origin;
+	double		filled;
 	mlx_image_t	*bar;
 	mlx_image_t	*mask;
 	mlx_image_t	*frame;
@@ -301,6 +302,10 @@ void		sprite_set_enemy(t_object *obj, t_game *game);
 void		sprite_set_wall(t_object *obj, t_game *game);
 
 void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
+void		image_overlay_gradient(mlx_image_t *img, mlx_texture_t *gradient,
+			uint32_t i);
+void		bar_overlay_gradient(mlx_image_t *bar, mlx_texture_t *gradient,
+			uint32_t i);
 uint8_t		*gradient_read(t_texture *gradient, uint32_t i);
 
 t_object	*object_init(t_obj_id type);
@@ -339,7 +344,7 @@ void		map_destroy(t_map **map);
 void		hud_init(t_game *game);
 void		hud_bar_init(t_game *game, int32_t x, int32_t y);
 void		hud_render(t_hud *hud, mlx_t *mlx);
-void		hud_bar_fill(t_bar *bar, double percent);
+void		hud_bar_animate(t_bar *bar, t_game *game);
 void		hud_destroy(t_hud **hud, mlx_t *mlx);
 void		hud_bar_destroy(t_bar **bar, mlx_t *mlx);
 void		bg_render(t_game *game);

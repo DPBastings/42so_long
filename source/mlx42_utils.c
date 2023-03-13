@@ -19,6 +19,26 @@
 #include <stddef.h>
 #include <stdint.h>
 
+void	pixels_set(uint8_t *pixels, size_t n, uint8_t const value[BPP])
+{
+	t_channel	c;
+
+	c = 0;
+	while (c < BPP)
+	{
+		pixels_set_channel(pixels, n, c, value[c]);
+		c++;
+	}
+}
+
+void	pixels_set_channel(uint8_t *pixels, size_t n, t_channel channel, uint8_t value)
+{
+	while (n--)
+	{
+		pixels[n * BPP + channel] = value;
+	}
+}
+
 // The pesky Norm precludes more than four parameters. I've decided to drop `wh`
 // for the purposes of this project (since it'll always be a 48x48 area that's
 // being copied.
@@ -42,7 +62,7 @@ void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
 	}
 }
 
-uint8_t	*pixel_get(uint8_t *pixels, uint32_t wh[2], uint32_t x, uint32_t y)
+uint8_t	*pixel_get(uint8_t *pixels, uint32_t const wh[2], uint32_t x, uint32_t y)
 {
 	if (pixels == NULL || x >= wh[0] || y >= wh[1])
 		return (NULL);

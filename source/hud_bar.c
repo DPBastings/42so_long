@@ -16,17 +16,27 @@
 #include "mlx42_utils.h"
 #include <stdint.h>
 
-void	hud_bar_fill(t_bar *bar, double percent)
+static void	hud_bar_fill(t_bar *bar);
+
+void	hud_bar_animate(t_bar *bar, t_game *game)
+{
+	bar_overlay_gradient(bar->bar, game->textures[TXR_GRADIENT], game->ticks);
+	if (bar->filled < (double) game->score / game->score_max)
+		bar->filled += 1.0 / game->score_max / 12;
+	hud_bar_fill(bar);
+}
+
+static void	hud_bar_fill(t_bar *bar)
 {
 	uint32_t	y;
-	uint32_t	width;
 
 	y = 0;
-	width = (uint32_t)(percent * bar->bar->width);
-	printf("%F %u\n", percent, width);
-	while (y < bar->bar->height)
+	while (y < bar->mask->height)
 	{
-		ft_memset(&bar->bar->pixels[y * bar->bar->width * BPP], 127, width * BPP);
+		pixels_set_channel(&bar->mask->pixels[y * bar->mask->width * BPP],
+				(uint32_t)(bar->filled * bar->mask->width),
+				A,
+				0);
 		y++;
 	}
 }

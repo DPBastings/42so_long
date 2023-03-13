@@ -27,5 +27,6 @@ void	hook_tick(void *param)
 	time_prev = time_now;
 	objects_tick(game);
 	sprites_animate(game);
+	hud_bar_animate(game->hud->bar, game);
 	game->ticks++;
 }
