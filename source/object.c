@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 11:36:47 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 12:03:02 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,24 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-//Lookup table for various t_object members.
-typedef enum e_obj_param {
-	P_OBJ_Z	= 0,
-	P_OBJ_DIR,
-	P_OBJ_SPEED,
-	P_OBJ_PASSABLE,
-	N_OBJ_PARAMS,
-}	t_obj_param;
-
-static int32_t	g_lookup_obj_params[N_OBJS][N_OBJ_PARAMS] = {
-	{Z_FG,		DIR_UP,		0,	false,},
-	{Z_PLYR,	DIR_DOWN,	0,	true,},
-	{Z_COLL0,	DIR_UP,		1,	true,},
-	{Z_MAP,		DIR_UP,		0,	true,},
-	{Z_MAP,		DIR_UP,		0,	false,},
-	{Z_ENMY,	DIR_RIGHT,	6,	true,},
-	{Z_ENMY,	DIR_DOWN,	6,	true,},
-	{Z_ENMY,	DIR_DOWN,	6,	true,},
-	{Z_BG1,		DIR_UP,		0,	true,},
+enum e_obj_vars {
+	OBJ_Z	= 0,
+	OBJ_DIR,
+	OBJ_SPEED,
+	OBJ_PASSABLE,
+	N_OBJ_VARS,
 };
+
+static int32_t	g_lut_obj_vars[N_OBJS][N_OBJ_VARS] = {
+{Z_FG,		DIR_UP,		0,	false,},
+{Z_PLYR,	DIR_DOWN,	0,	true,},
+{Z_COLL0,	DIR_UP,		1,	true,},
+{Z_MAP,		DIR_UP,		0,	true,},
+{Z_MAP,		DIR_UP,		0,	false,},
+{Z_ENMY,	DIR_RIGHT,	6,	true,},
+{Z_ENMY,	DIR_DOWN,	6,	true,},
+{Z_ENMY,	DIR_DOWN,	6,	true,},
+{Z_BG1,		DIR_UP,		0,	true,},};
 
 /* t_object *object_init(unsigned int type)
  * Initializes a new object of type `type`.
@@ -52,10 +50,10 @@ t_object	*object_init(t_obj_id type)
 		return (NULL);
 	new->type = type;
 	set_upoint(&new->position, -1, -1);
-	new->z = g_lookup_obj_params[type][P_OBJ_Z];
-	new->dir = g_lookup_obj_params[type][P_OBJ_DIR];
-	new->speed = g_lookup_obj_params[type][P_OBJ_SPEED];
-	new->passable = g_lookup_obj_params[type][P_OBJ_PASSABLE];
+	new->z = g_lut_obj_vars[type][OBJ_Z];
+	new->dir = g_lut_obj_vars[type][OBJ_DIR];
+	new->speed = g_lut_obj_vars[type][OBJ_SPEED];
+	new->passable = g_lut_obj_vars[type][OBJ_PASSABLE];
 	new->sprite = NULL;
 	new->instance_id = -1;
 	new->obj_below = NULL;

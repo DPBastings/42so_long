@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 13:48:33 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:38:56 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 12:01:34 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 #define BAR_MARGIN 4
 
-static void	bar_render(t_bar *bar, mlx_t *mlx); 
+static void	bar_render(t_bar *bar, mlx_t *mlx);
 
 void	hud_render(t_hud *hud, mlx_t *mlx)
 {
 	int32_t	id;
-	
+
 	id = mlx_image_to_window(mlx, hud->bg, 0, 0);
 	if (id == -1)
 		sl_error(SL_MEMFAIL);
@@ -33,7 +33,7 @@ void	hud_render(t_hud *hud, mlx_t *mlx)
 static void	bar_render(t_bar *bar, mlx_t *mlx)
 {
 	int32_t	id;
-	
+
 	id = mlx_image_to_window(mlx, bar->frame, bar->origin.x, bar->origin.y);
 	if (id == -1)
 		sl_error(SL_MEMFAIL);

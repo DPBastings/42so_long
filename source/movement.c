@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 16:52:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 12:02:34 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ bool	player_move(t_game *game, t_dir dir)
 bool	enemy_move(t_object *enmy, t_game *game)
 {	
 	t_object	**other;
-	
-	other = map_index(game->map, upoint_get_adjacent(enmy->position, enmy->dir));
+
+	other = map_index(game->map,
+			upoint_get_adjacent(enmy->position, enmy->dir));
 	if (*other && ((*other)->type == OBJ_WALL || (*other)->type == OBJ_WALL))
 		return (false);
 	return (true);

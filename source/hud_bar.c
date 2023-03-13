@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:56 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:15:39 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 12:01:11 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	hud_bar_init(t_game *game, int32_t x, int32_t y)
 		sl_error(SL_MEMFAIL);
 	set_point(&game->hud->bar->origin, x, y);
 	bar_frame_init(game->mlx, game->hud->bar,
-			game->textures[TXR_PROGRESS_BAR_FRAME]);
+		game->textures[TXR_PROGRESS_BAR_FRAME]);
 	game->hud->bar->bar = mlx_new_image(game->mlx,
 			game->hud->bar->frame->width - 2 * BAR_MARGIN,
 			game->hud->bar->frame->height - 2 * BAR_MARGIN);

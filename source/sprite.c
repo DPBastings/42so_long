@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 11:00:13 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 12:04:08 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,50 +17,48 @@
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
 
-// Lookup table for various t_sprite variables.
-// <texture ID>	<frame_max>
-typedef enum e_spr_param {
+enum e_spr_param {
 	P_TXR_ID = 0,
 	P_FRAME_MAX,
 	N_SPR_PARAM,
-}	t_spr_param;
-static const uint32_t	g_lut_spr_param[N_SPRITES][N_SPR_PARAM] = {
-	{TXR_NONE,			0,},
-	{TXR_PLYR_IDLE,		13,},
-	{TXR_PLYR_WALK_U,	12,},
-	{TXR_PLYR_WALK_R,	12,},
-	{TXR_PLYR_WALK_D,	12,},
-	{TXR_PLYR_WALK_L,	12,},
-	{TXR_ENMY_WALK_U,	12,},
-	{TXR_ENMY_WALK_R,	12,},
-	{TXR_ENMY_WALK_D,	12,},
-	{TXR_ENMY_WALK_L,	12,},
-	{TXR_COLL,			-1,},
-	{TXR_COLL,			-1,},
-	{TXR_COLL,			-1,},
-	{TXR_COLL,			-1,},
-	{TXR_COLL,			-1,},
-	{TXR_COLL,			-1,},
-	{TXR_EXIT,			0,},
-	{TXR_VORTEX,		0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_WALL,			0,},
-	{TXR_BG,			0,},
 };
+
+static const uint32_t	g_lut_spr_param[N_SPRITES][N_SPR_PARAM] = {
+{TXR_NONE,			0,},
+{TXR_PLYR_IDLE,		13,},
+{TXR_PLYR_WALK_U,	12,},
+{TXR_PLYR_WALK_R,	12,},
+{TXR_PLYR_WALK_D,	12,},
+{TXR_PLYR_WALK_L,	12,},
+{TXR_ENMY_WALK_U,	12,},
+{TXR_ENMY_WALK_R,	12,},
+{TXR_ENMY_WALK_D,	12,},
+{TXR_ENMY_WALK_L,	12,},
+{TXR_COLL,			-1,},
+{TXR_COLL,			-1,},
+{TXR_COLL,			-1,},
+{TXR_COLL,			-1,},
+{TXR_COLL,			-1,},
+{TXR_COLL,			-1,},
+{TXR_EXIT,			0,},
+{TXR_VORTEX,		0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_WALL,			0,},
+{TXR_BG,			0,},};
 
 t_sprite	**sprites_init(t_game *game)
 {

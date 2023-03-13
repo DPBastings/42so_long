@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:07:09 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 11:28:01 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 12:00:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	sprite_animate(t_sprite *spr, void *param)
 	uint8_t		*src;
 	uint8_t		*dst;
 	t_upoint	p;
-	
+
 	(void) param;
 	p.x = spr->frame * GRID_W % spr->texture->width;
 	p.y = 0;
