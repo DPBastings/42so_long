@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 15:01:32 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 10:35:39 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static const t_spr_id		g_lkup_spr_id[N_OBJS] = {
 	SPR_COLL_0,
 	SPR_EXIT,
 	SPR_WALL_0000,
-	SPR_ENMY_WALK_UP,
+	SPR_ENMY_MOVE_UP,
+	SPR_ENMY_MOVE_UP,
+	SPR_ENMY_MOVE_UP,
 	SPR_NONE,
 };
 static const t_spr_setter	g_lkup_spr_setter[N_OBJS] = {
@@ -30,6 +32,8 @@ static const t_spr_setter	g_lkup_spr_setter[N_OBJS] = {
 	sprite_set_coll,
 	sprite_set_default,
 	sprite_set_wall,
+	sprite_set_enemy,
+	sprite_set_enemy,
 	sprite_set_enemy,
 	NULL,
 };
@@ -80,7 +84,7 @@ void	sprite_set_enemy(t_object *obj, t_game *game)
 {
 	t_spr_id	id;
 
-	id = SPR_ENMY_WALK_UP + obj->dir;
+	id = SPR_ENMY_MOVE_UP + obj->dir;
 	sprite_change(obj, game->sprites[id], game);
 }
 

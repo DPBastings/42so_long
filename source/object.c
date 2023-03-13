@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:44:43 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 11:36:47 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ typedef enum e_obj_param {
 }	t_obj_param;
 
 static int32_t	g_lookup_obj_params[N_OBJS][N_OBJ_PARAMS] = {
-	{Z_FG,		0,	0,	false},
-	{Z_PLYR,	2,	0,	true},
-	{Z_COLL0,	0,	1,	true},
-	{Z_MAP,		0,	0,	true},
-	{Z_MAP,		0,	0,	false},
-	{Z_ENMY,	0,	8,	true},
-	{Z_ENMY,	0,	8,	true},
-	{Z_BG1,		0,	0,	true},
+	{Z_FG,		DIR_UP,		0,	false,},
+	{Z_PLYR,	DIR_DOWN,	0,	true,},
+	{Z_COLL0,	DIR_UP,		1,	true,},
+	{Z_MAP,		DIR_UP,		0,	true,},
+	{Z_MAP,		DIR_UP,		0,	false,},
+	{Z_ENMY,	DIR_RIGHT,	6,	true,},
+	{Z_ENMY,	DIR_DOWN,	6,	true,},
+	{Z_ENMY,	DIR_DOWN,	6,	true,},
+	{Z_BG1,		DIR_UP,		0,	true,},
 };
 
 /* t_object *object_init(unsigned int type)

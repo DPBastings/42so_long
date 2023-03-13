@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 12:52:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 12:53:39 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 10:35:58 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 
 t_dir	dir_invert(t_dir dir)
 {
-	if (dir >= N_DIR / 2)
-		return (dir - N_DIR / 2);
-	return (dir + N_DIR / 2);
+	return ((dir + N_DIRS / 2) % N_DIRS);
 }
 
 t_point	instance_to_point(mlx_instance_t instance)

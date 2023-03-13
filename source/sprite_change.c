@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:31:49 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:43:54 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 11:39:04 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,28 @@
 
 static void	instance_update_position(t_object *obj, t_view view);
 
-void	sprite_change(t_object *obj, t_sprite *newspr, t_game *game)
+void	sprite_change(t_object *obj, t_sprite *new_spr, t_game *game)
 {
-	int32_t	newinstance_id;
+	int32_t	new_id;
 
 	if (obj->sprite)
 		obj->sprite->image->instances[obj->instance_id].enabled = false;
-	newinstance_id = 0;
-	while (newinstance_id < newspr->image->count)
+	new_id = 0;
+	while (new_id < new_spr->image->count)
 	{
-		if (newspr->image->instances[newinstance_id].enabled == false)
+		if (new_spr->image->instances[new_id].enabled == false)
 			break ;
-		newinstance_id++;
+		new_id++;
 	}
-	if (newinstance_id == newspr->image->count)
+	if (new_id == new_spr->image->count)
 	{
-		newinstance_id = mlx_image_to_window(game->mlx, newspr->image, 0, 0);
-		if (newinstance_id == -1)
+		new_id = mlx_image_to_window(game->mlx, new_spr->image, 0, 0);
+		if (new_id == -1)
 			sl_error(SL_MEMFAIL);
 	}
-	newspr->image->instances[newinstance_id].enabled = true;
-	obj->instance_id = newinstance_id;
-	obj->sprite = newspr;
+	new_spr->image->instances[new_id].enabled = true;
+	obj->instance_id = new_id;
+	obj->sprite = new_spr;
 	instance_update_position(obj, game->view);
 }
 

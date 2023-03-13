@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 15:46:37 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 11:32:20 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ typedef enum e_objs {
 	OBJ_COLL,
 	OBJ_EXIT,
 	OBJ_WALL,
-	OBJ_ENMY_EASY,
+	OBJ_ENMY_EASYH,
+	OBJ_ENMY_EASYV,
 	OBJ_ENMY_HARD,
 	OBJ_ANIM,
 	N_OBJS,
@@ -120,16 +121,15 @@ typedef enum e_sprites {
 	SPR_WALL_1011,
 	SPR_WALL_0111,
 	SPR_WALL_1111,
-	//SPR_WALL_JUNC,
 	SPR_BG,
 	N_SPRITES,
 }	t_spr_id;
 
-# define SPR_COLL_MAX		11 // SPR_COLL_5
-# define SPR_WALL_MAX		19 //SPR_WALL_1111
-# define N_COLL_SPR			5 //(SPR_COLL_MAX - SPR_COLL_0 + 1)
-# define N_WALL_SPR			16 //(SPR_WALL_MAX - SPR_WALL_0000 + 1)
-# define SPR_FILLER			14 //SPR_WALL_0000
+# define SPR_COLL_MAX		SPR_COLL_5 //15
+# define SPR_WALL_MAX		SPR_WALL_1111 //33
+# define N_COLL_SPR			(SPR_COLL_MAX - SPR_COLL_0 + 1) //5
+# define N_WALL_SPR			(SPR_WALL_MAX - SPR_WALL_0000 + 1) //16
+# define SPR_FILLER			SPR_WALL_0000 //18
 
 typedef enum e_z {
 	Z_BG0 = 0,
@@ -347,8 +347,9 @@ void		view_update(t_point diff, t_game *game);
 void		view_centre(t_point anchor, t_game *game);
 void		view_shift(t_point anchor, t_game *game);
 
-t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
+t_dir		dir_invert(t_dir dir);
 t_point		instance_to_point(mlx_instance_t instance);
+t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
 
 void		sl_strerror(t_sl_errno errno);
 void		sl_error(t_sl_errno errno);

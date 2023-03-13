@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 17:20:53 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:50:38 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 11:34:26 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static void	create_vortex(t_game *game)
 	sprite_change(obj, game->sprites[SPR_VORTEX], game);
 	obj->sprite->frame_max = -1;
 	obj->sprite->animator = sprite_animate_vortex;
-	mlx_set_instance_depth(&obj->sprite->image->instances[obj->instance_id],
-		obj->z);
 	game->map->exit->obj_below = obj;
 }
 

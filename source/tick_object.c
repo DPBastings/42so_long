@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:01:08 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/27 14:06:26 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 11:33:59 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static t_obj_ticker	g_lut_ticker[N_OBJS] = {
 	tick_coll,
 	tick_exit,
 	tick_default,
+	tick_enemy_easy,
+	tick_enemy_easy,
+	tick_enemy_hard,
 	tick_default,
 };
 

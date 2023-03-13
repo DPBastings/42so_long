@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 12:57:45 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 10:30:29 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "so_long.h"
 # include "geometry.h"
 
-# define CHR_ALL	"0PCE1"
+# define CHR_ALL	"0PCE1HVW"
 # define CHR_NONE	'0'
 
 # define CHECK_EXIT	1
