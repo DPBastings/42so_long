@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:04:18 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:02:56 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef enum e_z {
 	Z_HUD0,
 	Z_HUD1,
 	Z_HUD2,
+	Z_HUD3,
 	Z_FG,
 }	t_z;
 
@@ -213,6 +214,7 @@ typedef struct s_view {
 typedef struct s_bar {
 	t_point		origin;
 	mlx_image_t	*bar;
+	mlx_image_t	*mask;
 	mlx_image_t	*frame;
 }	t_bar;
 
@@ -337,6 +339,7 @@ void		map_destroy(t_map **map);
 void		hud_init(t_game *game);
 void		hud_bar_init(t_game *game, int32_t x, int32_t y);
 void		hud_render(t_hud *hud, mlx_t *mlx);
+void		hud_bar_fill(t_bar *bar, double percent);
 void		hud_destroy(t_hud **hud, mlx_t *mlx);
 void		hud_bar_destroy(t_bar **bar, mlx_t *mlx);
 void		bg_render(t_game *game);

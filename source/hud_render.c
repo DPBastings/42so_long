@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 13:48:33 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 12:01:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 17:09:55 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "MLX42/MLX42.h"
 #include <stdint.h>
 
-#define BAR_MARGIN 4
+#define BAR_MARGIN 6
 
 static void	bar_render(t_bar *bar, mlx_t *mlx);
 
@@ -37,10 +37,15 @@ static void	bar_render(t_bar *bar, mlx_t *mlx)
 	id = mlx_image_to_window(mlx, bar->frame, bar->origin.x, bar->origin.y);
 	if (id == -1)
 		sl_error(SL_MEMFAIL);
-	mlx_set_instance_depth(&bar->frame->instances[id], Z_HUD2);
-	id = mlx_image_to_window(mlx, bar->bar,
-			bar->origin.x + BAR_MARGIN, bar->origin.y + BAR_MARGIN);
+	mlx_set_instance_depth(&bar->frame->instances[id], Z_HUD3);
+	id = mlx_image_to_window(mlx, bar->mask,
+			bar->origin.x + BAR_MARGIN, bar->origin.y + BAR_MARGIN + 4);
 	if (id == -1)
 		sl_error(SL_MEMFAIL);
-	mlx_set_instance_depth(&bar->frame->instances[id], Z_HUD1);
+	mlx_set_instance_depth(&bar->mask->instances[id], Z_HUD2);
+	id = mlx_image_to_window(mlx, bar->bar,
+			bar->origin.x + BAR_MARGIN, bar->origin.y + BAR_MARGIN + 4);
+	if (id == -1)
+		sl_error(SL_MEMFAIL);
+	mlx_set_instance_depth(&bar->bar->instances[id], Z_HUD1);
 }

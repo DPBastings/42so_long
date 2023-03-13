@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 14:38:20 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:15:03 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 static void	hud_bg_init(t_game *game);
-static void	hud_bg_fill(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst);
+static void	hud_bg_draw(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst);
 static void	hud_text_init(t_game *game);
 
 void	hud_init(t_game *game)
@@ -25,7 +25,7 @@ void	hud_init(t_game *game)
 	if (game->hud == NULL)
 		sl_error(SL_MEMFAIL);
 	hud_bg_init(game);
-	//hud_text_init(game);
+	hud_text_init(game);
 	hud_bar_init(game, GRID_W, 96);
 }
 
@@ -42,14 +42,14 @@ static void	hud_bg_init(t_game *game)
 		p.x = 0;
 		while (p.x < HUD_W)
 		{
-			hud_bg_fill(game->hud->bg, game->textures[TXR_HUD_BG], p);
+			hud_bg_draw(game->hud->bg, game->textures[TXR_HUD_BG], p);
 			p.x += GRID_W;
 		}
 		p.y += GRID_H;
 	}
 }
 
-static void	hud_bg_fill(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst)
+static void	hud_bg_draw(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst)
 {
 	t_upoint	src;
 

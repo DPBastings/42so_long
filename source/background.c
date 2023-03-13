@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:37:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 15:20:02 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:29:15 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,16 @@ void	bg_render(t_game *game)
 
 static void	draw_bg_element(t_point p, t_game *game)
 {
-	mlx_image_t	*fill;
-	mlx_image_t	*bg;
+	mlx_image_t	*img;
 	int32_t		id;
 
-	fill = game->sprites[SPR_FILLER]->image;
-	bg = game->sprites[SPR_BG]->image;
 	if (p.x >= game->view.port_min.x && p.x < game->view.port_max.x
 		&& p.y >= game->view.port_min.y && p.y < game->view.port_max.y)
-	{
-		id = mlx_image_to_window(game->mlx, bg, p.x, p.y);
-		if (id == -1)
-			sl_error(SL_MEMFAIL);
-		mlx_set_instance_depth(&bg->instances[id], Z_BG0);
-	}
+		img = game->sprites[SPR_BG]->image;
 	else
-	{
-		id = mlx_image_to_window(game->mlx, fill, p.x, p.y);
-		if (id == -1)
-			sl_error(SL_MEMFAIL);
-		mlx_set_instance_depth(&fill->instances[id], Z_BG0);
-	}
+		img = game->sprites[SPR_FILLER]->image;
+	id = mlx_image_to_window(game->mlx, img, p.x, p.y);
+	if (id == -1)
+		sl_error(SL_MEMFAIL);
+	mlx_set_instance_depth(&img->instances[id], Z_BG0);
 }
