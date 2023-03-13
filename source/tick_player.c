@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 12:43:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 15:27:08 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	plyr_tick_move(t_object *plyr, t_game *game)
 {
 	t_point	a;
 
-	object_move_sprite(plyr);
+	object_move(plyr);
 	if (object_align_grid(plyr, game))
 	{
 		plyr->speed = 0;
@@ -68,14 +68,11 @@ static void	plyr_check_collisions(t_object *plyr, t_game *game)
 {
 	t_object	*other;
 
-	other = plyr->obj_below;
+	other = plyr->below;
 	if (other)
 	{
 		if (other->type == OBJ_COLL)
-		{
-			plyr->obj_below = other->obj_below;
 			object_collect(game, &other);
-		}
 		else if (other->type == OBJ_EXIT && game->score == game->score_max)
 			game_exit(game);
 	}

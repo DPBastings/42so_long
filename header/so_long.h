@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 11:32:20 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 14:35:10 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,8 @@ typedef struct s_object {
 	bool			ticked;
 	t_sprite		*sprite;
 	int32_t			instance_id;
-	struct s_object	*obj_below;
+	struct s_object	*above;
+	struct s_object	*below;
 }	t_object;
 
 typedef struct s_map {
@@ -304,9 +305,11 @@ t_object	*object_init(t_obj_id type);
 bool		object_align_grid(t_object *obj, t_game *game);
 t_object	**object_get_adjacent(t_object *obj, t_map *map, t_dir dir);
 bool		object_is_passable(t_object *object);
-void		object_move(t_object *obj, t_dir dir, uint32_t speed);
-void		object_move_sprite(t_object *obj);
+void		object_move(t_object *obj);
 void		object_place(t_object *obj, t_map *map, t_upoint p);
+void		object_insert_above(t_object *obj, t_object *below);
+void		object_insert_below(t_object *obj, t_object *above);
+void		object_remove(t_object *obj, t_map *map);
 void		object_destroy(t_object **obj);
 
 bool		player_move(t_game *game, t_dir dir);
@@ -348,6 +351,7 @@ void		view_centre(t_point anchor, t_game *game);
 void		view_shift(t_point anchor, t_game *game);
 
 t_dir		dir_invert(t_dir dir);
+void		instance_move(mlx_instance_t *instance, t_dir dir, uint32_t speed);
 t_point		instance_to_point(mlx_instance_t instance);
 t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
 

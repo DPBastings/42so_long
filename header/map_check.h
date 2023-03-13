@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 10:30:29 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 12:15:41 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define CHR_ALL	"0PCE1HVW"
 # define CHR_NONE	'0'
+# define N_CHR		8
 
 # define CHECK_EXIT	1
 # define CHECK_PLYR	2

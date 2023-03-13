@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 12:03:02 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 13:47:07 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static int32_t	g_lut_obj_vars[N_OBJS][N_OBJ_VARS] = {
 {Z_ENMY,	DIR_DOWN,	6,	true,},
 {Z_BG1,		DIR_UP,		0,	true,},};
 
-/* t_object *object_init(unsigned int type)
- * Initializes a new object of type `type`.
+/* t_object *object_init(t_obj_id type)
+ * Initializes a new object of type `type` with default values.
  * Returns NULL on failure.
  */
 t_object	*object_init(t_obj_id type)
@@ -56,7 +56,8 @@ t_object	*object_init(t_obj_id type)
 	new->passable = g_lut_obj_vars[type][OBJ_PASSABLE];
 	new->sprite = NULL;
 	new->instance_id = -1;
-	new->obj_below = NULL;
+	new->above = NULL;
+	new->below = NULL;
 	return (new);
 }
 
@@ -76,7 +77,9 @@ void	object_destroy(t_object **obj)
 		return ;
 	if ((*obj)->sprite)
 		(*obj)->sprite->image->instances[(*obj)->instance_id].enabled = false;
-	below = (*obj)->obj_below;
+	below = (*obj)->below;
+	if (below)
+		below->above = (*obj)->above;
 	free(*obj);
 	*obj = below;
 }

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 12:02:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 13:18:59 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include "MLX42/MLX42.h"
 #include <stdbool.h>
 #include <stdint.h>
+
+void	object_move(t_object *obj)
+{
+	mlx_instance_t	*instance;
+
+	instance = &obj->sprite->image->instances[obj->instance_id];
+	instance_move(instance, obj->dir, obj->speed);
+}
 
 bool	player_move(t_game *game, t_dir dir)
 {

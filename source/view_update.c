@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:53:33 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/10 15:46:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 15:51:10 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,6 @@ static void	object_reposition(t_object *obj, t_point diff)
 	{
 		obj->sprite->image->instances[obj->instance_id].x -= diff.x;
 		obj->sprite->image->instances[obj->instance_id].y -= diff.y;
-		object_reposition(obj->obj_below, diff);
+		object_reposition(obj->below, diff);
 	}
 }
