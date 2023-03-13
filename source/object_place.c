@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:00:55 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 15:45:35 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:10:28 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,11 @@ void	object_place(t_object *obj, t_map *map, t_upoint p)
 	object_remove(obj, map);
 	obj->position = p;
 	object_insert_above(obj, *slot);
-	if (obj->type == OBJ_PLYR)
-	{
-		printf("%p [ober: %p, unten: %p]\n", obj, obj->above, obj->below);
-		printf("below: %p (%p)\n", obj->below, obj->below ? obj->below->above : 0);
-	}
 	*slot = obj;
 }
 
 void	object_insert_above(t_object *obj, t_object *other)
 {
-	//printf("%p (%d) %p (%d)\n", obj, obj->type, other, other ? other->type : 0);
 	obj->below = other;
 	if (other)
 	{

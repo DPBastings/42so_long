@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:04:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 12:04:16 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:10:06 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,6 @@
 #include "ft_math.h"
 
 static void	apply_offset(t_view *view);
-
-static void	print_view(t_view view)
-{
-	printf("|SCREEN:     %4d %4d\n", SCREEN_W, SCREEN_H);
-	printf("|origin_max: %4d %4d\n", view.origin_max.x, view.origin_max.y);
-	printf("|port_min:   %4d %4d\n", view.port_min.x, view.port_min.y);
-	printf("|port_max:   %4d %4d\n", view.port_max.x, view.port_max.y);
-}
 
 void	view_init(t_game *game)
 {	

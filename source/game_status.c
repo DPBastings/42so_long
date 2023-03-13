@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 17:20:53 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 15:36:58 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:10:48 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	create_vortex(t_game *game);
 
 void	object_collect(t_game *game, t_object **obj)
 {
-	printf("%p\n", (*obj)->above);
 	object_remove(*obj, game->map);
 	object_destroy(obj);
 	game->score++;

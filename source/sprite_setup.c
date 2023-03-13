@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 10:35:39 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 15:55:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ void	sprite_set_enemy(t_object *obj, t_game *game)
 {
 	t_spr_id	id;
 
+	if (!object_is_passable(*map_index(game->map,
+					upoint_get_adjacent(obj->position, obj->dir))))
+		obj->dir = dir_invert(obj->dir);
 	id = SPR_ENMY_MOVE_UP + obj->dir;
 	sprite_change(obj, game->sprites[id], game);
 }

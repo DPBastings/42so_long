@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 14:35:10 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/13 16:04:18 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef enum e_objs {
 
 typedef enum e_textures {
 	TXR_NONE = 0,
+	TXR_GRADIENT,
 	TXR_PLYR,
 	TXR_PLYR_IDLE,
 	TXR_PLYR_WALK_U,
@@ -80,7 +81,6 @@ typedef enum e_textures {
 	TXR_VORTEX,
 	TXR_WALL,
 	TXR_BG,
-	//TXR_RAINBOW,
 	TXR_HUD_BG,
 	TXR_PROGRESS_BAR_FRAME,
 	N_TEXTURES,
