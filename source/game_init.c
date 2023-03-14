@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:09:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 13:19:06 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "libft.h"
 #include "MLX42/MLX42.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static t_texture	*gradient_load(void);
 static void			screen_init(t_game *game);

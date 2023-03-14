@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 11:31:29 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 13:33:04 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,28 +85,8 @@ void	sprite_set_enemy(t_object *obj, t_game *game)
 	t_spr_id	id;
 
 	if (!object_is_passable(*map_index(game->map,
-					upoint_get_adjacent(obj->position, obj->dir))))
+				upoint_get_adjacent(obj->position, obj->dir))))
 		obj->dir = dir_invert(obj->dir);
 	id = SPR_ENMY_MOVE_UP + obj->dir / 2;
-	sprite_change(obj, game->sprites[id], game);
-}
-
-void	sprite_set_wall(t_object *obj, t_game *game)
-{
-	t_spr_id	id;
-	t_dir		dir;
-	t_object	*adj;
-
-	id = 0;
-	dir = 0;
-	while (dir < N_DIRS)
-	{
-		id <<= 1;
-		adj = *map_index(game->map, upoint_get_adjacent(obj->position, dir));
-		if (!(adj && (adj->type == OBJ_WALL || adj == game->map->none)))
-			id++;
-		dir += 2;
-	}
-	id += SPR_WALL_0000;
 	sprite_change(obj, game->sprites[id], game);
 }

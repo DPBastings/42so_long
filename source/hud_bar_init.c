@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:56 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 17:11:20 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 12:39:56 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	measure_draw(mlx_image_t *img, mlx_texture_t *txr)
 	t_upoint		p;
 	uint8_t			*px;
 	uint8_t const	mask[BPP] = {255, 0, 0, 255};
-	
+
 	p.y = 0;
 	while (p.y < img->height)
 	{
@@ -96,7 +96,7 @@ static void	measure_draw(mlx_image_t *img, mlx_texture_t *txr)
 		p.y++;
 	}
 }
-		
+
 void	hud_bar_destroy(t_bar **bar, mlx_t *mlx)
 {
 	mlx_delete_image(mlx, (*bar)->frame);

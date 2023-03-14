@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:32:26 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:34:48 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 12:44:45 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	bar_overlay_gradient(mlx_image_t *bar, mlx_texture_t *gradient,
 	t_upoint		px;
 	uint32_t const	wh[2] = {bar->width, bar->height};
 
+	i = gradient->width - i % gradient->width;
 	px.y = 0;
 	while (px.y < bar->height)
 	{
@@ -58,8 +59,7 @@ void	bar_overlay_gradient(mlx_image_t *bar, mlx_texture_t *gradient,
 		{
 			pixel_overlay(
 				pixel_get(bar->pixels, wh, px.x, px.y),
-				gradient_read(gradient,
-					(gradient->width - i % gradient->width) + px.x / 4 + px.y / 2));
+				gradient_read(gradient, i + px.x / 4 + px.y / 2));
 			px.x++;
 		}
 		px.y++;

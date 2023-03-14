@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tick_default.c                                     :+:    :+:            */
+/*   obj_default.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:02:32 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 13:19:23 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 12:12:55 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	tick_default(t_object *obj, void *param)
+void	tick_default(t_object *obj, t_game *game)
 {
-	(void) param;
+	(void) game;
 	obj->ticked = true;
 }
 

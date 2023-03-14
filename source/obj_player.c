@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 15:27:08 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 12:12:10 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ static void	plyr_change_sprites(t_object *plyr, t_game *game);
 static void	plyr_check_collisions(t_object *plyr, t_game *game);
 static void	plyr_tick_move(t_object *plyr, t_game *game);
 
-void	tick_player(t_object *plyr, void *param)
+void	tick_player(t_object *plyr, t_game *game)
 {
-	t_game		*game;
-
-	tick_default(plyr, param);
-	game = param;
+	tick_default(plyr, game);
 	plyr_change_sprites(plyr, game);
 	if (plyr->speed)
 		plyr_tick_move(plyr, game);
@@ -69,11 +66,15 @@ static void	plyr_check_collisions(t_object *plyr, t_game *game)
 	t_object	*other;
 
 	other = plyr->below;
-	if (other)
+	while (other)
 	{
 		if (other->type == OBJ_COLL)
+		{
 			object_collect(game, &other);
+			continue ;
+		}
 		else if (other->type == OBJ_EXIT && game->score == game->score_max)
 			game_exit(game);
+		other = other->below;
 	}
 }

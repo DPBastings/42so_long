@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:07:58 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 17:00:02 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 12:40:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	pixels_set(uint8_t *pixels, size_t n, uint8_t const value[BPP])
 	}
 }
 
-void	pixels_set_channel(uint8_t *pixels, size_t n, t_channel channel, uint8_t value)
+void	pixels_set_channel(uint8_t *pixels, size_t n, t_channel channel,
+		uint8_t value)
 {
 	while (n--)
 	{
@@ -62,7 +63,8 @@ void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
 	}
 }
 
-uint8_t	*pixel_get(uint8_t *pixels, uint32_t const wh[2], uint32_t x, uint32_t y)
+uint8_t	*pixel_get(uint8_t *pixels, uint32_t const wh[2],
+		uint32_t x, uint32_t y)
 {
 	if (pixels == NULL || x >= wh[0] || y >= wh[1])
 		return (NULL);

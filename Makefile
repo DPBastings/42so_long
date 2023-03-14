@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/13 16:18:21 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/14 14:33:19 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,18 +44,19 @@ SRC_FILES	:= main.c\
 			movement.c\
 			object.c\
 			object_place.c\
+			obj_default.c\
+			obj_coll.c\
+			obj_enemy.c\
+			obj_exit.c\
+			obj_player.c\
 			seed.c\
 			sprite.c\
 			sprite_change.c\
 			sprite_hueshift.c\
 			sprite_setup.c\
+			sprite_setup_wall.c\
 			texture.c\
-			tick_coll.c\
-			tick_default.c\
-			tick_enemy.c\
-			tick_exit.c\
-			tick_object.c\
-			tick_player.c\
+			tick_objects.c\
 			utils.c\
 			view.c\
 			view_init.c\

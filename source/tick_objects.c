@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tick_object.c                                      :+:    :+:            */
+/*   tick_objects.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:01:08 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 14:14:09 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 12:58:14 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,8 @@
 #include "geometry.h"
 #include <stdint.h>
 
-static t_obj_ticker	g_lut_ticker[N_OBJS] = {
-	tick_default,
-	tick_player,
-	tick_coll,
-	tick_exit,
-	tick_default,
-	tick_enemy_easy,
-	tick_enemy_easy,
-	tick_enemy_hard,
-	tick_default,
-};
-
-static void	tick(t_object **obj, void *param);
-static void	tick_reset(t_object *obj);
+static void	obj_tick(t_object **obj, t_game *game);
+static void	obj_tick_reset(t_object *obj);
 
 void	objects_tick(t_game *game)
 {
@@ -40,7 +28,7 @@ void	objects_tick(t_game *game)
 		p.x = 0;
 		while (p.x < game->map->dims.x)
 		{
-			tick(map_index(game->map, p), game);
+			obj_tick(map_index(game->map, p), game);
 			p.x++;
 		}
 		p.y++;
@@ -51,26 +39,37 @@ void	objects_tick(t_game *game)
 		p.x = 0;
 		while (p.x < game->map->dims.x)
 		{
-			tick_reset(*map_index(game->map, p));
+			obj_tick_reset(*map_index(game->map, p));
 			p.x++;
 		}
 		p.y++;
 	}
 }
 
-void	tick(t_object **obj, void *param)
+void	obj_tick(t_object **obj, t_game *game)
 {
+	const t_obj_ticker	lut_ticker[N_OBJS] = {
+		tick_default,
+		tick_player,
+		tick_coll,
+		tick_exit,
+		tick_default,
+		tick_enemy_easy,
+		tick_enemy_easy,
+		tick_enemy_hard,
+		tick_default,};
+
 	if (*obj && (*obj)->ticked == false)
-		g_lut_ticker[(*obj)->type](*obj, param);
+		lut_ticker[(*obj)->type](*obj, game);
 	if (*obj)
-		tick(&(*obj)->below, param);
+		obj_tick(&(*obj)->below, game);
 }
 
-static void	tick_reset(t_object *obj)
+static void	obj_tick_reset(t_object *obj)
 {
 	if (obj)
 	{
 		obj->ticked = false;
-		tick_reset(obj->below);
+		obj_tick_reset(obj->below);
 	}
 }

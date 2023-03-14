@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 11:23:57 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 14:32:57 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 
 # define GRID_W				48
 # define GRID_H				48
-//SCREEN_W = GRID_W * 26; SCREEN_H = GRID_H * 15
+//SCREEN_W = (GRID_W * 26); SCREEN_H = (GRID_H * 15)
 # define SCREEN_W			1248
 # define SCREEN_H			720
 # define HUD_W				1248
 # define HUD_H				144
-//VIEW_MAXW = SCREEN_W; VIEW_MAXH = SCREEN_H - HUD_H
+//VIEW_MAXW = SCREEN_W; VIEW_MAXH = (SCREEN_H - HUD_H)
 # define VIEW_MAXW			1248
 # define VIEW_MAXH			576
 
@@ -48,7 +48,6 @@
  * alignment will no longer work properly."
  */
 # define PLAYER_SPEED		6
-# define ENEMY_SPEED		8
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -121,6 +120,7 @@ typedef enum e_sprites {
 	SPR_WALL_1011,
 	SPR_WALL_0111,
 	SPR_WALL_1111,
+	SPR_WALL_JUNC,
 	SPR_BG,
 	N_SPRITES,
 }	t_spr_id;
@@ -190,7 +190,7 @@ typedef struct s_object {
 	uint16_t		dir;
 	uint16_t		speed;
 	t_upoint		position;
-	uint32_t		z;
+	int32_t			z;
 	bool			passable;
 	bool			ticked;
 	t_sprite		*sprite;
@@ -267,6 +267,8 @@ typedef enum e_sl_errno {
 
 t_game		*game_init(char const *filename);
 void		object_collect(t_game *game, t_object **obj);
+void		game_win(t_game *game);
+void		game_lose(t_game *game);
 void		game_exit(t_game *game);
 void		game_end(t_game *game);
 int32_t		seed_get(t_game *game);
@@ -324,18 +326,18 @@ void		object_remove(t_object *obj, t_map *map);
 void		object_destroy(t_object **obj);
 
 bool		player_move(t_game *game, t_dir dir);
-bool		enemy_move(t_object *enmy, t_game *game);
-void		exit_open(t_game *game);
+bool		enemy_move(t_object *enemy, t_game *game);
+void		exit_open(t_object *exit, t_game *game);
 
-typedef void			(*t_obj_ticker)(t_object *obj, void *param);
+typedef void			(*t_obj_ticker)(t_object *obj, t_game *game);
 void		objects_tick(t_game *game);
 bool		tick_move(t_object *obj, t_game *game);
-void		tick_default(t_object *obj, void *param);
-void		tick_coll(t_object *coll, void *param);
-void		tick_enemy_easy(t_object *enmy, void *param);
-void		tick_enemy_hard(t_object *enmy, void *param);
-void		tick_exit(t_object *exit, void *param);
-void		tick_player(t_object *plyr, void *param);
+void		tick_default(t_object *obj, t_game *game);
+void		tick_coll(t_object *coll, t_game *game);
+void		tick_enemy_easy(t_object *enemy, t_game *game);
+void		tick_enemy_hard(t_object *enmy, t_game *game);
+void		tick_exit(t_object *exit, t_game *game);
+void		tick_player(t_object *plyr, t_game *game);
 
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_upoint dims);
@@ -343,7 +345,6 @@ bool		map_check(t_map *map);
 uint32_t	map_get_maxscore(t_map *map);	
 void		map_setup(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_upoint p);
-t_point		*map_get_adjacent(t_map *map, t_point p);
 void		map_destroy(t_map **map);
 
 void		hud_init(t_game *game);
