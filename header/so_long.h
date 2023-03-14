@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 14:32:57 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 14:46:27 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,6 +354,8 @@ void		hud_bar_animate(t_bar *bar, t_game *game);
 void		hud_destroy(t_hud **hud, mlx_t *mlx);
 void		hud_bar_destroy(t_bar **bar, mlx_t *mlx);
 void		bg_render(t_game *game);
+void		text_static_render(t_game *game);
+void		text_dynamic_render(t_game *game);
 
 void		view_init(t_game *game);
 int32_t		view_xview(int32_t x, t_view view);
