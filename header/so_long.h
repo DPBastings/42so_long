@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 17:02:56 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:03:42 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,7 @@ void		object_destroy(t_object **obj);
 
 bool		player_move(t_game *game, t_dir dir);
 bool		enemy_move(t_object *enmy, t_game *game);
+void		exit_open(t_game *game);
 
 typedef void			(*t_obj_ticker)(t_object *obj, void *param);
 void		objects_tick(t_game *game);

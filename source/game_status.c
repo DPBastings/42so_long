@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 17:20:53 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:35:38 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:02:52 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ void	object_collect(t_game *game, t_object **obj)
 	object_destroy(obj);
 	game->score++;
 	ft_printf("> Score:  %u out of %u.\n", game->score, game->score_max);
-	if (game->score == game->score_max)
-	{
-		create_vortex(game);
-		game->sprites[SPR_EXIT]->animator = sprite_animate;
-		game->map->exit->sprite->frame_max = 16;
-	}
+}
+
+void	exit_open(t_game *game)
+{
+	create_vortex(game);
+	game->sprites[SPR_EXIT]->animator = sprite_animate;
+	game->map->exit->sprite->frame_max = 16;
 }
 
 static void	create_vortex(t_game *game)
