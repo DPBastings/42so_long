@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 16:49:53 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:18:11 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static bool	check_point(t_upoint p, t_map *map)
 		adj = upoint_get_adjacent(p, dir);
 		if (object_is_passable(*map_index(map, adj)) && check_point(adj, map))
 			return (true);
-		dir++;
+		dir += 2;
 	}
 	return (false);
 }

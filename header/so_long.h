@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 11:03:42 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:23:57 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,14 @@ typedef enum e_z {
 }	t_z;
 
 typedef enum e_dirs {
-	DIR_UP = 0,
-	DIR_RIGHT,
-	DIR_DOWN,
-	DIR_LEFT,
+	DIR_N = 0,
+	DIR_NE,
+	DIR_E,
+	DIR_SE,
+	DIR_S,
+	DIR_SW,
+	DIR_W,
+	DIR_NW,
 	N_DIRS,
 }	t_dir;
 

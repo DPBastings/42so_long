@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 15:21:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 15:55:05 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:31:29 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	sprite_set_coll(t_object *obj, t_game *game)
 	x = game->seed / (obj->position.x * obj->position.y + 1);
 	id = SPR_COLL_0 + (x % N_COLL_SPR);
 	sprite_change(obj, game->sprites[id], game);
-	obj->dir = ((x - (int32_t) obj->position.y) % 2 * 2);
+	obj->dir = ((x - (int32_t) obj->position.y) % 2 * 4);
 	obj->sprite->image->instances[obj->instance_id].y += x % 8 - 4;
 }
 
@@ -87,7 +87,7 @@ void	sprite_set_enemy(t_object *obj, t_game *game)
 	if (!object_is_passable(*map_index(game->map,
 					upoint_get_adjacent(obj->position, obj->dir))))
 		obj->dir = dir_invert(obj->dir);
-	id = SPR_ENMY_MOVE_UP + obj->dir;
+	id = SPR_ENMY_MOVE_UP + obj->dir / 2;
 	sprite_change(obj, game->sprites[id], game);
 }
 
@@ -105,7 +105,7 @@ void	sprite_set_wall(t_object *obj, t_game *game)
 		adj = *map_index(game->map, upoint_get_adjacent(obj->position, dir));
 		if (!(adj && (adj->type == OBJ_WALL || adj == game->map->none)))
 			id++;
-		dir++;
+		dir += 2;
 	}
 	id += SPR_WALL_0000;
 	sprite_change(obj, game->sprites[id], game);

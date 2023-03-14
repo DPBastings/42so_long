@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 10:39:06 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 13:01:29 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:29:27 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static bool	tick_enemy_base(t_object *enmy, void *param);
 
 void	tick_enemy_easy(t_object *enmy, void *param)
 {
-	t_game	*game;
+	t_game		*game;
+	t_spr_id	nspr;
 
 	if (!tick_enemy_base(enmy, param))
 		return ;
@@ -26,7 +27,8 @@ void	tick_enemy_easy(t_object *enmy, void *param)
 	if (!enemy_move(enmy, game))
 	{
 		enmy->dir = dir_invert(enmy->dir);
-		sprite_change(enmy, game->sprites[SPR_ENMY_MOVE_UP + enmy->dir], game);
+		nspr = SPR_ENMY_MOVE_UP + enmy->dir / 2;
+		sprite_change(enmy, game->sprites[nspr], game);
 	}
 }
 
@@ -39,7 +41,7 @@ void	tick_enemy_hard(t_object *enmy, void *param)
 	game = param;
 	if (!enemy_move(enmy, game))
 	{
-		enmy->dir = (enmy->dir + 1) % N_DIRS;
+		enmy->dir = (enmy->dir + 2) % N_DIRS;
 		sprite_change(enmy, game->sprites[SPR_ENMY_MOVE_UP + enmy->dir], game);
 	}
 }

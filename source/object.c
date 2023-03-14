@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 13:47:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:19:42 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ enum e_obj_vars {
 };
 
 static int32_t	g_lut_obj_vars[N_OBJS][N_OBJ_VARS] = {
-{Z_FG,		DIR_UP,		0,	false,},
-{Z_PLYR,	DIR_DOWN,	0,	true,},
-{Z_COLL0,	DIR_UP,		1,	true,},
-{Z_MAP,		DIR_UP,		0,	true,},
-{Z_MAP,		DIR_UP,		0,	false,},
-{Z_ENMY,	DIR_RIGHT,	6,	true,},
-{Z_ENMY,	DIR_DOWN,	6,	true,},
-{Z_ENMY,	DIR_DOWN,	6,	true,},
-{Z_BG1,		DIR_UP,		0,	true,},};
+{Z_FG,		DIR_N,	0,	false,},
+{Z_PLYR,	DIR_S,	0,	true,},
+{Z_COLL0,	DIR_N,	1,	true,},
+{Z_MAP,		DIR_N,	0,	true,},
+{Z_MAP,		DIR_N,	0,	false,},
+{Z_ENMY,	DIR_E,	6,	true,},
+{Z_ENMY,	DIR_S,	6,	true,},
+{Z_ENMY,	DIR_S,	6,	true,},
+{Z_BG1,		DIR_N,	0,	true,},};
 
 /* t_object *object_init(t_obj_id type)
  * Initializes a new object of type `type` with default values.

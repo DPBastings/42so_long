@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/20 13:13:32 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:17:25 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "MLX42/MLX42.h"
 #include <stdbool.h>
 
-static const uint32_t	g_lookup_movekeys[N_DIRS] = {
+static const uint32_t	g_lut_movekeys[4] = {
 	SL_KEY_UP,
 	SL_KEY_RIGHT,
 	SL_KEY_DOWN,
@@ -36,13 +36,13 @@ void	hook_keys(void *param)
 
 bool	hook_keys_move(t_game *game)
 {
-	uint32_t	dir;
+	t_dir	dir;
 
 	dir = 0;
-	while (dir < N_DIRS)
+	while (dir < N_DIRS / 2)
 	{	
-		if (mlx_is_key_down(game->mlx, g_lookup_movekeys[dir]))
-			return (player_move(game, dir));
+		if (mlx_is_key_down(game->mlx, g_lut_movekeys[dir]))
+			return (player_move(game, dir * 2));
 		dir++;
 	}
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 12:52:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 13:20:41 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/14 11:23:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 
 static const uint32_t	g_lut_dir[N_DIRS][N_DIM] = {
 {0, -1},
+{1, -1},
 {1, 0},
+{1, 1},
 {0, 1},
+{-1, 1},
 {-1, 0},
+{-1, -1},
 };
 
 void	instance_move(mlx_instance_t *instance, t_dir dir, uint32_t speed)
