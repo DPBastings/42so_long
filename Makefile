@@ -24,6 +24,7 @@ SRC_FILES	:= main.c\
 			animation_coll.c\
 			background.c\
 			error.c\
+			font.c\
 			game_init.c\
 			game_status.c\
 			geometry.c\

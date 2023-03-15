@@ -33,6 +33,7 @@ t_game	*game_init(char const *filename)
 	screen_init(game);
 	view_init(game);
 	textures_load(game);
+	font_load(game);
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
 	hud_init(game);
@@ -60,6 +61,7 @@ void	game_end(t_game *game)
 	hud_destroy(&game->hud, game->mlx);
 	sprites_destroy(&game->sprites, game->mlx);
 	textures_destroy(&game->textures);
+	mlx_delete_texture(game->font);
 	mlx_terminate(game->mlx);
 	free(game);
 }
