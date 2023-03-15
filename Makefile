@@ -63,11 +63,14 @@ SRC_FILES	:= main.c\
 			view_init.c\
 			view_update.c\
 			\
+			mlx42_string.c\
 			mlx42_utils.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
 			map_check.h\
-			geometry.h
+			geometry.h\
+			mlx42_string.h\
+			mlx42_utils.h
 LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a

@@ -49,6 +49,8 @@
  */
 # define PLAYER_SPEED		6
 
+# define TEXT_COLOUR		0xFFEEEEEE
+
 typedef enum e_objs {
 	OBJ_NONE = 0,
 	OBJ_PLYR,
@@ -234,7 +236,7 @@ typedef struct s_game {
 	uint64_t	ticks;
 	bool		lock_input;
 	t_texture	**textures;
-	t_texture	*gradient;
+	t_texture	*font;
 	t_sprite	**sprites;
 	t_hud		*hud;
 	t_map		*map;
@@ -283,6 +285,8 @@ void		textures_load(t_game *game);
 t_texture	*texture_load(char const *filename);
 void		textures_destroy(t_texture ***textures);
 void		texture_destroy(t_texture **texture);
+
+void		font_load(t_game *game);
 
 t_sprite	**sprites_init(t_game *game);
 t_sprite	*sprite_new(t_game *game, unsigned int spr_id);

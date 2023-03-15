@@ -17,6 +17,17 @@
 # include <stddef.h>
 # include <stdint.h>
 
+# define CLR_WHITE		0xFFFFFFFF
+# define CLR_GREY		0xFF0F0F0F
+# define CLR_BLACK		0xFF000000
+# define CLR_RED		0xFF0000FF
+# define CLR_ORANGE		0xFF000FFF
+# define CLR_YELLOW		0xFF00FFFF
+# define CLR_GREEN		0xFF00FF00
+# define CLR_CYAN		0xFFFFFF00
+# define CLR_BLUE		0xFFFF0000
+# define CLR_MAGENTA	0xFFFF00FF
+
 typedef enum {
 	R = 0,
 	G,
