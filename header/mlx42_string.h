@@ -20,8 +20,6 @@
 # define GLYPH_H		20
 # define GLYPHS_PER_ROW	32
 
-# define COLOUR			CLR_WHITE
-
 void	string_to_image(char const *str, mlx_image_t *img, uint32_t xy[2],
 		mlx_texture_t *font);
 void	char_to_image(char const chr, mlx_image_t *img, uint32_t xy[2],

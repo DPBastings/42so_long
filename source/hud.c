@@ -17,7 +17,6 @@
 
 static void	hud_bg_init(t_game *game);
 static void	hud_bg_draw(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst);
-static void	hud_text_init(t_game *game);
 
 void	hud_init(t_game *game)
 {
@@ -25,7 +24,7 @@ void	hud_init(t_game *game)
 	if (game->hud == NULL)
 		sl_error(SL_MEMFAIL);
 	hud_bg_init(game);
-	hud_text_init(game);
+	text_static_render(game->hud, game->mlx, game->font);
 	hud_bar_init(game, GRID_W, 96);
 }
 
@@ -63,11 +62,6 @@ static void	hud_bg_draw(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst)
 	else if (dst.y > 0)
 		src.y = GRID_H;
 	texture_area_copy_to_image(bg, txr, (uint32_t *)&dst, (uint32_t *)&src);
-}
-
-static void	hud_text_init(t_game *game)
-{
-	return ;
 }
 
 void	hud_destroy(t_hud **hud, mlx_t *mlx)

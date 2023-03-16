@@ -358,7 +358,7 @@ void		hud_bar_animate(t_bar *bar, t_game *game);
 void		hud_destroy(t_hud **hud, mlx_t *mlx);
 void		hud_bar_destroy(t_bar **bar, mlx_t *mlx);
 void		bg_render(t_game *game);
-void		text_static_render(t_game *game);
+void		text_static_render(t_hud *hud, mlx_t *mlx, mlx_texture_t *font);
 void		text_dynamic_render(t_game *game);
 
 void		view_init(t_game *game);

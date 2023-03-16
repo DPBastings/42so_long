@@ -15,9 +15,10 @@
 #include "MLX42/MLX42.h"
 #include <stdint.h>
 
-#define BAR_MARGIN 6
+#define BAR_MARGIN	6
 
 static void	bar_render(t_bar *bar, mlx_t *mlx);
+static void	text_render(t_hud *hud, mlx_t *mlx);
 
 void	hud_render(t_hud *hud, mlx_t *mlx)
 {
@@ -27,6 +28,7 @@ void	hud_render(t_hud *hud, mlx_t *mlx)
 	if (id == -1)
 		sl_error(SL_MEMFAIL);
 	mlx_set_instance_depth(&hud->bg->instances[id], Z_HUD0);
+	text_render(hud, mlx);
 	bar_render(hud->bar, mlx);
 }
 
@@ -48,4 +50,14 @@ static void	bar_render(t_bar *bar, mlx_t *mlx)
 	if (id == -1)
 		sl_error(SL_MEMFAIL);
 	mlx_set_instance_depth(&bar->bar->instances[id], Z_HUD1);
+}
+
+void	text_render(t_hud *hud, mlx_t *mlx)
+{
+	int32_t	id;
+
+	id = mlx_image_to_window(mlx, hud->text, 16, 16);
+	if (id == -1)
+		sl_error(SL_MEMFAIL);
+	mlx_set_instance_depth(&hud->text->instances[id], Z_HUD1);
 }

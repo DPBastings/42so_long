@@ -1,0 +1,14 @@
+Urgent:
+# Split the so_long.h header into smaller headers. Sensibly, if at all possible.
+# Merge the mlx42_* headers.
+# Restructure the HUD builders, so that there's 1 main function for every component which both builds and renders
+the component.
+# Do something about corner walls. Preferably without requiring 256 different wall sprites.
+# Move the movement key check into the player tick function.
+# Refactor the mlx42_utils functions to work with uint32_t pointers more.
+# Create a 'font options' struct, containing at least `size` and `colour` members.
+
+Not-so-urgent:
+
+# Make the object tick function pointer a struct member.
+# Expand the writer to be able to work with non-monospace fonts too.

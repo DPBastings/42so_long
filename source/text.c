@@ -13,11 +13,19 @@
 #include "so_long.h"
 
 #include "MLX42/MLX42.h"
+#include "mlx42_string.h"
+#include <stdint.h>
 
-void	text_static_render(t_game *game)
+#define	MARGIN	8
+
+void	text_static_render(t_hud *hud, mlx_t *mlx, t_texture *font)
 {
-	mlx_image_t			*img;
-
-	img = mlx_put_string(game->mlx, "goeiedagschotel", 48, 48);
-	mlx_image_to_window(game->mlx, img, 0, 0);
+	uint32_t	p[2];
+	
+	p[0] = 0;
+	p[1] = 0;
+	hud->text = mlx_new_image(mlx, HUD_W - 2 * MARGIN, HUD_H - 2 * MARGIN);
+	if (hud->text == NULL)
+		sl_error(SL_MEMFAIL);
+	string_to_image("LEVEL:\nSCORE:\nMOVES:\n", hud->text, (uint32_t *)p, font);
 }
