@@ -1,4 +1,5 @@
 Urgent:
+# Fix the rainbow bar.
 # Split the so_long.h header into smaller headers. Sensibly, if at all possible.
 # Merge the mlx42_* headers.
 # Restructure the HUD builders, so that there's 1 main function for every component which both builds and renders
