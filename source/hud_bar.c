@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:56 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 14:04:15 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:59:25 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bar	*hud_bar_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs)
 {
 	t_bar		*bar;
 	t_upoint	gridsize;
-	
+
 	bar = malloc(sizeof(t_bar));
 	if (bar == NULL)
 		sl_error(SL_MEMFAIL);
@@ -38,13 +38,13 @@ t_bar	*hud_bar_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs)
 	bar->overlay = image_init(mlx, HUD_W - 2 * GRID_W, GRID_H);
 	set_upoint(&gridsize, GRID_W, GRID_H);
 	image_tile(bar->overlay, txrs[TXR_PROGRESS_BAR], (uint32_t *)&gridsize);
-	bar->measure = image_init(mlx, 
+	bar->measure = image_init(mlx,
 			bar->overlay->width - 2 * BAR_MARGIN,
 			bar->overlay->height - 4 * BAR_MARGIN);
 	measure_draw(bar->measure, txrs[TXR_GRADIENT]);
 	bar->mask = image_init(mlx, bar->measure->width, bar->measure->height);
 	pixels_set(bar->mask->pixels, bar->mask->width * bar->mask->height,
-			0xFF0F0F0F);
+		0xFF0F0F0F);
 	bar_render(bar, mlx);
 	bar->percent = 0.0;
 	return (bar);

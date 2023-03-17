@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 13:33:11 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 14:40:29 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 17:03:32 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	check_corners(t_spr_id *id, t_object *obj, t_map *map);
 void	sprite_set_wall(t_object *obj, t_game *game)
 {
 	t_spr_id	id;
-	
+
 	id = 0;
 	check_sides(&id, obj, game->map);
 	check_corners(&id, obj, game->map);

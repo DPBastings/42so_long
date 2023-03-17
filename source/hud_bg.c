@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:33:33 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:59:35 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	hud_bg_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs)
 {
 	t_upoint	p;
 	t_upoint	gridsize;
-	
+
 	hud->bg = mlx_new_image(mlx, HUD_W, HUD_H);
 	if (hud->bg == NULL)
 		sl_error(SL_MEMFAIL);

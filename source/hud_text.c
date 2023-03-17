@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:43:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 16:26:58 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 17:00:01 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,25 @@
 #include "mlx42_utils.h"
 #include <stdint.h>
 
-#define	MARGIN	12
+#define MARGIN	12
 
 void	text_static_render(t_hud *hud, mlx_t *mlx, mlx_texture_t *font)
 {
 	uint32_t	p[2];
 	t_style		style;
 	int32_t		id;
-	
+
 	p[0] = 0;
 	p[1] = 0;
 	hud->text = image_init(mlx,
 			hud->bg->width - 2 * MARGIN, hud->bg->height - 2 * MARGIN);
 	style.font = font;
+	style.size = 1;
+	style.colour = 0xFFA0AAAE;
+	string_to_image("Level:", hud->text, (uint32_t *)p, &style);
+	p[1] += CHAR_H;
 	style.size = 2;
-	style.colour = CLR_WHITE;
-	string_to_image("Level:\nScore:\nMoves:\n", hud->text, (uint32_t *)p, &style);
+	string_to_image("Score:\nMoves:\n", hud->text, (uint32_t *)p, &style);
 	id = image_render(mlx, hud->text,
 			hud->origin.x + MARGIN, hud->origin.y + MARGIN);
 	mlx_set_instance_depth(&hud->text->instances[id], Z_HUD1);

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 12:12:10 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:58:53 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ static void	plyr_check_collisions(t_object *plyr, t_game *game)
 			object_collect(game, &other);
 			continue ;
 		}
+		else if (other->type == OBJ_ENMY_EASYH || other->type == OBJ_ENMY_EASYV)
+			game_lose(game);
 		else if (other->type == OBJ_EXIT && game->score == game->score_max)
 			game_exit(game);
 		other = other->below;

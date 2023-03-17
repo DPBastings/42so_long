@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:30:21 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:59:04 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 t_hud	*hud_init(mlx_t *mlx, mlx_texture_t **txrs, mlx_texture_t *font)
 {
 	t_hud	*hud;
-	
+
 	hud = malloc(sizeof(t_hud));
 	if (hud == NULL)
 		sl_error(SL_MEMFAIL);

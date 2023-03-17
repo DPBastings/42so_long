@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:54:39 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 16:17:05 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 17:03:23 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	string_to_image(char const *str, mlx_image_t *img, uint32_t xy[2],
 		else
 		{
 			char_to_image(*str, img, i, style);
-			i[0] += CHAR_W * style->size;;
+			i[0] += CHAR_W * style->size;
 		}
 		str++;
 	}
@@ -52,14 +52,15 @@ void	char_to_image(char const chr, mlx_image_t *img, uint32_t xy[2],
 		return ;
 	i[1] = 0;
 	src = (uint32_t *)find_char(chr, style->font);
-	while (i[1] < CHAR_H)
+	while (i[1] < CHAR_H * style->size)
 	{
 		i[0] = 0;
-		while (i[0] < CHAR_W)
+		while (i[0] < CHAR_W * style->size)
 		{
 			dst = (uint32_t *)pixel_get(img->pixels, imgdims,
 					xy[0] + i[0], xy[1] + i[1]);
-			if (src[i[1] * style->font->width + i[0]] == CLR_WHITE)
+			if (src[i[1] / style->size * style->font->width
+					+ i[0] / style->size] == CLR_WHITE)
 				*dst = style->colour;
 			i[0]++;
 		}

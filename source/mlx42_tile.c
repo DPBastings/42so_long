@@ -6,14 +6,14 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 12:27:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 15:35:24 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 17:03:02 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx42_utils.h"
 
 static void	tile_copy(mlx_image_t *img, mlx_texture_t *txr,
-		uint32_t dst[2], uint32_t grid[2]);
+				uint32_t dst[2], uint32_t grid[2]);
 
 void	image_tile(mlx_image_t *img, mlx_texture_t *txr, uint32_t grid[2])
 {
