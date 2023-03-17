@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 12:27:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 14:15:12 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 15:35:24 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,5 @@ static void	tile_copy(mlx_image_t *img, mlx_texture_t *txr,
 		src[1] = 0;
 	texture_area_copy_to_image(img, txr, dst, src);
 }
+
+//lelijke beslisboom

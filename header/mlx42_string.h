@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:53:50 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 11:02:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:15:44 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,27 @@
 # include "MLX42/MLX42.h"
 # include <stdint.h>
 
-# define GLYPH_W		10
-# define GLYPH_H		20
-# define GLYPHS_PER_ROW	32
+# define CHAR_W			10
+# define CHAR_H			20
+# define CHARS_PER_ROW	32
+
+typedef struct s_font {
+	mlx_texture_t	*txr;
+	uint32_t		char_w;
+	uint32_t		char_h;
+	uint32_t		chars_per_row;
+}	t_font;
+
+typedef struct s_style {
+	mlx_texture_t	*font;
+	uint32_t		size;
+	uint32_t		colour;
+}	t_style;
 
 void	string_to_image(char const *str, mlx_image_t *img, uint32_t xy[2],
-		mlx_texture_t *font);
+		t_style *style);
 void	char_to_image(char const chr, mlx_image_t *img, uint32_t xy[2],
-		mlx_texture_t *font);
+		t_style *style);
 uint8_t	*find_char(char const chr, mlx_texture_t *font);
 
 #endif

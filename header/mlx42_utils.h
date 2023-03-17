@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 16:37:00 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 12:27:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 16:17:03 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define CLR_GREY		0xFF0F0F0F
 # define CLR_BLACK		0xFF000000
 # define CLR_RED		0xFF0000FF
-# define CLR_ORANGE		0xFF000FFF
+# define CLR_ORANGE		0xFF0088FF
 # define CLR_YELLOW		0xFF00FFFF
 # define CLR_GREEN		0xFF00FF00
 # define CLR_CYAN		0xFFFFFF00
