@@ -6,13 +6,16 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/27 15:42:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 12:19:00 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:25:00 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_error.h"
+#include "sl_hud.h"
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 static void	create_vortex(t_object *exit, t_game *game);
@@ -22,7 +25,7 @@ void	tick_exit(t_object *exit, t_game *game)
 	if (exit->sprite->animator == sprite_animate
 		&& sprite_animation_is_done(exit->sprite))
 		exit->sprite->animator = sprite_animate_pass;
-	else if (game->hud->bar->filled >= 1 && !exit->below)
+	else if (game->hud->bar->percent >= 1 && !exit->below)
 		exit_open(exit, game);
 }
 

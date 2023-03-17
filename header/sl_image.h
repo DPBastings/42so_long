@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   map_search.c                                       :+:    :+:            */
+/*   sl_image.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/13 15:21:45 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 12:44:45 by dbasting      ########   odam.nl         */
+/*   Created: 2023/03/17 12:27:49 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/17 12:33:09 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "point.h"
-#include <stdlib.h>
-#include <limits.h>
+#ifndef SL_IMAGE_H
+# define SL_IMAGE_H
 
-/* t_object **map_index(t_map *map, t_upoint p)
- * Return the address of the pointer at point p in map.
- * Return the address of NOWHERE if p is out of bounds.
- */
-t_object	**map_index(t_map *map, t_upoint p)
-{
-	if (p.y >= map->dims.y || p.x >= map->dims.x)
-		return (&map->none);
-	return (&map->objs[p.y][p.x]);
-}
+# include "MLX42/MLX42.h"
+# include <stdint.h>
+
+mlx_image_t	*image_init(mlx_t *mlx, uint32_t width, uint32_t height);
+mlx_image_t	*image_from_texture_init(mlx_t *mlx, mlx_texture_t *txr);
+int32_t		image_render(mlx_t *mlx, mlx_image_t *img, int32_t x, int32_t y);
+
+#endif

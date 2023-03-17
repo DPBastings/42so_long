@@ -6,12 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:53:50 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 16:41:11 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 11:02:06 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX42_STRING_H
-# define MLX_42_STRING_H
+# define MLX42_STRING_H
 
 # include "MLX42/MLX42.h"
 # include <stdint.h>

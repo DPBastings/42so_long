@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:07:58 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 12:40:46 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:34:43 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,20 @@
 #include <stddef.h>
 #include <stdint.h>
 
-void	pixels_set(uint8_t *pixels, size_t n, uint8_t const value[BPP])
+void	pixels_set(uint8_t *pixels, size_t n, uint32_t value)
 {
-	t_channel	c;
+	uint32_t	*px;
 
-	c = 0;
-	while (c < BPP)
-	{
-		pixels_set_channel(pixels, n, c, value[c]);
-		c++;
-	}
+	px = (uint32_t *)pixels;
+	while (n)
+		px[--n] = value;
 }
 
 void	pixels_set_channel(uint8_t *pixels, size_t n, t_channel channel,
 		uint8_t value)
 {
-	while (n--)
-	{
-		pixels[n * BPP + channel] = value;
-	}
+	while (n)
+		pixels[--n * BPP + channel] = value;
 }
 
 // The pesky Norm precludes more than four parameters. I've decided to drop `wh`

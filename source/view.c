@@ -6,13 +6,14 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:47:06 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:52:09 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:15:58 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_error.h"
 
-#include "geometry.h"
+#include "point.h"
 #include <stdint.h>
 
 int32_t	view_xview(int32_t x, t_view view)

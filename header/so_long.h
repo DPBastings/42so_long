@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 14:46:27 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:31:48 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libftprintf.h"
 # include <limits.h>
 # include "MLX42/MLX42.h"
+# include "sl_hud.h"
 # include <stdbool.h>
 # include <stdint.h>
 
@@ -36,8 +37,6 @@
 //SCREEN_W = (GRID_W * 26); SCREEN_H = (GRID_H * 15)
 # define SCREEN_W			1248
 # define SCREEN_H			720
-# define HUD_W				1248
-# define HUD_H				144
 //VIEW_MAXW = SCREEN_W; VIEW_MAXH = (SCREEN_H - HUD_H)
 # define VIEW_MAXW			1248
 # define VIEW_MAXH			576
@@ -48,8 +47,6 @@
  * alignment will no longer work properly."
  */
 # define PLAYER_SPEED		6
-
-# define TEXT_COLOUR		0xFFEEEEEE
 
 typedef enum e_objs {
 	OBJ_NONE = 0,
@@ -83,7 +80,7 @@ typedef enum e_textures {
 	TXR_WALL,
 	TXR_BG,
 	TXR_HUD_BG,
-	TXR_PROGRESS_BAR_FRAME,
+	TXR_PROGRESS_BAR,
 	N_TEXTURES,
 }	t_txr_id;
 
@@ -217,20 +214,6 @@ typedef struct s_view {
 	mlx_image_t	*background;
 }	t_view;
 
-typedef struct s_bar {
-	t_point		origin;
-	double		filled;
-	mlx_image_t	*bar;
-	mlx_image_t	*mask;
-	mlx_image_t	*frame;
-}	t_bar;
-
-typedef struct s_hud {
-	mlx_image_t	*bg;
-	mlx_image_t	*text;
-	t_bar		*bar;
-}	t_hud;
-
 typedef struct s_game {
 	int32_t		seed;
 	uint64_t	ticks;
@@ -246,26 +229,6 @@ typedef struct s_game {
 	t_view		view;
 	mlx_t		*mlx;
 }	t_game;
-
-typedef enum e_sl_errno {
-	SL_SUCCESS = 0,
-	SL_GENERIC,
-	SL_MEMFAIL,
-	SL_BADASS,
-	SL_INVARGS,
-	SL_INVEXT,
-	SL_INVPATH,
-	SL_INVMAP_DIMS,
-	SL_INVMAP_UNKNOWNOBJ,
-	SL_INVMAP_BOUNDS,
-	SL_INVMAP_NOSTART,
-	SL_INVMAP_NOEXIT,
-	SL_INVMAP_EXCSTART,
-	SL_INVMAP_EXCEXIT,
-	SL_INVMAP_NOCOLL,
-	SL_INVMAP_NOPATH,
-	N_SL_ERR,
-}	t_sl_errno;
 
 t_game		*game_init(char const *filename);
 void		object_collect(t_game *game, t_object **obj);
@@ -351,16 +314,6 @@ void		map_setup(t_map *map, t_list *bytemap);
 t_object	**map_index(t_map *map, t_upoint p);
 void		map_destroy(t_map **map);
 
-void		hud_init(t_game *game);
-void		hud_bar_init(t_game *game, int32_t x, int32_t y);
-void		hud_render(t_hud *hud, mlx_t *mlx);
-void		hud_bar_animate(t_bar *bar, t_game *game);
-void		hud_destroy(t_hud **hud, mlx_t *mlx);
-void		hud_bar_destroy(t_bar **bar, mlx_t *mlx);
-void		bg_render(t_game *game);
-void		text_static_render(t_hud *hud, mlx_t *mlx, mlx_texture_t *font);
-void		text_dynamic_render(t_game *game);
-
 void		view_init(t_game *game);
 int32_t		view_xview(int32_t x, t_view view);
 int32_t		view_yview(int32_t y, t_view view);
@@ -370,12 +323,12 @@ void		view_update(t_point diff, t_game *game);
 void		view_centre(t_point anchor, t_game *game);
 void		view_shift(t_point anchor, t_game *game);
 
+void		bg_render(t_game *game);
+void		hud_bar_animate(t_bar *bar, t_game *game);
+
 t_dir		dir_invert(t_dir dir);
 void		instance_move(mlx_instance_t *instance, t_dir dir, uint32_t speed);
 t_point		instance_to_point(mlx_instance_t instance);
 t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
-
-void		sl_strerror(t_sl_errno errno);
-void		sl_error(t_sl_errno errno);
 
 #endif

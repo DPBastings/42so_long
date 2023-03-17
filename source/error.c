@@ -6,11 +6,11 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 16:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:43:52 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:12:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "sl_error.h"
 
 #include "libftprintf.h"
 #include <stdlib.h>

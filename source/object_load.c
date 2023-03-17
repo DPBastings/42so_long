@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   map_setup.c                                        :+:    :+:            */
+/*   object_load.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/24 13:45:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:14:56 by dbasting      ########   odam.nl         */
+/*   Created: 2023/03/13 12:10:58 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/13 12:31:17 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "sl_error.h"
 #include "map_check.h"
 
 #include "libft.h"
@@ -20,52 +19,27 @@
 #include <stdlib.h>
 
 static t_obj_id	chrtotype(char const chr);
-static void		object_setup(t_map *map, t_upoint p, char type);
 
-void	map_setup(t_map *map, t_list *bytemap)
+t_object	*object_load(char chr, t_upoint p)
 {
 	t_object	*obj;
-	t_upoint	p;
-	char		*row;
+	t_obj_id	type;
 
-	p.y = 0;
-	while (p.y < map->dims.y)
-	{
-		p.x = 0;
-		row = (char *)bytemap->content;
-		while (p.x < map->dims.x)
-		{
-			if (row[p.x] != CHR_NONE)
-				object_setup(map, p, row[p.x]);
-			p.x++;
-		}
-		bytemap = bytemap->next;
-		p.y++;
-	}
-}
-
-static void	object_setup(t_map *map, t_upoint p, char type)
-{
-	t_object	*obj;
-
-	obj = object_init(chrtotype(type));
+	type = chrtotype(chr);
+	obj = object_init(type);
 	if (obj == NULL)
 		sl_error(SL_MEMFAIL);
-	obj->below = map->none;
-	object_place(obj, map, p);
-	if (obj->type == OBJ_PLYR)
-		map->player = obj;
-	else if (obj->type == OBJ_EXIT)
-		map->exit = obj;
 }
 
 static t_obj_id	chrtotype(char const chr)
 {
-	char *const	chars = CHR_ALL;
-	char		*ptr;
+	char *const		chars = CHR_ALL;
+	t_obj_id const	ids[N_CHR] = {OBJ_NONE, OBJ_PLYR, OBJ_COLL, OBJ_EXIT,
+		OBJ_WALL, OBJ_ENMY, OBJ_ENMY, OBJ_ENMY};
+	char			*ptr;
 
 	ptr = ft_strchr(chars, chr);
 	if (ptr == NULL)
 		sl_error(SL_INVMAP_UNKNOWNOBJ);
-	return ((t_obj_id)(ptr - chars));
+	return (ids[(uint32_t)(ptr - chars)]);
 }

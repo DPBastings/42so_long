@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 16:37:00 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:26:58 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 12:27:34 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ typedef enum {
 	BPP,
 }	t_channel;
 
-void	pixels_set(uint8_t *pixels, size_t n, uint8_t const value[BPP]);
+void	image_tile(mlx_image_t *img, mlx_texture_t *txr, uint32_t grid[2]);
+
+void	pixels_set(uint8_t *pixels, size_t n, uint32_t value);
 void	pixels_set_channel(uint8_t *pixels, size_t n, t_channel channel, uint8_t value);
 void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
 		uint32_t dstxy[2], uint32_t srcxy[2]);

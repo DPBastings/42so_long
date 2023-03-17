@@ -6,11 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:31:49 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 11:39:04 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:26:54 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_error.h"
 
 #include "MLX42/MLX42.h"
 #include <stdbool.h>

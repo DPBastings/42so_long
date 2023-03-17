@@ -6,13 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:01:08 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 12:58:14 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 12:45:26 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#include "geometry.h"
+#include "point.h"
 #include <stdint.h>
 
 static void	obj_tick(t_object **obj, t_game *game);

@@ -6,12 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:03:17 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:15:47 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "geometry.h"
+#include "sl_error.h"
+#include "point.h"
 
 #include "libft.h"
 #include "MLX42/MLX42.h"
@@ -59,13 +60,13 @@ void	textures_load(t_game *game)
 	}
 }
 
-t_texture	*texture_load(char const *filename)
+mlx_texture_t	*texture_load(char const *filename)
 {
 	t_texture	*texture;
 
 	texture = mlx_load_png(filename);
-	if (texture == NULL || texture->width % GRID_W)
-		sl_error(SL_BADASS);
+	if (texture == NULL)
+		sl_error(SL_MEMFAIL);
 	return (texture);
 }
 

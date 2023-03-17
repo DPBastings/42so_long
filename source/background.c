@@ -6,13 +6,15 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:37:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:29:15 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:31:25 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_error.h"
+#include "sl_hud.h"
 
-#include "geometry.h"
+#include "point.h"
 #include "MLX42/MLX42.h"
 
 static void	draw_bg_element(t_point p, t_game *game);

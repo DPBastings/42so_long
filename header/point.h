@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   geometry.c                                         :+:    :+:            */
+/*   point.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/06 14:07:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/06 11:43:16 by dbasting      ########   odam.nl         */
+/*   Created: 2023/03/17 11:24:20 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/17 11:24:36 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometry.h"
+#ifndef POINT_H
+# define POINT_H
 
-#include <stdint.h>
+# include <stdint.h>
 
-t_point	*set_point(t_point *point, int32_t x, int32_t y)
-{
-	point->x = x;
-	point->y = y;
-	return (point);
-}
+typedef enum e_axis {
+	X = 0,
+	Y,
+	N_DIM,
+}	t_axis;
 
-t_upoint	*set_upoint(t_upoint *upoint, uint32_t x, uint32_t y)
-{
-	upoint->x = x;
-	upoint->y = y;
-	return (upoint);
-}
+typedef struct s_point {
+	int32_t	x;
+	int32_t	y;
+}	t_point;
 
-t_plane	*set_plane(t_plane *plane, unsigned int w, unsigned int h)
-{
-	plane->w = w;
-	plane->h = h;
-	return (plane);
-}
+typedef struct s_upoint {
+	uint32_t	x;
+	uint32_t	y;
+}	t_upoint;
+
+t_point		*set_point(t_point *point, int32_t x, int32_t y);
+t_upoint	*set_upoint(t_upoint *upoint, uint32_t x, uint32_t y);
+
+#endif

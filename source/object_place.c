@@ -6,13 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:00:55 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:10:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 12:45:00 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-#include "geometry.h"
+#include "point.h"
 #include <stdbool.h>
 #include <stdint.h>
 

@@ -6,11 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 13:19:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:13:37 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_error.h"
+#include "sl_hud.h"
 
 #include "libft.h"
 #include "MLX42/MLX42.h"
@@ -33,11 +35,10 @@ t_game	*game_init(char const *filename)
 	screen_init(game);
 	view_init(game);
 	textures_load(game);
-	font_load(game);
+	game->font = texture_load("./assets/textures/font.png");
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
-	hud_init(game);
-	hud_render(game->hud, game->mlx);
+	game->hud = hud_init(game->mlx, game->textures, game->font);
 	bg_render(game);
 	sprites_setup(game);
 	view_centre(

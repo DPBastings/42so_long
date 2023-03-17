@@ -6,12 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 14:32:32 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:26:06 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "geometry.h"
+#include "sl_error.h"
+#include "point.h"
 
 #include "libft.h"
 #include "MLX42/MLX42.h"
@@ -114,7 +115,7 @@ t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
 {
 	t_sprite	*sprite;
 	t_point		origin;
-	t_plane		area;
+	t_upoint	area;
 
 	if (texture == NULL)
 		return (NULL);
@@ -123,7 +124,7 @@ t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
 		return (NULL);
 	sprite->texture = texture;
 	set_point(&origin, origin_i * GRID_W, 0);
-	set_plane(&area, GRID_W, GRID_H);
+	set_upoint(&area, GRID_W, GRID_H);
 	sprite->image = mlx_texture_area_to_image(mlx, texture,
 			(unsigned int *)&origin, (unsigned int *)&area);
 	if (sprite->image == NULL)

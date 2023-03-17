@@ -6,14 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/06 18:08:38 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:14:16 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_error.h"
 #include "MLX42/MLX42.h"
-
-#include "sl_test.h"
 
 int	main(int argc, char **argv)
 {

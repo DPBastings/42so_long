@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:32:26 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 12:44:45 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 12:45:12 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "MLX42/MLX42.h"
 #include "mlx42_utils.h"
-#include "geometry.h"
+#include "point.h"
 
 void	sprite_overlay_gradient(t_sprite *sprite, mlx_texture_t *gradient)
 {

@@ -6,67 +6,35 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:15:03 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:30:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "sl_hud.h"
+#include "sl_error.h"
 
 #include "mlx42_utils.h"
+#include "point.h"
 #include <stdlib.h>
 
-static void	hud_bg_init(t_game *game);
-static void	hud_bg_draw(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst);
-
-void	hud_init(t_game *game)
+t_hud	*hud_init(mlx_t *mlx, mlx_texture_t **txrs, mlx_texture_t *font)
 {
-	game->hud = malloc(sizeof(t_hud));
-	if (game->hud == NULL)
+	t_hud	*hud;
+	
+	hud = malloc(sizeof(t_hud));
+	if (hud == NULL)
 		sl_error(SL_MEMFAIL);
-	hud_bg_init(game);
-	text_static_render(game->hud, game->mlx, game->font);
-	hud_bar_init(game, GRID_W, 96);
-}
-
-static void	hud_bg_init(t_game *game)
-{
-	t_upoint	p;
-
-	game->hud->bg = mlx_new_image(game->mlx, HUD_W, HUD_H);
-	if (game->hud->bg == NULL)
-		sl_error(SL_MEMFAIL);
-	p.y = 0;
-	while (p.y < HUD_H)
-	{
-		p.x = 0;
-		while (p.x < HUD_W)
-		{
-			hud_bg_draw(game->hud->bg, game->textures[TXR_HUD_BG], p);
-			p.x += GRID_W;
-		}
-		p.y += GRID_H;
-	}
-}
-
-static void	hud_bg_draw(mlx_image_t *bg, mlx_texture_t *txr, t_upoint dst)
-{
-	t_upoint	src;
-
-	set_upoint(&src, 0, 0);
-	if (dst.x >= bg->width - GRID_W)
-		src.x = 2 * GRID_W;
-	else if (dst.x > 0)
-		src.x = GRID_W;
-	if (dst.y >= bg->height - GRID_H)
-		src.y = 2 * GRID_H;
-	else if (dst.y > 0)
-		src.y = GRID_H;
-	texture_area_copy_to_image(bg, txr, (uint32_t *)&dst, (uint32_t *)&src);
+	set_point(&hud->origin, 0, 0);
+	hud_bg_init(hud, mlx, txrs);
+	text_static_render(hud, mlx, font);
+	hud->bar = hud_bar_init(hud, mlx, txrs);
+	return (hud);
 }
 
 void	hud_destroy(t_hud **hud, mlx_t *mlx)
 {
 	hud_bar_destroy(&(*hud)->bar, mlx);
+	mlx_delete_image(mlx, (*hud)->text);
 	mlx_delete_image(mlx, (*hud)->bg);
 	free(*hud);
 	*hud = NULL;

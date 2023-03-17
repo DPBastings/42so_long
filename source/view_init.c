@@ -6,13 +6,14 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 12:04:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 16:10:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 13:31:16 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_hud.h"
 
-#include "geometry.h"
+#include "point.h"
 #include "ft_math.h"
 
 static void	apply_offset(t_view *view);

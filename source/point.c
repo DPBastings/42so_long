@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   text.c                                             :+:    :+:            */
+/*   point.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/03/14 14:43:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:15:38 by dbasting      ########   odam.nl         */
+/*   Created: 2023/02/06 14:07:22 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/17 12:44:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "sl_error.h"
+#include "point.h"
 
-#include "MLX42/MLX42.h"
-#include "mlx42_string.h"
 #include <stdint.h>
 
-#define	MARGIN	8
-
-void	text_static_render(t_hud *hud, mlx_t *mlx, t_texture *font)
+t_point	*set_point(t_point *point, int32_t x, int32_t y)
 {
-	uint32_t	p[2];
-	
-	p[0] = 0;
-	p[1] = 0;
-	hud->text = mlx_new_image(mlx, HUD_W - 2 * MARGIN, HUD_H - 2 * MARGIN);
-	if (hud->text == NULL)
-		sl_error(SL_MEMFAIL);
-	string_to_image("LEVEL:\nSCORE:\nMOVES:\n", hud->text, (uint32_t *)p, font);
+	point->x = x;
+	point->y = y;
+	return (point);
+}
+
+t_upoint	*set_upoint(t_upoint *upoint, uint32_t x, uint32_t y)
+{
+	upoint->x = x;
+	upoint->y = y;
+	return (upoint);
 }

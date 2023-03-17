@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/14 14:45:32 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/17 13:30:18 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,21 +21,20 @@ LIB_DIR		:= ./lib/
 
 SRC_FILES	:= main.c\
 			animation.c\
-			animation_coll.c\
+			animation_misc.c\
 			background.c\
 			error.c\
-			font.c\
 			game_init.c\
 			game_status.c\
-			geometry.c\
 			hook.c\
 			hook_close.c\
 			hook_keys.c\
 			hook_tick.c\
 			hud.c\
+			hud_bg.c\
 			hud_bar.c\
-			hud_bar_init.c\
-			hud_render.c\
+			hud_update.c\
+			image.c\
 			map.c\
 			map_check.c\
 			map_check_path.c\
@@ -43,13 +42,14 @@ SRC_FILES	:= main.c\
 			map_search.c\
 			map_setup.c\
 			movement.c\
-			object.c\
-			object_place.c\
-			obj_default.c\
 			obj_coll.c\
+			obj_default.c\
 			obj_enemy.c\
 			obj_exit.c\
 			obj_player.c\
+			object.c\
+			object_place.c\
+			point.c\
 			seed.c\
 			sprite.c\
 			sprite_change.c\
@@ -65,11 +65,11 @@ SRC_FILES	:= main.c\
 			view_update.c\
 			\
 			mlx42_string.c\
+			mlx42_tile.c\
 			mlx42_utils.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
 			map_check.h\
-			geometry.h\
 			mlx42_string.h\
 			mlx42_utils.h
 LIB_FILES	:= libft.a\
