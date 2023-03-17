@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:43:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 17:00:01 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 17:10:42 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "sl_image.h"
 
 #include "MLX42/MLX42.h"
-#include "mlx42_string.h"
 #include "mlx42_utils.h"
 #include <stdint.h>
 
@@ -35,7 +34,7 @@ void	text_static_render(t_hud *hud, mlx_t *mlx, mlx_texture_t *font)
 	style.size = 1;
 	style.colour = 0xFFA0AAAE;
 	string_to_image("Level:", hud->text, (uint32_t *)p, &style);
-	p[1] += CHAR_H;
+	p[1] += 24;
 	style.size = 2;
 	string_to_image("Score:\nMoves:\n", hud->text, (uint32_t *)p, &style);
 	id = image_render(mlx, hud->text,

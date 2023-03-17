@@ -6,16 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:54:39 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 17:03:23 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/17 17:11:03 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx42_string.h"
-#include "libft.h"
 #include "mlx42_utils.h"
 #include <stddef.h>
-
-#include <stdio.h>
 
 void	string_to_image(char const *str, mlx_image_t *img, uint32_t xy[2],
 		t_style *style)

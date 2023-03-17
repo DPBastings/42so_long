@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/17 15:38:34 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/17 17:10:24 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,9 +69,12 @@ SRC_FILES	:= main.c\
 			mlx42_utils.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
+			sl_error.h\
+			sl_hud.h\
+			sl_image.h\
 			map_check.h\
-			mlx42_string.h\
-			mlx42_utils.h
+			mlx42_utils.h\
+			point.h
 LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a
