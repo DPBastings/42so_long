@@ -28,6 +28,10 @@
 # define CLR_BLUE		0xFFFF0000
 # define CLR_MAGENTA	0xFFFF00FF
 
+# define CHAR_W			10
+# define CHAR_H			20
+# define CHARS_PER_ROW	32
+
 typedef enum {
 	R = 0,
 	G,

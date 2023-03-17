@@ -44,7 +44,7 @@ t_bar	*hud_bar_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs)
 	measure_draw(bar->measure, txrs[TXR_GRADIENT]);
 	bar->mask = image_init(mlx, bar->measure->width, bar->measure->height);
 	pixels_set(bar->mask->pixels, bar->mask->width * bar->mask->height,
-		0xFF0F0F0F);
+		0xFF202020);
 	bar_render(bar, mlx);
 	bar->percent = 0.0;
 	return (bar);
