@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:46:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 17:02:11 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,12 @@ typedef enum e_sprites {
 	N_SPRITES,
 }	t_spr_id;
 
+# define SPR_COLL_MIN		10	// SPR_COLL_0
 # define SPR_COLL_MAX		15	// SPR_COLL_5
+# define SPR_WALL_MIN		18	// SPR_WALL_0000
 # define SPR_WALL_MAX		33	// SPR_WALL_1111
-# define N_COLL_SPR			5	// (SPR_COLL_MAX - SPR_COLL_0 + 1)
-# define N_WALL_SPR			16	// (SPR_WALL_MAX - SPR_WALL_0000 + 1)
+# define N_COLL_SPR			5	// (SPR_COLL_MAX - SPR_COLL_MIN + 1)
+# define N_WALL_SPR			16	// (SPR_WALL_MAX - SPR_WALL_MIN + 1)
 # define SPR_FILLER			18	// SPR_WALL_0000
 
 typedef enum e_z {

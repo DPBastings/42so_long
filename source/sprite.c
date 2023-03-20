@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:54:11 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 17:00:51 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ static const uint32_t	g_lut_spr_param[N_SPRITES][N_PARAM] = {
 {TXR_WALL,			0,	0,},
 {TXR_BG,			0,	0,},};
 
-static t_sprite *sprite_init(mlx_t *mlx, t_spr_id id, mlx_texture_t **txrs);
-static void	spr_texture_read(mlx_image_t *img, mlx_texture_t *txr, t_spr_id id);
-static void	sprite_destroy(t_sprite **sprite, mlx_t *mlx);
+static t_sprite	*sprite_init(mlx_t *mlx, t_spr_id id, mlx_texture_t **txrs);
+static void		spr_texture_read(mlx_image_t *img, mlx_texture_t *txr,
+					t_spr_id id);
+static void		sprite_destroy(t_sprite **sprite, mlx_t *mlx);
 
 t_sprite	**sprites_init(mlx_t *mlx, mlx_texture_t **txrs)
 {
@@ -130,8 +131,8 @@ static void	spr_texture_read(mlx_image_t *img, mlx_texture_t *txr, t_spr_id id)
 
 	set_upoint(&dst, 0, 0);
 	set_upoint(&src, 0, 0);
-	if (id >= SPR_WALL_0000 && id <= SPR_WALL_MAX)
-		src.x = (id - SPR_WALL_0000) * GRID_W;
+	if (id >= SPR_WALL_MIN && id <= SPR_WALL_MAX)
+		src.x = (id - SPR_WALL_MIN) * GRID_W;
 	texture_area_copy_to_image(img, txr, (uint32_t *)&dst, (uint32_t *)&src);
 }
 
