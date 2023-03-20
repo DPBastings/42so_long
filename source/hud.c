@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 16:59:04 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 12:27:34 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_hud	*hud_init(mlx_t *mlx, mlx_texture_t **txrs, mlx_texture_t *font)
 		sl_error(SL_MEMFAIL);
 	set_point(&hud->origin, 0, 0);
 	hud_bg_init(hud, mlx, txrs);
-	text_static_render(hud, mlx, font);
+	hud_text_init(hud, mlx, font);
 	hud->bar = hud_bar_init(hud, mlx, txrs);
 	return (hud);
 }
@@ -35,6 +35,7 @@ void	hud_destroy(t_hud **hud, mlx_t *mlx)
 {
 	hud_bar_destroy(&(*hud)->bar, mlx);
 	mlx_delete_image(mlx, (*hud)->text);
+	mlx_delete_image(mlx, (*hud)->logo);
 	mlx_delete_image(mlx, (*hud)->bg);
 	free(*hud);
 	*hud = NULL;

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 16:37:00 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 17:07:46 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 12:36:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 # include <stdint.h>
 
 # define CLR_WHITE		0xFFFFFFFF
-# define CLR_GREY		0xFF0F0F0F
-# define CLR_BLACK		0xFF000000
+# define CLR_GREY		0x0F0F0FFF
+# define CLR_BLACK		0x000000FF
 # define CLR_RED		0xFF0000FF
-# define CLR_ORANGE		0xFF0088FF
-# define CLR_YELLOW		0xFF00FFFF
-# define CLR_GREEN		0xFF00FF00
-# define CLR_CYAN		0xFFFFFF00
-# define CLR_BLUE		0xFFFF0000
-# define CLR_MAGENTA	0xFFFF00FF
+# define CLR_ORANGE		0xFF8800FF
+# define CLR_YELLOW		0xFFFF00FF
+# define CLR_GREEN		0x00FF00FF
+# define CLR_CYAN		0x00FFFFFF
+# define CLR_BLUE		0x0000FFFF
+# define CLR_MAGENTA	0xFF00FFFF
 
 # define CHAR_W			10
 # define CHAR_H			20
@@ -55,6 +55,8 @@ typedef struct s_style {
 
 /*Image building functions*/
 void	image_tile(mlx_image_t *img, mlx_texture_t *txr, uint32_t grid[2]);
+void	texture_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
+		uint32_t dstxy[2]);
 void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
 		uint32_t dstxy[2], uint32_t srcxy[2]);
 

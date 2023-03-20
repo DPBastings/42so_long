@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 12:15:41 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 11:30:42 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MAP_CHECK_H
 
 # include "so_long.h"
-# include "geometry.h"
+# include "point.h"
 
 # define CHR_ALL	"0PCE1HVW"
 # define CHR_NONE	'0'

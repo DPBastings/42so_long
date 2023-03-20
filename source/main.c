@@ -6,13 +6,22 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:14:16 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 11:55:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "sl_error.h"
 #include "MLX42/MLX42.h"
+
+#include <stdlib.h>
+#include <unistd.h>
+
+void	sl_leaks(void)
+{
+	printf("--- %d ---\n", getpid());
+	system("leaks so_long");
+}
 
 int	main(int argc, char **argv)
 {
@@ -24,5 +33,6 @@ int	main(int argc, char **argv)
 	hook_set(game);
 	mlx_loop(game->mlx);
 	game_end(game);
+	sl_leaks();
 	return (0);
 }

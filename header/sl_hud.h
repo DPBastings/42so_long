@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 11:14:48 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 15:40:50 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 12:13:59 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_bar {
 typedef struct s_hud {
 	t_point		origin;
 	mlx_image_t	*bg;
+	mlx_image_t	*logo;
 	mlx_image_t	*text;
 	t_bar		*bar;
 }	t_hud;
@@ -40,7 +41,7 @@ typedef struct s_hud {
 t_hud	*hud_init(mlx_t *mlx, mlx_texture_t **txrs, mlx_texture_t *font);
 void	hud_bg_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs);
 t_bar	*hud_bar_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs);
-void	text_static_render(t_hud *hud, mlx_t *mlx, mlx_texture_t *font);
+void	hud_text_init(t_hud *hud, mlx_t *mlx, mlx_texture_t *font);
 void	hud_destroy(t_hud **hud, mlx_t *mlx);
 void	hud_bar_destroy(t_bar **bar, mlx_t *mlx);
 

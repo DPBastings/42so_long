@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:15:47 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 11:31:01 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static char const	*g_texture_files[N_TEXTURES] = {
 	"./assets/textures/wall_tiles.png",
 	"./assets/textures/background.png",
 	"./assets/textures/hud_bg.png",
+	"./assets/textures/logo.png",
 	"./assets/textures/hud_bar.png",
 };
 

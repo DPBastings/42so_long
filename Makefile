@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/17 17:10:24 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/20 11:53:56 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,9 +64,10 @@ SRC_FILES	:= main.c\
 			view_init.c\
 			view_update.c\
 			\
+			mlx42_pixel.c\
 			mlx42_string.c\
 			mlx42_tile.c\
-			mlx42_utils.c
+			mlx42_texture.c
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
 			sl_error.h\
@@ -79,7 +80,7 @@ LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a
 
-CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR) -g -fsanitize=address
+CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR) #-g -fsanitize=address
 ifeq ($(OS),Linux)
 	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread -lm
 endif

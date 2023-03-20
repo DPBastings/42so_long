@@ -6,18 +6,18 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:31:48 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 12:26:57 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "geometry.h"
 # include "libft.h"
 # include "libftprintf.h"
 # include <limits.h>
 # include "MLX42/MLX42.h"
+# include "point.h"
 # include "sl_hud.h"
 # include <stdbool.h>
 # include <stdint.h>
@@ -80,6 +80,7 @@ typedef enum e_textures {
 	TXR_WALL,
 	TXR_BG,
 	TXR_HUD_BG,
+	TXR_LOGO,
 	TXR_PROGRESS_BAR,
 	N_TEXTURES,
 }	t_txr_id;
@@ -325,6 +326,7 @@ void		view_shift(t_point anchor, t_game *game);
 
 void		bg_render(t_game *game);
 void		hud_bar_animate(t_bar *bar, t_game *game);
+void		hud_text_update(t_game *game);
 
 t_dir		dir_invert(t_dir dir);
 void		instance_move(mlx_instance_t *instance, t_dir dir, uint32_t speed);

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:43:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 17:10:42 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 12:34:36 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 #define MARGIN	12
 
-void	text_static_render(t_hud *hud, mlx_t *mlx, mlx_texture_t *font)
+void	hud_text_init(t_hud *hud, mlx_t *mlx, mlx_texture_t *font)
 {
 	uint32_t	p[2];
 	t_style		style;
@@ -29,14 +29,11 @@ void	text_static_render(t_hud *hud, mlx_t *mlx, mlx_texture_t *font)
 	p[0] = 0;
 	p[1] = 0;
 	hud->text = image_init(mlx,
-			hud->bg->width - 2 * MARGIN, hud->bg->height - 2 * MARGIN);
+			hud->bg->width / 4 * 3 - 2 * MARGIN, 96);
 	style.font = font;
 	style.size = 1;
-	style.colour = 0xFFA0AAAE;
-	string_to_image("Level:", hud->text, (uint32_t *)p, &style);
-	p[1] += 24;
-	style.size = 2;
-	string_to_image("Score:\nMoves:\n", hud->text, (uint32_t *)p, &style);
+	style.colour = 0xAEA7A0FF;
+	string_to_image("Level:\nScore:\nMoves:\n", hud->text, p, &style);
 	id = image_render(mlx, hud->text,
 			hud->origin.x + MARGIN, hud->origin.y + MARGIN);
 	mlx_set_instance_depth(&hud->text->instances[id], Z_HUD1);
