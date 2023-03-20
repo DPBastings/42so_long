@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 14:12:17 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 15:11:33 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	player_move(t_game *game, t_dir dir)
 	player->speed = PLAYER_SPEED;
 	game->moves++;
 	hud_update_moves(game->hud, game->moves);
-	ft_printf("Moves: [%u].\n", game->moves);
+	ft_printf("Moves: %10u.\n", game->moves);
 	return (true);
 }
 

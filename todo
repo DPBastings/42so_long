@@ -1,9 +1,7 @@
 Urgent:
-# Implement dynamic HUD text.
 # Implement opening and closing screens.
 # Split the so_long.h header into smaller headers. Sensibly, if at all possible.
 # Do something about corner walls. Preferably without requiring 256 different wall sprites.
-# Move the movement key check into the player tick function.
 # Refactor the mlx42_utils functions to work with uint32_t pointers more.
 # Make it so that enemy sprites no longer cut off one another.
 
