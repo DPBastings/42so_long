@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 16:18:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 13:42:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 14:44:48 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,40 @@
 
 static void	hud_bar_fill(t_bar *bar);
 
-void	hud_text_update(t_game *game, uint32_t value, uint32_t line)
+void	hud_text_update(t_hud *hud, char const *str, uint32_t p[2])
 {
-	uint32_t	p[2];
-	char		str[MAX_DIGITS + 1];
 	t_style		style;
 
-	p[0] = 7 * CHAR_W;
-	p[1] = line * 1.5 * CHAR_H;
-	str[MAX_DIGITS] = '\0';
-	sl_itoa(value, str);
-	style.font = game->font;
+	p[0] *= CHAR_W;
+	p[1] *= 1.5 * CHAR_H;
+	style.font = hud->font;
 	style.size = 1;
 	style.colour = 0xA6907BFF;
-	string_to_image(str, game->hud->text, p, &style);
+	string_to_image(str, hud->text, p, &style);
+}
+
+void	hud_update_moves(t_hud *hud, uint32_t moves)
+{
+	uint32_t	hud_offset[2];
+	char		str[MAX_DIGITS + 1];
+
+	hud_offset[0] = 7;
+	hud_offset[1] = 1;
+	str[MAX_DIGITS] = '\0';
+	sl_itoa(moves, str);
+	hud_text_update(hud, str, hud_offset);
+}
+
+void	hud_update_score(t_hud *hud, uint32_t score)
+{
+	uint32_t	hud_offset[2];
+	char		str[MAX_DIGITS + 1];
+
+	hud_offset[0] = 7;
+	hud_offset[1] = 2;
+	str[MAX_DIGITS] = '\0';
+	sl_itoa(score, str);
+	hud_text_update(hud, str, hud_offset);
 }
 
 void	hud_bar_animate(t_bar *bar, t_game *game)

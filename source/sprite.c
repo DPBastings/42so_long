@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:26:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 15:01:06 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ t_sprite	**sprites_init(t_game *game)
 
 t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 {
-	t_sprite	*sprite;
-	uint32_t	txr_id;
-	t_texture	*texture;
+	t_sprite		*sprite;
+	uint32_t		txr_id;
+	mlx_texture_t	*texture;
 
 	txr_id = g_lut_spr_param[spr_id][P_TXR_ID];
 	texture = game->textures[txr_id];
@@ -110,7 +110,7 @@ t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
 	return (sprite);
 }
 
-t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
+t_sprite	*sprite_load(mlx_texture_t *texture, mlx_t *mlx,
 	unsigned int origin_i, unsigned int frame)
 {
 	t_sprite	*sprite;

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 12:52:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 13:38:25 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 14:13:35 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*sl_itoa(uint32_t value, char *str)
 	size_t	i;
 
 	i = MAX_DIGITS;
+	if (value == 0)
+		str[--i] = '0';
 	while (i--)
 	{
 		if (value)

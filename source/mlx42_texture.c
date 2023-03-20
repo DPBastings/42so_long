@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/20 11:20:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 11:32:24 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 14:44:59 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	texture_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
 	uint8_t		*dst;
 	uint8_t		*src;
 	uint32_t	y;
-	
+
 	y = 0;
 	while (y < txr->height && y < img->height)
 	{

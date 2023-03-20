@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:13:37 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 14:44:31 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 
 #include "libft.h"
 #include "MLX42/MLX42.h"
+#include <stddef.h>
+#include <stdint.h>
 #include <stdlib.h>
-#include <unistd.h>
+//#include <unistd.h>
 
-static t_texture	*gradient_load(void);
+static char const	*filename_truncate(char const *filename);
+static void			hud_static_text_update(t_hud *hud,
+						char const *name, uint32_t maxscore);
 static void			screen_init(t_game *game);
 
 t_game	*game_init(char const *filename)
@@ -39,19 +43,14 @@ t_game	*game_init(char const *filename)
 	game->sprites = sprites_init(game);
 	game->seed = seed_get(game);
 	game->hud = hud_init(game->mlx, game->textures, game->font);
+	hud_static_text_update(game->hud,
+		filename_truncate(filename), game->score_max);
 	bg_render(game);
 	sprites_setup(game);
 	view_centre(
 		instance_to_point(game->map->player->sprite->image->instances[0]),
 		game);
 	return (game);
-}
-
-static void	screen_init(t_game *game)
-{
-	game->mlx = mlx_init(SCREEN_W, SCREEN_H, SL_TITLE, false);
-	if (game->mlx == NULL)
-		sl_error(SL_MEMFAIL);
 }
 
 void	game_end(t_game *game)
@@ -65,4 +64,40 @@ void	game_end(t_game *game)
 	mlx_delete_texture(game->font);
 	mlx_terminate(game->mlx);
 	free(game);
+}
+
+static char const	*filename_truncate(char const *filename)
+{
+	size_t	i;
+
+	i = ft_strlen(filename);
+	while (i--)
+	{
+		if (filename[i] == '/')
+			return (filename + i + 1);
+	}
+	return (filename);
+}
+
+static void	hud_static_text_update(t_hud *hud,
+				char const *name, uint32_t maxscore)
+{
+	uint32_t	hud_offset[2];
+	char		score[MAX_DIGITS + 1];
+
+	hud_offset[0] = 7;
+	hud_offset[1] = 0;
+	hud_text_update(hud, name, hud_offset);
+	hud_offset[0] = 7 + MAX_DIGITS + 1;
+	hud_offset[1] = 2;
+	score[MAX_DIGITS] = '\0';
+	sl_itoa(maxscore, score);
+	hud_text_update(hud, score, hud_offset);
+}
+
+static void	screen_init(t_game *game)
+{
+	game->mlx = mlx_init(SCREEN_W, SCREEN_H, SL_TITLE, false);
+	if (game->mlx == NULL)
+		sl_error(SL_MEMFAIL);
 }

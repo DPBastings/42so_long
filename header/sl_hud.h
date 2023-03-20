@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 11:14:48 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 12:13:59 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 14:08:49 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,21 @@ typedef struct s_bar {
 }	t_bar;
 
 typedef struct s_hud {
-	t_point		origin;
-	mlx_image_t	*bg;
-	mlx_image_t	*logo;
-	mlx_image_t	*text;
-	t_bar		*bar;
+	t_point			origin;
+	mlx_texture_t	*font;
+	mlx_image_t		*bg;
+	mlx_image_t		*logo;
+	mlx_image_t		*text;
+	t_bar			*bar;
 }	t_hud;
 
 t_hud	*hud_init(mlx_t *mlx, mlx_texture_t **txrs, mlx_texture_t *font);
 void	hud_bg_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs);
 t_bar	*hud_bar_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs);
-void	hud_text_init(t_hud *hud, mlx_t *mlx, mlx_texture_t *font);
+void	hud_text_init(t_hud *hud, mlx_t *mlx);
+void	hud_text_update(t_hud *hud, char const *str, uint32_t p[2]);
+void	hud_update_moves(t_hud *hud, uint32_t moves);
+void	hud_update_score(t_hud *hud, uint32_t score);
 void	hud_destroy(t_hud **hud, mlx_t *mlx);
 void	hud_bar_destroy(t_bar **bar, mlx_t *mlx);
 

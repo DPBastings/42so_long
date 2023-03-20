@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:54:39 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 12:33:02 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 13:46:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@
 void	string_to_image(char const *str, mlx_image_t *img, uint32_t xy[2],
 		t_style *style)
 {
-	uint32_t	i[2];
+	uint32_t	origin[2];
 
-	i[0] = xy[0];
-	i[1] = xy[1];
+	origin[0] = xy[0];
+	origin[1] = xy[1];
 	while (*str)
 	{
 		if (*str == '\n')
 		{
-			i[1] += CHAR_H * 1.5 * style->size;
-			i[0] = xy[0];
+			xy[1] += CHAR_H * 1.5 * style->size;
+			xy[0] = origin[0];
 		}
 		else
 		{
-			char_to_image(*str, img, i, style);
-			i[0] += CHAR_W * style->size;
+			char_to_image(*str, img, xy, style);
+			xy[0] += CHAR_W * style->size;
 		}
 		str++;
 	}
@@ -40,11 +40,10 @@ void	char_to_image(char const chr, mlx_image_t *img, uint32_t xy[2],
 		t_style *style)
 {
 	uint32_t const	imgdims[2] = {img->width, img->height};
-	uint32_t		*dst;
 	uint32_t		*src;
 	uint32_t		i[2];
 
-	if (dst == NULL || src == NULL)
+	if (img == NULL || style == NULL)
 		return ;
 	i[1] = 0;
 	src = (uint32_t *)find_char(chr, style->font);
@@ -53,15 +52,11 @@ void	char_to_image(char const chr, mlx_image_t *img, uint32_t xy[2],
 		i[0] = 0;
 		while (i[0] < CHAR_W * style->size)
 		{
-			dst = (uint32_t *)pixel_get(img->pixels, imgdims,
-					xy[0] + i[0], xy[1] + i[1]);
 			if (src[i[1] / style->size * style->font->width
 					+ i[0] / style->size] == CLR_WHITE)
 				mlx_put_pixel(img, xy[0] + i[0], xy[1] + i[1], style->colour);
-				//*dst = style->colour;
 			else
 				mlx_put_pixel(img, xy[0] + i[0], xy[1] + i[1], 0x0);
-				//*dst = 0;
 			i[0]++;
 		}
 		i[1]++;

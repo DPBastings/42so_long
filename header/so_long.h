@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 13:33:28 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 15:01:47 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,11 @@ typedef enum e_sprites {
 	N_SPRITES,
 }	t_spr_id;
 
-# define SPR_COLL_MAX		SPR_COLL_5 //15
-# define SPR_WALL_MAX		SPR_WALL_1111 //33
-# define N_COLL_SPR			(SPR_COLL_MAX - SPR_COLL_0 + 1) //5
-# define N_WALL_SPR			(SPR_WALL_MAX - SPR_WALL_0000 + 1) //16
-# define SPR_FILLER			SPR_WALL_0000 //18
+# define SPR_COLL_MAX		15	// SPR_COLL_5
+# define SPR_WALL_MAX		33	// SPR_WALL_1111
+# define N_COLL_SPR			5	//(SPR_COLL_MAX - SPR_COLL_0 + 1)
+# define N_WALL_SPR			16	//(SPR_WALL_MAX - SPR_WALL_0000 + 1)
+# define SPR_FILLER			18	//SPR_WALL_0000
 
 typedef enum e_z {
 	Z_BG0 = 0,
@@ -159,8 +159,6 @@ typedef enum e_dirs {
 	N_DIRS,
 }	t_dir;
 
-typedef mlx_texture_t	t_texture;
-
 /* Sprite object.
  * @param texture	The texture/spritesheet from which this sprite was created.
  * @param image		This sprite's image.
@@ -179,12 +177,17 @@ typedef struct s_sprite {
 typedef void			(*t_spr_animator)(t_sprite *spr, void *param);
 
 /* Object object.
- * @param type			The object's type.
- * @param position		The position of the object.
- * @param passable		Whether another object can move onto the same position as this object.
- * @param sprite		The object's sprite.
- * @param instance_id	The index of the sprite image instance corresponding to this object.
- * @param obj_below		A pointer to the object below this one at the same coordinate.
+ * @param type			This object's type ID.
+ * @param dir			The direction this object is facing.
+ * @param speed			The object's movement speed.
+ * @param position		The object's position.
+ * @param z				The object's Z coordinate.
+ * @param bool			Whether this object can be ordinarly moved onto.
+ * @param ticked		Whether this object has received a tick.
+ * @param sprite		The object's current sprite.
+ * @param instance_id	The ID of the image instance corresponding to this object.
+ * @param above			The object above this object.
+ * @param below			The object beneath this object.
  */
 typedef struct s_object {
 	t_obj_id		type;
@@ -200,6 +203,13 @@ typedef struct s_object {
 	struct s_object	*below;
 }	t_object;
 
+/* Map object.
+ * @param dims		The map's dimensions.
+ * @param objs		A 2D array containing all grid positions.
+ * @param player	The object corresponding to the player.
+ * @param exit		The object corresponding to the exit.
+ * @param none		A location corresponding to a location outside the map's bounds.
+ */
 typedef struct s_map {
 	t_upoint	dims;
 	t_object	***objs;
@@ -208,28 +218,49 @@ typedef struct s_map {
 	t_object	*none;
 }	t_map;
 
+/* View object.
+ * @param origin		The coordinate from which the current camera view originates.
+ * @param origin_max	The greatest valid value for `origin`.
+ * @param port_min		The top left corner of the viewport.
+ * @param port_max		The bottom right corner of the viewport.
+ */
 typedef struct s_view {
 	t_point		origin;
 	t_point		origin_max;
 	t_point		port_min;
 	t_point		port_max;
-	mlx_image_t	*background;
 }	t_view;
 
+/* Game struct.
+ * @param seed			A semi-random value, used to superficially randomize several
+ * 						graphical game features.
+ * @param ticks			The number of ticks elapsed.
+ * @param lock_input	Whether player input (apart from ESC) is currently locked.
+ * @param textures		Pointer to the texture array.
+ * @param font			Pointer to the font texture.
+ * @param sprites		Pointer to the sprite array.
+ * @param hud			The game's heads-up display (HUD).
+ * @param map			The game map.
+ * @param score_max		The maximum score for this particular level.
+ * @param score			Current score.
+ * @param moves			Current number of moves.
+ * @param view			The viewport.
+ * @param mlx			Pointer to the MLX handle.
+ */
 typedef struct s_game {
-	int32_t		seed;
-	uint64_t	ticks;
-	bool		lock_input;
-	t_texture	**textures;
-	t_texture	*font;
-	t_sprite	**sprites;
-	t_hud		*hud;
-	t_map		*map;
-	uint32_t	score_max;
-	uint32_t	score;
-	uint32_t	moves;
-	t_view		view;
-	mlx_t		*mlx;
+	int32_t			seed;
+	uint64_t		ticks;
+	bool			lock_input;
+	mlx_texture_t	**textures;
+	mlx_texture_t	*font;
+	t_sprite		**sprites;
+	t_hud			*hud;
+	t_map			*map;
+	uint32_t		score_max;
+	uint32_t		score;
+	uint32_t		moves;
+	t_view			view;
+	mlx_t			*mlx;
 }	t_game;
 
 t_game		*game_init(char const *filename);
@@ -247,15 +278,13 @@ bool		hook_keys_move(t_game *game);
 void		hook_tick(void *param);
 
 void		textures_load(t_game *game);
-t_texture	*texture_load(char const *filename);
-void		textures_destroy(t_texture ***textures);
-void		texture_destroy(t_texture **texture);
-
-void		font_load(t_game *game);
+mlx_texture_t	*texture_load(char const *filename);
+void		textures_destroy(mlx_texture_t ***textures);
+void		texture_destroy(mlx_texture_t **texture);
 
 t_sprite	**sprites_init(t_game *game);
 t_sprite	*sprite_new(t_game *game, unsigned int spr_id);
-t_sprite	*sprite_load(t_texture *texture, mlx_t *mlx,
+t_sprite	*sprite_load(mlx_texture_t *texture, mlx_t *mlx,
 				unsigned int origin_i, unsigned int frame);
 void		sprites_setup(t_game *game);
 void		sprite_setup(t_object *obj, t_game *game);
@@ -278,10 +307,10 @@ void		sprite_set_wall(t_object *obj, t_game *game);
 
 void		sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
 void		image_overlay_gradient(mlx_image_t *img, mlx_texture_t *gradient,
-			uint32_t i);
+				uint32_t i);
 void		bar_overlay_gradient(mlx_image_t *bar, mlx_texture_t *gradient,
-			uint32_t i);
-uint8_t		*gradient_read(t_texture *gradient, uint32_t i);
+				uint32_t i);
+uint8_t		*gradient_read(mlx_texture_t *gradient, uint32_t i);
 
 t_object	*object_init(t_obj_id type);
 bool		object_align_grid(t_object *obj, t_game *game);
@@ -327,7 +356,6 @@ void		view_shift(t_point anchor, t_game *game);
 
 void		bg_render(t_game *game);
 void		hud_bar_animate(t_bar *bar, t_game *game);
-void		hud_text_update(t_game *game, uint32_t value, uint32_t line);
 
 t_dir		dir_invert(t_dir dir);
 void		instance_move(mlx_instance_t *instance, t_dir dir, uint32_t speed);

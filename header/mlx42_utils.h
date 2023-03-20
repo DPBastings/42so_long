@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 16:37:00 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 12:36:05 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 14:46:13 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define CHAR_H			20
 # define CHARS_PER_ROW	32
 
-typedef enum {
+typedef enum e_channel {
 	R = 0,
 	G,
 	B,
@@ -56,21 +56,23 @@ typedef struct s_style {
 /*Image building functions*/
 void	image_tile(mlx_image_t *img, mlx_texture_t *txr, uint32_t grid[2]);
 void	texture_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
-		uint32_t dstxy[2]);
+			uint32_t dstxy[2]);
 void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
-		uint32_t dstxy[2], uint32_t srcxy[2]);
+			uint32_t dstxy[2], uint32_t srcxy[2]);
 
 /*Pixel manipulation functions*/
 void	pixels_set(uint8_t *pixels, size_t n, uint32_t value);
-void	pixels_set_channel(uint8_t *pixels, size_t n, t_channel channel, uint8_t value);
-uint8_t	*pixel_get(uint8_t *pixels, uint32_t const wh[2], uint32_t x, uint32_t y);
+void	pixels_set_channel(uint8_t *pixels, size_t n, t_channel channel,
+			uint8_t value);
+uint8_t	*pixel_get(uint8_t *pixels, uint32_t const wh[2],
+			uint32_t x, uint32_t y);
 void	pixel_overlay(uint8_t *pixel, uint8_t *overlay);
 
 /*String functions*/
 void	string_to_image(char const *str, mlx_image_t *img, uint32_t xy[2],
-		t_style *style);
+			t_style *style);
 void	char_to_image(char const chr, mlx_image_t *img, uint32_t xy[2],
-		t_style *style);
+			t_style *style);
 uint8_t	*find_char(char const chr, mlx_texture_t *font);
 
 #endif

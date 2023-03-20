@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 11:31:01 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 15:01:26 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	textures_load(t_game *game)
 	size_t		i;
 
 	i = 1;
-	game->textures = ft_calloc(N_TEXTURES, sizeof(t_texture *));
+	game->textures = ft_calloc(N_TEXTURES, sizeof(mlx_texture_t *));
 	if (game->textures == NULL)
 		sl_error(SL_MEMFAIL);
 	while (i < N_TEXTURES)
@@ -63,7 +63,7 @@ void	textures_load(t_game *game)
 
 mlx_texture_t	*texture_load(char const *filename)
 {
-	t_texture	*texture;
+	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(filename);
 	if (texture == NULL)
@@ -71,7 +71,7 @@ mlx_texture_t	*texture_load(char const *filename)
 	return (texture);
 }
 
-void	textures_destroy(t_texture ***textures)
+void	textures_destroy(mlx_texture_t ***textures)
 {
 	size_t	i;
 
