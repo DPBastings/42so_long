@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 12:26:01 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 13:34:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	plyr_check_collisions(t_object *plyr, t_game *game)
 		if (other->type == OBJ_COLL)
 		{
 			object_collect(game, &other);
-			hud_text_update(game);
 			continue ;
 		}
 		else if (other->type == OBJ_ENMY_EASYH || other->type == OBJ_ENMY_EASYV)

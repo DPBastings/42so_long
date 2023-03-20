@@ -6,13 +6,14 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 12:52:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 12:45:35 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 13:38:25 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "point.h"
 #include "MLX42/MLX42.h"
+#include <stddef.h>
 
 static const uint32_t	g_lut_dir[N_DIRS][N_DIM] = {
 {0, -1},
@@ -49,4 +50,22 @@ t_upoint	upoint_get_adjacent(t_upoint p, t_dir dir)
 	p.x += g_lut_dir[dir][X];
 	p.y += g_lut_dir[dir][Y];
 	return (p);
+}
+
+char	*sl_itoa(uint32_t value, char *str)
+{
+	size_t	i;
+
+	i = MAX_DIGITS;
+	while (i--)
+	{
+		if (value)
+		{
+			str[i] = '0' + value % 10;
+			value /= 10;
+		}
+		else
+			str[i] = '_';
+	}
+	return (str);
 }

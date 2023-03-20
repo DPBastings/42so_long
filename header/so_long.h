@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 12:26:57 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 13:33:28 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define VIEW_MAXW			1248
 # define VIEW_MAXH			576
 
+# define MAX_DIGITS			10
 # define SEC_PER_TICK		0.042
 
 /* These values should be divisors of both GRID_W and GRID_H (if not, grid
@@ -326,11 +327,12 @@ void		view_shift(t_point anchor, t_game *game);
 
 void		bg_render(t_game *game);
 void		hud_bar_animate(t_bar *bar, t_game *game);
-void		hud_text_update(t_game *game);
+void		hud_text_update(t_game *game, uint32_t value, uint32_t line);
 
 t_dir		dir_invert(t_dir dir);
 void		instance_move(mlx_instance_t *instance, t_dir dir, uint32_t speed);
 t_point		instance_to_point(mlx_instance_t instance);
 t_upoint	upoint_get_adjacent(t_upoint p, uint32_t dir);
+char		*sl_itoa(uint32_t value, char *str);
 
 #endif

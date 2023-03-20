@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 11:50:32 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 13:37:08 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	hud_bg_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs)
 	set_upoint(&gridsize, GRID_W, GRID_H);
 	image_tile(hud->bg, txrs[TXR_HUD_BG], (uint32_t *)&gridsize);
 	hud->logo = image_from_texture_init(mlx, txrs[TXR_LOGO]);
-	printf("%u %u\n", hud->logo->width, hud->logo->height);
 	hud_bg_render(hud, mlx);
 }
 
