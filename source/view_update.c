@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:53:33 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 12:46:00 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:52:41 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 #include "point.h"
 #include <stdint.h>
 
-#define MARGIN	240
+#define VMARGIN	240
 
-//static void	sprites_reposition(t_sprite **sprites, t_point diff);
-//static void	sprite_reposition(t_sprite *sprite, t_point diff);
 static void	objects_reposition(t_map *map, t_point diff);
 static void	object_reposition(t_object *obj, t_point diff);
 
@@ -55,49 +53,16 @@ void	view_shift(t_point anchor, t_game *game)
 	t_point	diff;
 
 	set_point(&diff, 0, 0);
-	if (anchor.x < game->view.port_min.x + MARGIN)
-		diff.x = anchor.x - (game->view.port_min.x + MARGIN);
-	else if (anchor.x > game->view.port_max.x - MARGIN)
-		diff.x = anchor.x - (game->view.port_max.x - MARGIN);
-	if (anchor.y < game->view.port_min.y + MARGIN)
-		diff.y = anchor.y - (game->view.port_min.y + MARGIN);
-	else if (anchor.y > game->view.port_max.y - MARGIN)
-		diff.y = anchor.y - (game->view.port_max.y - MARGIN);
+	if (anchor.x < game->view.port_min.x + VMARGIN)
+		diff.x = anchor.x - (game->view.port_min.x + VMARGIN);
+	else if (anchor.x > game->view.port_max.x - VMARGIN)
+		diff.x = anchor.x - (game->view.port_max.x - VMARGIN);
+	if (anchor.y < game->view.port_min.y + VMARGIN)
+		diff.y = anchor.y - (game->view.port_min.y + VMARGIN);
+	else if (anchor.y > game->view.port_max.y - VMARGIN)
+		diff.y = anchor.y - (game->view.port_max.y - VMARGIN);
 	view_update(diff, game);
 }
-
-/*static void	sprites_reposition(t_sprite **sprites, t_point diff)
-{
-	t_spr_id	spr;
-
-	spr = 1;
-	while (spr < N_SPRITES)
-		sprite_reposition(sprites[spr++], diff);
-}
-
-static void	sprite_reposition(t_sprite *sprite, t_point diff)
-{
-	int32_t	i;
-
-	i = 0;
-	while (i < sprite->image->count)
-	{
-		sprite->image->instances[i].x -= diff.x;
-		sprite->image->instances[i].y -= diff.y;
-		if (sprite->image->instances[i].z <= Z_BG1)
-		{
-			if (sprite->image->instances[i].x < -GRID_W)
-				sprite->image->instances[i].x += VIEW_MAXW + 2 * GRID_W;
-			else if (sprite->image->instances[i].x > VIEW_MAXW + GRID_W)
-				sprite->image->instances[i].x -= VIEW_MAXW + 2 * GRID_W;
-			if (sprite->image->instances[i].y < -GRID_H)
-				sprite->image->instances[i].y += VIEW_MAXH + 2 * GRID_H;
-			else if (sprite->image->instances[i].y > VIEW_MAXH + GRID_H)
-				sprite->image->instances[i].y -= VIEW_MAXH + 2 * GRID_H;
-		}
-		i++;
-	}
-}*/
 
 static void	objects_reposition(t_map *map, t_point diff)
 {

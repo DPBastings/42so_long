@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 15:01:26 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:52:13 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,21 @@ static char const	*g_texture_files[N_TEXTURES] = {
 	"./assets/textures/hud_bar.png",
 };
 
-void	textures_load(t_game *game)
+mlx_texture_t	**textures_load(void)
 {
-	size_t		i;
+	mlx_texture_t	**txrs;
+	t_txr_id		i;
 
 	i = 1;
-	game->textures = ft_calloc(N_TEXTURES, sizeof(mlx_texture_t *));
-	if (game->textures == NULL)
+	txrs = ft_calloc(N_TEXTURES, sizeof(mlx_texture_t *));
+	if (txrs == NULL)
 		sl_error(SL_MEMFAIL);
 	while (i < N_TEXTURES)
 	{
-		game->textures[i] = texture_load(g_texture_files[i]);
-		if (game->textures[i] == NULL)
-		{
-			textures_destroy(&game->textures);
-			sl_error(SL_MEMFAIL);
-		}
+		txrs[i] = texture_load(g_texture_files[i]);
 		i++;
 	}
+	return (txrs);
 }
 
 mlx_texture_t	*texture_load(char const *filename)

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 11:14:48 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 14:08:49 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 15:49:37 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 
 # define HUD_W			1248
 # define HUD_H			144
-# define TEXT_COLOUR	0xFFEEEEEE
+# define MARGIN			12
+# define TEXT_COLOUR_A	0xAEA7A0FF
+# define TEXT_COLOUR_B
 
 typedef struct s_bar {
 	t_point		origin;

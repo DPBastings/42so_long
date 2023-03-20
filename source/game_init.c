@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 14:44:31 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:48:07 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
-//#include <unistd.h>
 
 static char const	*filename_truncate(char const *filename);
 static void			hud_static_text_update(t_hud *hud,
@@ -38,9 +37,9 @@ t_game	*game_init(char const *filename)
 	game->score_max = map_get_maxscore(game->map);
 	screen_init(game);
 	view_init(game);
-	textures_load(game);
+	game->textures = textures_load();
 	game->font = texture_load("./assets/textures/font.png");
-	game->sprites = sprites_init(game);
+	game->sprites = sprites_init(game->mlx, game->textures);
 	game->seed = seed_get(game);
 	game->hud = hud_init(game->mlx, game->textures, game->font);
 	hud_static_text_update(game->hud,

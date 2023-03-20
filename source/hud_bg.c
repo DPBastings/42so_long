@@ -6,12 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 13:37:08 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:40:44 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "sl_hud.h"
+#include "so_long.h"
+//#include "sl_graphics.h"
 #include "sl_image.h"
 #include "sl_error.h"
 
@@ -19,8 +20,6 @@
 #include "mlx42_utils.h"
 #include "point.h"
 #include <stdint.h>
-
-#define MARGIN	8
 
 static void	hud_add_logo(t_hud *hud, mlx_t *mlx, mlx_texture_t *txr);
 static void	hud_bg_render(t_hud *hud, mlx_t *mlx);

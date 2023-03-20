@@ -6,19 +6,18 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:43:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 14:43:56 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:41:54 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "sl_hud.h"
+//#include "sl_graphics.h"
 #include "sl_image.h"
 
 #include "MLX42/MLX42.h"
 #include "mlx42_utils.h"
 #include <stdint.h>
-
-#define MARGIN	12
 
 void	hud_text_init(t_hud *hud, mlx_t *mlx)
 {
@@ -33,7 +32,7 @@ void	hud_text_init(t_hud *hud, mlx_t *mlx)
 			hud->bg->width / 4 * 3 - 2 * MARGIN, 96);
 	style.font = hud->font;
 	style.size = 1;
-	style.colour = 0xAEA7A0FF;
+	style.colour = TEXT_COLOUR_A;
 	string_to_image("Level:\n"
 		"Moves: \n"
 		"Score:           /\n", hud->text, p, &style);

@@ -6,66 +6,76 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 15:01:06 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/20 16:54:11 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "sl_graphics.h"
 #include "sl_error.h"
-#include "point.h"
+#include "sl_image.h"
 
 #include "libft.h"
+#include "point.h"
 #include "MLX42/MLX42.h"
+#include "mlx42_utils.h"
 #include <stdlib.h>
 
+#define GRID_W 48
+#define GRID_H 48
+
 enum e_spr_param {
-	P_TXR_ID = 0,
-	P_FRAME_MAX,
-	N_SPR_PARAM,
+	TXR_ID = 0,
+	START_FRAME,
+	FRAME_MAX,
+	N_PARAM,
 };
 
-static const uint32_t	g_lut_spr_param[N_SPRITES][N_SPR_PARAM] = {
-{TXR_NONE,			0,},
-{TXR_PLYR_IDLE,		13,},
-{TXR_PLYR_WALK_U,	12,},
-{TXR_PLYR_WALK_R,	12,},
-{TXR_PLYR_WALK_D,	12,},
-{TXR_PLYR_WALK_L,	12,},
-{TXR_ENMY_WALK_U,	12,},
-{TXR_ENMY_WALK_R,	12,},
-{TXR_ENMY_WALK_D,	12,},
-{TXR_ENMY_WALK_L,	12,},
-{TXR_COLL,			-1,},
-{TXR_COLL,			-1,},
-{TXR_COLL,			-1,},
-{TXR_COLL,			-1,},
-{TXR_COLL,			-1,},
-{TXR_COLL,			-1,},
-{TXR_EXIT,			0,},
-{TXR_VORTEX,		0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_WALL,			0,},
-{TXR_BG,			0,},};
+static const uint32_t	g_lut_spr_param[N_SPRITES][N_PARAM] = {
+{TXR_NONE,			0,	0,},
+{TXR_PLYR_IDLE,		0,	13,},
+{TXR_PLYR_WALK_U,	0,	12,},
+{TXR_PLYR_WALK_R,	0,	12,},
+{TXR_PLYR_WALK_D,	0,	12,},
+{TXR_PLYR_WALK_L,	0,	12,},
+{TXR_ENMY_WALK_U,	0,	12,},
+{TXR_ENMY_WALK_R,	0,	12,},
+{TXR_ENMY_WALK_D,	0,	12,},
+{TXR_ENMY_WALK_L,	0,	12,},
+{TXR_COLL,			0,	-1,},
+{TXR_COLL,			16,	-1,},
+{TXR_COLL,			32,	-1,},
+{TXR_COLL,			48,	-1,},
+{TXR_COLL,			64,	-1,},
+{TXR_COLL,			80,	-1,},
+{TXR_EXIT,			0,	0,},
+{TXR_VORTEX,		0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_BG,			0,	0,},};
 
-t_sprite	**sprites_init(t_game *game)
+static t_sprite *sprite_init(mlx_t *mlx, t_spr_id id, mlx_texture_t **txrs);
+static void	spr_texture_read(mlx_image_t *img, mlx_texture_t *txr, t_spr_id id);
+static void	sprite_destroy(t_sprite **sprite, mlx_t *mlx);
+
+t_sprite	**sprites_init(mlx_t *mlx, mlx_texture_t **txrs)
 {
-	t_sprite		**sprites;
-	unsigned int	id;
+	t_sprite	**sprites;
+	t_spr_id	id;
 
 	sprites = ft_calloc(N_SPRITES, sizeof(t_sprite *));
 	if (sprites == NULL)
@@ -73,64 +83,10 @@ t_sprite	**sprites_init(t_game *game)
 	id = 1;
 	while (id < N_SPRITES)
 	{
-		sprites[id] = sprite_new(game, id);
-		if (sprites[id] == NULL)
-		{
-			sprites_destroy(&sprites, game->mlx);
-			sl_error(SL_MEMFAIL);
-		}
+		sprites[id] = sprite_init(mlx, id, txrs);
 		id++;
 	}
 	return (sprites);
-}
-
-t_sprite	*sprite_new(t_game *game, uint32_t spr_id)
-{
-	t_sprite		*sprite;
-	uint32_t		txr_id;
-	mlx_texture_t	*texture;
-
-	txr_id = g_lut_spr_param[spr_id][P_TXR_ID];
-	texture = game->textures[txr_id];
-	if (txr_id == TXR_COLL)
-		sprite = sprite_load(texture, game->mlx, 0,
-				(SPR_COLL_MAX - spr_id) * (GRID_W / N_COLL_SPR));
-	else if (txr_id == TXR_WALL)
-		sprite = sprite_load(texture, game->mlx,
-				spr_id - SPR_WALL_0000, 0);
-	else
-		sprite = sprite_load(texture, game->mlx, 0, 0);
-	sprite->frame_max = g_lut_spr_param[spr_id][P_FRAME_MAX];
-	if (sprite->frame_max == 0)
-		sprite->animator = sprite_animate_pass;
-	else if (spr_id >= SPR_COLL_0 && spr_id <= SPR_COLL_MAX)
-		sprite->animator = sprite_animate_coll;
-	else
-		sprite->animator = sprite_animate;
-	return (sprite);
-}
-
-t_sprite	*sprite_load(mlx_texture_t *texture, mlx_t *mlx,
-	unsigned int origin_i, unsigned int frame)
-{
-	t_sprite	*sprite;
-	t_point		origin;
-	t_upoint	area;
-
-	if (texture == NULL)
-		return (NULL);
-	sprite = malloc(sizeof(t_sprite));
-	if (sprite == NULL)
-		return (NULL);
-	sprite->texture = texture;
-	set_point(&origin, origin_i * GRID_W, 0);
-	set_upoint(&area, GRID_W, GRID_H);
-	sprite->image = mlx_texture_area_to_image(mlx, texture,
-			(unsigned int *)&origin, (unsigned int *)&area);
-	if (sprite->image == NULL)
-		return (free(sprite), NULL);
-	sprite->frame = frame;
-	return (sprite);
 }
 
 void	sprites_destroy(t_sprite ***sprites, mlx_t *mlx)
@@ -146,7 +102,40 @@ void	sprites_destroy(t_sprite ***sprites, mlx_t *mlx)
 	*sprites = NULL;
 }
 
-void	sprite_destroy(t_sprite **sprite, mlx_t *mlx)
+static t_sprite	*sprite_init(mlx_t *mlx, t_spr_id id, mlx_texture_t **txrs)
+{
+	t_sprite	*spr;
+
+	spr = malloc(sizeof(t_sprite));
+	if (spr == NULL)
+		sl_error(SL_MEMFAIL);
+	spr->texture = txrs[g_lut_spr_param[id][TXR_ID]];
+	spr->image = image_init(mlx, GRID_W, GRID_H);
+	spr_texture_read(spr->image, spr->texture, id);
+	spr->frame = g_lut_spr_param[id][START_FRAME];
+	spr->frame_max = g_lut_spr_param[id][FRAME_MAX];
+	if (spr->frame_max == 0)
+		spr->animator = sprite_animate_pass;
+	else if (id >= SPR_COLL_0 && id <= SPR_COLL_MAX)
+		spr->animator = sprite_animate_coll;
+	else
+		spr->animator = sprite_animate;
+	return (spr);
+}
+
+static void	spr_texture_read(mlx_image_t *img, mlx_texture_t *txr, t_spr_id id)
+{
+	t_upoint	dst;
+	t_upoint	src;
+
+	set_upoint(&dst, 0, 0);
+	set_upoint(&src, 0, 0);
+	if (id >= SPR_WALL_0000 && id <= SPR_WALL_MAX)
+		src.x = (id - SPR_WALL_0000) * GRID_W;
+	texture_area_copy_to_image(img, txr, (uint32_t *)&dst, (uint32_t *)&src);
+}
+
+static void	sprite_destroy(t_sprite **sprite, mlx_t *mlx)
 {
 	if (*sprite == NULL)
 		return ;
