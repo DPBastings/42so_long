@@ -1,0 +1,11 @@
+./so_long assets/maps/invalid00.ber	# Invalid dimensions.
+./so_long assets/maps/invalid01.ber	# Invalid characters.
+./so_long assets/maps/invalid02.ber	# Only partially enclosing walls.
+./so_long assets/maps/invalid03.ber	# No player.
+./so_long assets/maps/invalid04.ber	# No exit.
+./so_long assets/maps/invalid05.ber	# Multiple players.
+./so_long assets/maps/invalid06.ber	# Multiple exits.
+./so_long assets/maps/invalid07.ber	# No collectibles.
+./so_long assets/maps/invalid08.ber	# No path to exit.
+./so_long assets/maps/invalid09		# No file extension.
+./so_long assets/maps/invalid10.be	# Partial file extension.
