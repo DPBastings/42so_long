@@ -6,21 +6,21 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:20:41 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:14:38 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 16:22:04 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "sl_object.h"
 #include "sl_error.h"
+#include "sl_map_check.h"
 
 #include <fcntl.h>
+#include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft.h"
 
 static int		check_ext(char const *filename);
 static t_list	*get_bytemap(int fd, t_upoint *dims);
-static void		lst_destroy(t_list **list);
 static int		open_file(char const *filename);
 
 t_map	*map_load(char const *filename)
@@ -39,7 +39,7 @@ t_map	*map_load(char const *filename)
 	if (map == NULL)
 		sl_error(SL_MEMFAIL);
 	map_setup(map, bytemap);
-	lst_destroy(&bytemap);
+	ft_lstclear(&bytemap, free);
 	return (map);
 }
 
@@ -92,18 +92,4 @@ static t_list	*get_bytemap(int fd, t_upoint *dims)
 	}
 	dims->x--;
 	return (bytemap);
-}
-
-static void	lst_destroy(t_list **list)
-{
-	t_list	*prev;
-
-	while (*list)
-	{
-		prev = *list;
-		*list = (*list)->next;
-		free(prev->content);
-		free(prev);
-		prev = NULL;
-	}
 }

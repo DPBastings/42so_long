@@ -6,11 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 13:57:43 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 15:43:37 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sl_graphics.h"
+#include "sl_general.h"
 #include "sl_error.h"
 #include "sl_image.h"
 
@@ -107,13 +108,13 @@ t_sprite	**sprites_init(mlx_t *mlx, mlx_texture_t **txrs)
 
 void	sprites_destroy(t_sprite ***sprites, mlx_t *mlx)
 {
-	size_t	i;
+	t_spr_id	id;
 
 	if (*sprites == NULL)
 		return ;
-	i = 1;
-	while (i < N_SPRITES)
-		sprite_destroy(&(*sprites)[i++], mlx);
+	id = 1;
+	while (id < N_SPRITES)
+		sprite_destroy(&(*sprites)[id++], mlx);
 	free(*sprites);
 	*sprites = NULL;
 }

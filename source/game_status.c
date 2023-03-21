@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 17:20:53 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 15:10:52 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 15:13:06 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include <float.h>
 #include "libft.h"
+#include "libftprintf.h"
 #include "MLX42/MLX42.h"
 
 void	object_collect(t_game *game, t_object **obj)

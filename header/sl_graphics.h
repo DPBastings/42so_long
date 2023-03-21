@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:05:48 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 17:14:07 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,10 @@ void			sprite_animate_vortex(t_sprite *spr, void *param);
 bool			sprite_animation_is_done(t_sprite *spr);
 
 void			sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
-void			image_overlay_gradient(mlx_image_t *img, mlx_texture_t *gradient,
-					uint32_t i);
-void			bar_overlay_gradient(mlx_image_t *bar, mlx_texture_t *gradient,
-					uint32_t i);
+void			image_overlay_gradient(mlx_image_t *img,
+					mlx_texture_t *gradient, uint32_t i);
+void			bar_overlay_gradient(mlx_image_t *bar,
+					mlx_texture_t *gradient, uint32_t i);
 uint8_t			*gradient_read(mlx_texture_t *gradient, uint32_t i);
 
 #endif

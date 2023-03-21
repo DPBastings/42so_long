@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   map_search.c                                       :+:    :+:            */
+/*   sl_general.h                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/13 15:21:45 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 12:44:45 by dbasting      ########   odam.nl         */
+/*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/21 15:22:30 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "point.h"
-#include <stdlib.h>
-#include <limits.h>
+#ifndef SL_GENERAL_H
+# define SL_GENERAL_H
 
-/* t_object **map_index(t_map *map, t_upoint p)
- * Return the address of the pointer at point p in map.
- * Return the address of NOWHERE if p is out of bounds.
- */
-t_object	**map_index(t_map *map, t_upoint p)
-{
-	if (p.y >= map->dims.y || p.x >= map->dims.x)
-		return (&map->none);
-	return (&map->objs[p.y][p.x]);
-}
+# define GRID_W				48
+# define GRID_H				48
+//SCREEN_W = (GRID_W * 26); SCREEN_H = (GRID_H * 15)
+# define SCREEN_W			1248
+# define SCREEN_H			720
+
+#endif

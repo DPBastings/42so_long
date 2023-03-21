@@ -6,12 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 11:56:08 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 17:05:00 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
 #include "sl_map_check.h"
+#include "sl_error.h"
+#include "sl_object.h"
 
 #include "libft.h"
 #include <stdbool.h>
@@ -27,16 +28,19 @@ static void		map_clean(t_map *map);
 /* bool map_check_path(t_map *map)
  * Determines whether `map` has an unobstructed path from the player's
  * starting position to the exit object.
- * Returns false if there is no such path, returns true if there is.
+ * Returns SL_INVMAP_NOPATH if there is no such path, returns SL_SUCCESS if
+ * there is.
  */
-bool	map_check_path(t_map *map)
+t_sl_errno	map_check_path(t_map *map)
 {
 	bool	res;
 
 	map->none->instance_id = CHECKED;
 	res = check_point(map->player->position, map);
 	map_clean(map);
-	return (res);
+	if (res == false)
+		return (SL_INVMAP_NOPATH);
+	return (SL_SUCCESS);
 }
 
 /* bool check_point(t_upoint p, t_map *map)

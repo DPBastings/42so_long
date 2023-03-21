@@ -6,11 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 11:54:54 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 16:04:23 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_view.h"
 
 #include <stdbool.h>
 
@@ -88,8 +89,7 @@ static void	player_tick_move(t_object *player, t_game *game)
 {
 	t_point	a;
 
-	object_move(player);
-	if (object_align_grid(player, game))
+	if (tick_move(player, game))
 	{
 		player->speed = 0;
 		game->lock_input = false;
@@ -99,5 +99,5 @@ static void	player_tick_move(t_object *player, t_game *game)
 	a = instance_to_point(
 			player->sprite->image->instances[player->instance_id]);
 	set_point(&a, a.x + GRID_W / 2, a.y + GRID_H / 2);
-	view_shift(a, game);
+	view_shift(&game->view, a, game->map);
 }

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 16:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:12:05 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 16:57:34 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static const char	*g_sl_errors[] = {
 	"Everything went better than expected.",
 	"Something went wrong.",
 	"Couldn't allocate memory.",
-	"Bad asset detected.",
 	"Usage: so_long <map>.",
 	"Invalid map file extension (it should be `.ber`).",
 	"No file could be found at that location.",
@@ -41,6 +40,6 @@ void	sl_error(t_sl_errno errno)
 }
 
 void	sl_strerror(t_sl_errno errno)
-{
-	ft_dprintf(2, "Error\n%s\n", g_sl_errors[errno]);
+{	
+	ft_dprintf(2, "Error\n[%02d] %s\n", errno, g_sl_errors[errno]);
 }

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 11:20:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 11:21:52 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 16:50:09 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ typedef enum e_sl_errno {
 	SL_SUCCESS = 0,
 	SL_GENERIC,
 	SL_MEMFAIL,
-	SL_BADASS,
 	SL_INVARGS,
 	SL_INVEXT,
 	SL_INVPATH,

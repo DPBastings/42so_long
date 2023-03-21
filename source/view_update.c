@@ -6,10 +6,11 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:53:33 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:52:41 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 15:37:14 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "sl_view.h"
 #include "so_long.h"
 
 #include "ft_math.h"
@@ -21,47 +22,47 @@
 static void	objects_reposition(t_map *map, t_point diff);
 static void	object_reposition(t_object *obj, t_point diff);
 
-void	view_update(t_point diff, t_game *game)
+void	view_update(t_view *view, t_point diff, t_map *map)
 {
-	if (game->view.origin.x + diff.x < 0)
+	if (view->origin.x + diff.x < 0)
 		diff.x = 0;
-	if (game->view.origin.x + diff.x > game->view.origin_max.x)
-		diff.x = game->view.origin_max.x - game->view.origin.x;
-	if (game->view.origin.y + diff.y < 0)
+	if (view->origin.x + diff.x > view->origin_max.x)
+		diff.x = view->origin_max.x - view->origin.x;
+	if (view->origin.y + diff.y < 0)
 		diff.y = 0;
-	if (game->view.origin.y + diff.y > game->view.origin_max.y)
-		diff.y = game->view.origin_max.y - game->view.origin.y;
+	if (view->origin.y + diff.y > view->origin_max.y)
+		diff.y = view->origin_max.y - view->origin.y;
 	if (diff.x == 0 && diff.y == 0)
 		return ;
-	objects_reposition(game->map, diff);
-	game->view.origin.x += diff.x;
-	game->view.origin.y += diff.y;
+	objects_reposition(map, diff);
+	view->origin.x += diff.x;
+	view->origin.y += diff.y;
 }
 
-void	view_centre(t_point anchor, t_game *game)
+void	view_centre(t_view *view, t_point anchor, t_map *map)
 {
 	t_point	diff;
 
-	diff = game->view.origin;
-	diff.x += anchor.x - ((game->view.port_max.x + game->view.port_min.x) / 2);
-	diff.y += anchor.y - ((game->view.port_max.y + game->view.port_min.y) / 2);
-	view_update(diff, game);
+	diff = view->origin;
+	diff.x += anchor.x - ((view->port_max.x + view->port_min.x) / 2);
+	diff.y += anchor.y - ((view->port_max.y + view->port_min.y) / 2);
+	view_update(view, diff, map);
 }
 
-void	view_shift(t_point anchor, t_game *game)
+void	view_shift(t_view *view, t_point anchor, t_map *map)
 {
 	t_point	diff;
 
 	set_point(&diff, 0, 0);
-	if (anchor.x < game->view.port_min.x + VMARGIN)
-		diff.x = anchor.x - (game->view.port_min.x + VMARGIN);
-	else if (anchor.x > game->view.port_max.x - VMARGIN)
-		diff.x = anchor.x - (game->view.port_max.x - VMARGIN);
-	if (anchor.y < game->view.port_min.y + VMARGIN)
-		diff.y = anchor.y - (game->view.port_min.y + VMARGIN);
-	else if (anchor.y > game->view.port_max.y - VMARGIN)
-		diff.y = anchor.y - (game->view.port_max.y - VMARGIN);
-	view_update(diff, game);
+	if (anchor.x < view->port_min.x + VMARGIN)
+		diff.x = anchor.x - (view->port_min.x + VMARGIN);
+	else if (anchor.x > view->port_max.x - VMARGIN)
+		diff.x = anchor.x - (view->port_max.x - VMARGIN);
+	if (anchor.y < view->port_min.y + VMARGIN)
+		diff.y = anchor.y - (view->port_min.y + VMARGIN);
+	else if (anchor.y > view->port_max.y - VMARGIN)
+		diff.y = anchor.y - (view->port_max.y - VMARGIN);
+	view_update(view, diff, map);
 }
 
 static void	objects_reposition(t_map *map, t_point diff)

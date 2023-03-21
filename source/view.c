@@ -6,11 +6,11 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:47:06 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:15:58 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 15:25:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "sl_view.h"
 #include "sl_error.h"
 
 #include "point.h"

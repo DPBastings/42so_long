@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 12:08:31 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 12:22:11 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 16:19:27 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SL_UTILS_H
 
 # include "point.h"
+# include "MLX42/MLX42.h"
 
 typedef enum e_dirs {
 	DIR_N = 0,

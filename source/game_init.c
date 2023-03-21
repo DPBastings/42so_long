@@ -6,13 +6,14 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:48:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 15:43:11 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "sl_error.h"
 #include "sl_hud.h"
+#include "sl_view.h"
 
 #include "libft.h"
 #include "MLX42/MLX42.h"
@@ -36,7 +37,7 @@ t_game	*game_init(char const *filename)
 	map_check(game->map);
 	game->score_max = map_get_maxscore(game->map);
 	screen_init(game);
-	view_init(game);
+	view_init(&game->view, game->map->dims);
 	game->textures = textures_load();
 	game->font = texture_load("./assets/textures/font.png");
 	game->sprites = sprites_init(game->mlx, game->textures);
@@ -46,9 +47,9 @@ t_game	*game_init(char const *filename)
 		filename_truncate(filename), game->score_max);
 	bg_render(game);
 	sprites_setup(game);
-	view_centre(
+	view_centre(&game->view,
 		instance_to_point(game->map->player->sprite->image->instances[0]),
-		game);
+		game->map);
 	return (game);
 }
 

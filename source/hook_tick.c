@@ -6,13 +6,16 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 11:28:31 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 17:05:27 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_hud.h"
 
 #include <float.h>
+
+#define SEC_PER_TICK	0.042
 
 void	hook_tick(void *param)
 {
