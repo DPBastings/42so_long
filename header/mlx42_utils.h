@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 16:37:00 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 14:46:13 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 17:42:24 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,6 @@ void	char_to_image(char const chr, mlx_image_t *img, uint32_t xy[2],
 uint8_t	*find_char(char const chr, mlx_texture_t *font);
 
 #endif
+
+//Compound images!
+//Kerning support!

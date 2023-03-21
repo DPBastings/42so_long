@@ -1,9 +1,6 @@
 Urgent:
 # Implement opening and closing screens.
 # Split the so_long.h header into smaller headers. Sensibly, if at all possible.
-## sl_graphics.h
-## sl_engine.h
-## so_long.h (things like GRID_H/_W)
 # Make it so that enemy sprites no longer cut off one another.
 
 Not-so-urgent:
