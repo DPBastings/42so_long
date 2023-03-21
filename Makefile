@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/20 11:53:56 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/21 12:17:29 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,9 +71,11 @@ SRC_FILES	:= main.c\
 OBJ_FILES	:= $(SRC_FILES:.c=.o)
 HDR_FILES	:= so_long.h\
 			sl_error.h\
+			sl_graphics.h\
 			sl_hud.h\
 			sl_image.h\
-			map_check.h\
+			sl_map_check.h\
+			sl_sprite_setup.h\
 			mlx42_utils.h\
 			point.h
 LIB_FILES	:= libft.a\

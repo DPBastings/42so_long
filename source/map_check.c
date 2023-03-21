@@ -6,12 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/20 12:04:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/02/24 13:18:40 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:48:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "map_check.h"
+#include "sl_map_check.h"
 
 #include "libft.h"
 #include <stdbool.h>

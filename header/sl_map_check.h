@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   map_check.h                                        :+:    :+:            */
+/*   sl_map_check.h                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 11:30:42 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:49:12 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_CHECK_H
-# define MAP_CHECK_H
+#ifndef SL_MAP_CHECK_H
+# define SL_MAP_CHECK_H
 
 # include "so_long.h"
 # include "point.h"

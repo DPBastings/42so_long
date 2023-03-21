@@ -6,13 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:45:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 13:14:56 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:47:58 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "sl_error.h"
-#include "map_check.h"
+#include "sl_map_check.h"
 
 #include "libft.h"
 #include <stdbool.h>
@@ -49,8 +49,6 @@ static void	object_setup(t_map *map, t_upoint p, char type)
 	t_object	*obj;
 
 	obj = object_init(chrtotype(type));
-	if (obj == NULL)
-		sl_error(SL_MEMFAIL);
 	obj->below = map->none;
 	object_place(obj, map, p);
 	if (obj->type == OBJ_PLYR)

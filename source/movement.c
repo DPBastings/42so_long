@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 15:11:33 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:56:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	player_move(t_game *game, t_dir dir)
 	player = game->map->player;
 	player->dir = dir;
 	other = map_index(game->map, upoint_get_adjacent(player->position, dir));
-	if (*other == game->map->none || !object_is_passable(*other))
+	if (*other == game->map->none || !obj_is_passable(*other))
 		return (false);
 	sprite_change(player, game->sprites[SPR_PLYR_MOVE_UP + dir / 2], game);
 	player->sprite->frame = 0;
@@ -50,7 +50,7 @@ bool	enemy_move(t_object *enmy, t_game *game)
 
 	other = map_index(game->map,
 			upoint_get_adjacent(enmy->position, enmy->dir));
-	if (*other && ((*other)->type == OBJ_WALL || (*other)->type == OBJ_WALL))
+	if (*other && (*other)->type == OBJ_WALL)
 		return (false);
 	return (true);
 }

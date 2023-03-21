@@ -6,11 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 12:44:50 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:55:04 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "sl_error.h"
 
 #include "point.h"
 #include "libft.h"
@@ -34,39 +35,36 @@ static int32_t	g_lut_obj_vars[N_OBJS][N_OBJ_VARS] = {
 {Z_MAP,		DIR_N,	0,	false,},
 {Z_ENMY,	DIR_E,	6,	true,},
 {Z_ENMY,	DIR_S,	6,	true,},
-{Z_ENMY,	DIR_S,	6,	true,},
 {Z_BG1,		DIR_N,	0,	true,},};
 
-/* t_object *object_init(t_obj_id type)
- * Initializes a new object of type `type` with default values.
- * Returns NULL on failure.
- */
 t_object	*object_init(t_obj_id type)
 {
-	t_object	*new;
+	t_object	*obj;
 
-	new = malloc(sizeof(t_object));
-	if (new == NULL)
-		return (NULL);
-	new->type = type;
-	set_upoint(&new->position, -1, -1);
-	new->z = g_lut_obj_vars[type][OBJ_Z];
-	new->dir = g_lut_obj_vars[type][OBJ_DIR];
-	new->speed = g_lut_obj_vars[type][OBJ_SPEED];
-	new->passable = g_lut_obj_vars[type][OBJ_PASSABLE];
-	new->sprite = NULL;
-	new->instance_id = -1;
-	new->above = NULL;
-	new->below = NULL;
-	return (new);
+	obj = malloc(sizeof(t_object));
+	if (obj == NULL)
+		sl_error(SL_MEMFAIL);
+	obj->type = type;
+	set_upoint(&obj->position, -1, -1);
+	obj->z = g_lut_obj_vars[type][OBJ_Z];
+	obj->dir = g_lut_obj_vars[type][OBJ_DIR];
+	obj->speed = g_lut_obj_vars[type][OBJ_SPEED];
+	obj->passable = g_lut_obj_vars[type][OBJ_PASSABLE];
+	obj->sprite = NULL;
+	obj->instance_id = -1;
+	obj->above = NULL;
+	obj->below = NULL;
+	return (obj);
 }
 
-/* int object_is_passable(t_object *obj)
- * Returns whether `obj` is passable.
- */
-bool	object_is_passable(t_object *obj)
+bool	obj_is_passable(t_object *obj)
 {
 	return (obj == NULL || obj->passable);
+}
+
+bool	obj_is_harmful(t_object *obj)
+{
+	return (obj && (obj->type == OBJ_ENMY_H || obj->type == OBJ_ENMY_V));
 }
 
 void	object_destroy(t_object **obj)

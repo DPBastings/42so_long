@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:46:31 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 14:08:54 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@
 # include "point.h"
 # include "sl_hud.h"
 # include "sl_graphics.h"
+# include <sl_utils.h>
 # include <stdbool.h>
 # include <stdint.h>
-
-# include <stdio.h>
 
 # define SL_TITLE			"Verve"
 # define SL_FILEEXT			".ber"
@@ -56,24 +55,11 @@ typedef enum e_objs {
 	OBJ_COLL,
 	OBJ_EXIT,
 	OBJ_WALL,
-	OBJ_ENMY_EASYH,
-	OBJ_ENMY_EASYV,
-	OBJ_ENMY_HARD,
+	OBJ_ENMY_H,
+	OBJ_ENMY_V,
 	OBJ_ANIM,
 	N_OBJS,
 }	t_obj_id;
-
-typedef enum e_dirs {
-	DIR_N = 0,
-	DIR_NE,
-	DIR_E,
-	DIR_SE,
-	DIR_S,
-	DIR_SW,
-	DIR_W,
-	DIR_NW,
-	N_DIRS,
-}	t_dir;
 
 /* Object object.
  * @param type			This object's type ID.
@@ -182,16 +168,11 @@ void		sprite_change(t_object *obj, t_sprite *newspr, t_game *game);
 
 void		sprites_animate(t_game *game);
 
-typedef void			(*t_spr_setter)(t_object *obj, t_game *game);
-void		sprite_set_default(t_object *obj, t_game *game);
-void		sprite_set_coll(t_object *obj, t_game *game);
-void		sprite_set_enemy(t_object *obj, t_game *game);
-void		sprite_set_wall(t_object *obj, t_game *game);
-
 t_object	*object_init(t_obj_id type);
 bool		object_align_grid(t_object *obj, t_game *game);
 t_object	**object_get_adjacent(t_object *obj, t_map *map, t_dir dir);
-bool		object_is_passable(t_object *object);
+bool		obj_is_passable(t_object *object);
+bool		obj_is_harmful(t_object *object);
 void		object_move(t_object *obj);
 void		object_place(t_object *obj, t_map *map, t_upoint p);
 void		object_insert_above(t_object *obj, t_object *below);
@@ -208,10 +189,9 @@ void		objects_tick(t_game *game);
 bool		tick_move(t_object *obj, t_game *game);
 void		tick_default(t_object *obj, t_game *game);
 void		tick_coll(t_object *coll, t_game *game);
-void		tick_enemy_easy(t_object *enemy, t_game *game);
-void		tick_enemy_hard(t_object *enmy, t_game *game);
+void		tick_enemy(t_object *enemy, t_game *game);
 void		tick_exit(t_object *exit, t_game *game);
-void		tick_player(t_object *plyr, t_game *game);
+void		tick_player(t_object *player, t_game *game);
 
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_upoint dims);

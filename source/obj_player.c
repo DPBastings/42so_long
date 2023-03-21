@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 15:39:19 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:54:54 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	player_collisions(t_object *player, t_game *game)
 			object_collect(game, &other);
 			continue ;
 		}
-		else if (other->type == OBJ_ENMY_EASYH || other->type == OBJ_ENMY_EASYV)
+		else if (obj_is_harmful(other))
 			game_lose(game);
 		else if (other->type == OBJ_EXIT && game->score == game->score_max)
 			game_exit(game);

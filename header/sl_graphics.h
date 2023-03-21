@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 17:02:11 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 14:05:48 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,34 +60,49 @@ typedef enum e_sprites {
 	SPR_COLL_5,
 	SPR_EXIT,
 	SPR_VORTEX,
-	SPR_WALL_0000,
-	SPR_WALL_1000,
-	SPR_WALL_0100,
-	SPR_WALL_1100,
-	SPR_WALL_0010,
-	SPR_WALL_1010,
-	SPR_WALL_0110,
-	SPR_WALL_1110,
-	SPR_WALL_0001,
-	SPR_WALL_1001,
-	SPR_WALL_0101,
-	SPR_WALL_1101,
-	SPR_WALL_0011,
-	SPR_WALL_1011,
-	SPR_WALL_0111,
-	SPR_WALL_1111,
+	SPR_WALL_00000000,
+	SPR_WALL_00000001,
+	SPR_WALL_00000100,
+	SPR_WALL_00000101,
+	SPR_WALL_00010000,
+	SPR_WALL_00010001,
+	SPR_WALL_00010100,
+	SPR_WALL_00010101,
+	SPR_WALL_01000000,
+	SPR_WALL_01000001,
+	SPR_WALL_01000100,
+	SPR_WALL_01000101,
+	SPR_WALL_01010000,
+	SPR_WALL_01010001,
+	SPR_WALL_01010100,
+	SPR_WALL_01010101,
 	SPR_WALL_JUNC,
+	SPR_WALL_00000010,
+	SPR_WALL_00001000,
+	SPR_WALL_00001010,
+	SPR_WALL_00100000,
+	SPR_WALL_00100010,
+	SPR_WALL_00101000,
+	SPR_WALL_00101010,
+	SPR_WALL_10000000,
+	SPR_WALL_10000010,
+	SPR_WALL_10001000,
+	SPR_WALL_10001010,
+	SPR_WALL_10100000,
+	SPR_WALL_10100010,
+	SPR_WALL_10101000,
+	SPR_WALL_10101010,
 	SPR_BG,
 	N_SPRITES,
 }	t_spr_id;
 
 # define SPR_COLL_MIN		10	// SPR_COLL_0
 # define SPR_COLL_MAX		15	// SPR_COLL_5
-# define SPR_WALL_MIN		18	// SPR_WALL_0000
-# define SPR_WALL_MAX		33	// SPR_WALL_1111
+# define SPR_WALL_MIN		18	// SPR_WALL_00000000
+# define SPR_WALL_MAX		49	// SPR_WALL_10101010
 # define N_COLL_SPR			5	// (SPR_COLL_MAX - SPR_COLL_MIN + 1)
-# define N_WALL_SPR			16	// (SPR_WALL_MAX - SPR_WALL_MIN + 1)
-# define SPR_FILLER			18	// SPR_WALL_0000
+# define N_WALL_SPR			32	// (SPR_WALL_MAX - SPR_WALL_MIN + 1)
+# define SPR_FILLER			18	// SPR_WALL_00000000
 
 typedef enum e_z {
 	Z_BG0 = 0,

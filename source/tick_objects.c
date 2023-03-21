@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:01:08 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/17 12:45:26 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:57:30 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ void	obj_tick(t_object **obj, t_game *game)
 		tick_coll,
 		tick_exit,
 		tick_default,
-		tick_enemy_easy,
-		tick_enemy_easy,
-		tick_enemy_hard,
+		tick_enemy,
+		tick_enemy,
 		tick_default,};
 
 	if (*obj && (*obj)->ticked == false)

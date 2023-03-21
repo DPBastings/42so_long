@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:56 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:41:20 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:39:27 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_bar	*hud_bar_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs)
 	bar->percent = 0.0;
 	return (bar);
 }
-//get rid of pixels_set
 
 void	hud_bar_destroy(t_bar **bar, mlx_t *mlx)
 {

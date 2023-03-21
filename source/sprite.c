@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 17:00:51 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 13:57:43 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ static const uint32_t	g_lut_spr_param[N_SPRITES][N_PARAM] = {
 {TXR_COLL,			80,	-1,},
 {TXR_EXIT,			0,	0,},
 {TXR_VORTEX,		0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
+{TXR_WALL,			0,	0,},
 {TXR_WALL,			0,	0,},
 {TXR_WALL,			0,	0,},
 {TXR_WALL,			0,	0,},

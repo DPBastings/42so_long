@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   tick_enemy.c                                       :+:    :+:            */
+/*   obj_enemy.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 10:39:06 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/14 12:47:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:59:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 #include <stdbool.h>
 
-static bool	tick_enemy_base(t_object *enemy, t_game *game);
 static void	enemy_collisions(t_object *enemy, t_game *game);
 
-void	tick_enemy_easy(t_object *enemy, t_game *game)
+void	tick_enemy(t_object *enemy, t_game *game)
 {
 	t_spr_id	nspr;
 
-	if (!tick_enemy_base(enemy, game))
+	tick_default(enemy, game);
+	if (!tick_move(enemy, game))
 		return ;
 	if (!enemy_move(enemy, game))
 	{
@@ -30,28 +30,6 @@ void	tick_enemy_easy(t_object *enemy, t_game *game)
 		sprite_change(enemy, game->sprites[nspr], game);
 	}
 	enemy_collisions(enemy, game);
-}
-
-void	tick_enemy_hard(t_object *enemy, t_game *game)
-{
-	t_spr_id	nspr;
-
-	if (!tick_enemy_base(enemy, game))
-		return ;
-	if (!enemy_move(enemy, game))
-	{
-		enemy->dir = (enemy->dir + 2) % N_DIRS;
-		nspr = SPR_ENMY_MOVE_UP + enemy->dir / 2;
-		sprite_change(enemy, game->sprites[nspr], game);
-	}
-}
-
-static bool	tick_enemy_base(t_object *enemy, t_game *game)
-{
-	t_object	**other;
-
-	tick_default(enemy, game);
-	return (tick_move(enemy, game));
 }
 
 static void	enemy_collisions(t_object *enemy, t_game *game)

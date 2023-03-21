@@ -1,14 +1,16 @@
 Urgent:
 # Implement opening and closing screens.
 # Split the so_long.h header into smaller headers. Sensibly, if at all possible.
-# Do something about corner walls. Preferably without requiring 256 different wall sprites.
-# Refactor the mlx42_utils functions to work with uint32_t pointers more.
+## sl_graphics.h
+## sl_engine.h
+## so_long.h (things like GRID_H/_W)
 # Make it so that enemy sprites no longer cut off one another.
 
 Not-so-urgent:
 
 # Make the object tick function pointer a struct member.
 # Expand the writer to be able to work with non-monospace fonts too.
+# Make the walls a little more beautiful. There's only 12 + 4 = 16 more configurations to go.
 
 Far from urgent:
 

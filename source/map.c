@@ -6,12 +6,12 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 11:42:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 13:06:39 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/21 11:47:23 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "map_check.h"
+#include "sl_map_check.h"
 
 #include "libft.h"
 #include <stdbool.h>
@@ -39,8 +39,6 @@ t_map	*map_init(t_upoint dims)
 		y++;
 	}
 	map->none = object_init(OBJ_NONE);
-	if (map->none == NULL)
-		return (map_destroy(&map), NULL);
 	map->none->above = map->none;
 	map->none->below = map->none;
 	return (map);

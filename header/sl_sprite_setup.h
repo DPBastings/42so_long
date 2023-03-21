@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   sl_sprite_setup.h                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:09:25 by dbasting      ########   odam.nl         */
+/*   Created: 2023/03/21 12:16:54 by dbasting      #+#    #+#                 */
+/*   Updated: 2023/03/21 12:17:19 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "sl_error.h"
-#include "MLX42/MLX42.h"
+#ifndef SL_SPRITE_SETUP_H
+# define SL_SPRITE_SETUP_H
 
-#include <stdlib.h>
-#include <unistd.h>
+typedef void			(*t_spr_setter)(t_object *obj, t_game *game);
+void		sprite_set_default(t_object *obj, t_game *game);
+void		sprite_set_coll(t_object *obj, t_game *game);
+void		sprite_set_enemy(t_object *obj, t_game *game);
+void		sprite_set_wall(t_object *obj, t_game *game);
 
-/*
-#include <stdio.h>
-void	sl_leaks(void)
-{
-	printf("--- %d ---\n", getpid());
-	system("leaks so_long");
-}*/
-
-int	main(int argc, char **argv)
-{
-	t_game	*game;
-
-	if (argc != 2)
-		sl_error(SL_INVARGS);
-	game = game_init(argv[1]);
-	hook_set(game);
-	mlx_loop(game->mlx);
-	game_end(game);
-	return (0);
-}
+#endif
