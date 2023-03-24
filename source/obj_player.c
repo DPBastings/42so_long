@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 11:23:22 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:35:37 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ static void	player_collisions(t_object *player, t_game *game)
 		if (other->type == OBJ_COLL)
 		{
 			object_collect(game, &other);
+			image_hueshift(player->sprite->image, game->textures[TXR_GRADIENT],
+				game->seed / game->ticks);
+			textures_plyr_hueshift(game->textures, game->seed / game->ticks);
 			continue ;
 		}
 		else if (obj_is_harmful(other))

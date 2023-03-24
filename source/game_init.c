@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 15:43:11 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:29:50 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_game	*game_init(char const *filename)
 	view_centre(&game->view,
 		instance_to_point(game->map->player->sprite->image->instances[0]),
 		game->map);
+	textures_plyr_hueshift(game->textures, game->seed);
 	return (game);
 }
 

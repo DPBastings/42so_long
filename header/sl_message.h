@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 17:23:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 12:26:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:36:43 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # define BODY_OFFSET	40
 # define BODY_SIZE		1
 # define BODY_COLOUR	0xAEA7A0FF
-
 
 typedef struct s_message {
 	mlx_image_t		*bg;

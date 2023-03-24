@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 17:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 14:31:30 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:11:16 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 static char const	*g_texture_files[N_TEXTURES] = {
 	"",
 	"./assets/textures/gradient_rainbow.png",
-	"./assets/textures/verve.png",
 	"./assets/textures/verve_idle.png",
 	"./assets/textures/verve_walk_up.png",
 	"./assets/textures/verve_walk_right.png",

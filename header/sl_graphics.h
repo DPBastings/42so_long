@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 10:52:32 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:21:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 # define SL_GRAPHICS_H
 
 # include "MLX42/MLX42.h"
-# include "point.h"
 # include <stdint.h>
 
 typedef enum e_textures {
 	TXR_NONE = 0,
 	TXR_GRADIENT,
-	TXR_PLYR,
 	TXR_PLYR_IDLE,
 	TXR_PLYR_WALK_U,
 	TXR_PLYR_WALK_R,
@@ -134,11 +132,14 @@ void			sprite_animate_coll(t_sprite *spr, void *param);
 void			sprite_animate_vortex(t_sprite *spr, void *param);
 bool			sprite_animation_is_done(t_sprite *spr);
 
-void			sprite_overlay_gradient(t_sprite *spr, mlx_texture_t *gradient);
-void			image_overlay_gradient(mlx_image_t *img,
+void			sprite_hueshift(t_sprite *spr, mlx_texture_t *gradient);
+void			image_hueshift(mlx_image_t *img, mlx_texture_t *gradient,
+					uint32_t frame);
+void			texture_hueshift(mlx_texture_t *txr, mlx_texture_t *gradient,
+					uint32_t frame);
+void			bar_hueshift(mlx_image_t *bar,
 					mlx_texture_t *gradient, uint32_t i);
-void			bar_overlay_gradient(mlx_image_t *bar,
-					mlx_texture_t *gradient, uint32_t i);
+void			textures_plyr_hueshift(mlx_texture_t **txrs, uint32_t frame);
 uint8_t			*gradient_read(mlx_texture_t *gradient, uint32_t i);
 
 #endif

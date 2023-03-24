@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/24 11:19:36 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/24 13:12:19 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC_FILES	:= main.c\
 			sprite_setup.c\
 			sprite_setup_wall.c\
 			texture.c\
+			texture_hueshift.c\
 			tick_objects.c\
 			utils.c\
 			view.c\
