@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 11:14:48 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 11:38:33 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:25:44 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define HUD_W			1248
 # define HUD_H			144
 # define MARGIN			12
-# define TEXT_COLOUR_A	0xAEA7A0FF
-# define TEXT_COLOUR_B	0xA6907BFF
+# define TEXT_COLOUR_A	0xA6907BFF
+# define TEXT_COLOUR_B	0xAEA7A0FF
 # define MAX_DIGITS		10
 
 typedef struct s_bar {

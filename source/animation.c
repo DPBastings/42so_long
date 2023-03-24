@@ -6,14 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:07:09 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/13 12:00:46 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:57:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 #include "mlx42_utils.h"
-#include <math.h>
 #include <stdbool.h>
 
 void	sprites_animate(t_game *game)
@@ -36,23 +35,15 @@ void	sprite_animate_pass(t_sprite *spr, void *param)
 
 void	sprite_animate(t_sprite *spr, void *param)
 {
-	uint8_t		*src;
-	uint8_t		*dst;
-	t_upoint	p;
+	uint32_t const	dstxy[2] = {0, 0};
+	uint32_t		srcxy[2];
 
 	(void) param;
-	p.x = spr->frame * GRID_W % spr->texture->width;
-	p.y = 0;
-	while (p.y < spr->image->height)
-	{
-		src = &spr->texture->pixels[(p.y * spr->texture->width + p.x) * BPP];
-		dst = &spr->image->pixels[p.y * GRID_H * BPP];
-		ft_memmove(dst, src, GRID_W * BPP);
-		p.y++;
-	}
+	srcxy[0] = spr->frame * GRID_W % spr->texture->width;
+	srcxy[1] = 0;
+	texture_area_copy_to_image(spr->image, spr->texture, dstxy, srcxy);
 	spr->frame++;
 }
-//replace with texture_area_copy_to_image()
 
 bool	sprite_animation_is_done(t_sprite *spr)
 {

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 16:37:00 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 11:47:25 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:58:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef struct s_style {
 void	image_tile(mlx_image_t *img, mlx_texture_t *txr,
 			uint32_t const grid[2]);
 void	texture_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
-			uint32_t dstxy[2]);
+			uint32_t const dstxy[2]);
 void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
-			uint32_t dstxy[2], uint32_t srcxy[2]);
+			uint32_t const dstxy[2], uint32_t srcxy[2]);
 
 /*Pixel manipulation functions*/
 void	pixels_set(uint8_t *pixels, size_t n, uint32_t value);

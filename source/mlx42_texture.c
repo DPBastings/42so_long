@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/20 11:20:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:39:42 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:58:18 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // for the purposes of this project (since it'll always be a 48x48 area that's
 // being copied.
 void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
-		uint32_t dstxy[2], uint32_t srcxy[2])
+		uint32_t const dstxy[2], uint32_t srcxy[2])
 {
 	uint8_t		*dst;
 	uint8_t		*src;
@@ -39,7 +39,7 @@ void	texture_area_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
 }
 
 void	texture_copy_to_image(mlx_image_t *img, mlx_texture_t *txr,
-		uint32_t dstxy[2])
+		uint32_t const dstxy[2])
 {
 	uint8_t		*dst;
 	uint8_t		*src;
