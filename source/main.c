@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 11:47:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 17:03:36 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 15:18:53 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 #include "sl_error.h"
 #include "MLX42/MLX42.h"
 
-#include <stdlib.h>
-#include <unistd.h>
-
 /*
 #include <stdio.h>
+#include <stdlib.h>
 void	sl_leaks(void)
 {
 	printf("--- %d ---\n", getpid());

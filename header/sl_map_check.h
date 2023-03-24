@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:50:56 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 14:53:47 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@
 
 # define SL_FILEEXT		".ber"
 
-# define CHR_ALL		"0PCE1HV"
+# ifdef BONUS
+#  define CHR_ALL		"0PCE1HV"
+#  define N_CHR			8
+# else
+#  define CHR_ALL		"0PCE1"
+#  define N_CHR			6
+# endif
+
 # define CHR_NONE		'0'
-# define N_CHR			8
 
 # define CHECK_EXIT		1
 # define CHECK_PLYR		2

@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/24 13:46:35 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/24 15:03:53 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,13 @@ LIB_FILES	:= libft.a\
 			libftprintf.a\
 			libmlx42.a
 
-CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR) #-g -fsanitize=address
+ifeq ($(BONUS), 1)
+	CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR) -D BONUS
+else
+	CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR)
+endif
+export BONUS := 1
+
 ifeq ($(OS),Linux)
 	MLX_FLAGS := -lglfw -L/usr/lib -ldl -pthread -lm
 endif
@@ -101,8 +107,9 @@ endif
 
 all: $(NAME)
 
-bonus: all
-	@echo "Bonus is basis, vrind."
+bonus:
+	@rm -f $(OBJ_DIR)*.o
+	$(MAKE)
 
 $(NAME): $(addprefix $(OBJ_DIR),$(OBJ_FILES)) $(addprefix $(LIB_DIR),$(LIB_FILES)) 
 	@$(CC) $(CFLAGS) -L$(HDR_DIR) -L$(LIB_DIR) $^ $(MLX_FLAGS) -o $@

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 16:30:38 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:57:34 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 15:23:17 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include "libftprintf.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static const char	*g_sl_errors[] = {
 	"Everything went better than expected.",
@@ -41,5 +42,5 @@ void	sl_error(t_sl_errno errno)
 
 void	sl_strerror(t_sl_errno errno)
 {	
-	ft_dprintf(2, "Error\n[%02d] %s\n", errno, g_sl_errors[errno]);
+	ft_dprintf(STDERR_FILENO, "Error\n[%02d] %s\n", errno, g_sl_errors[errno]);
 }
