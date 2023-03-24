@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 12:01:46 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:48:26 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "sl_general.h"
 # include "sl_graphics.h"
 # include "sl_hud.h"
+# include "sl_message.h"
 # include "sl_object.h"
 # include "sl_view.h"
 # include "sl_utils.h"
@@ -48,6 +49,7 @@
  * @param font			Pointer to the font texture.
  * @param sprites		Pointer to the sprite array.
  * @param hud			The game's heads-up display (HUD).
+ * @param msg			The message popup that's currently on display.
  * @param map			The game map.
  * @param score_max		The maximum score for this particular level.
  * @param score			Current score.
@@ -64,6 +66,7 @@ typedef struct s_game {
 	mlx_texture_t	*font;
 	t_sprite		**sprites;
 	t_hud			*hud;
+	t_message		*msg;
 	t_map			*map;
 	uint32_t		score_max;
 	uint32_t		score;

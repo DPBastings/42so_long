@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 13:29:50 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:55:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_game	*game_init(char const *filename)
 	game->hud = hud_init(game->mlx, game->textures, game->font);
 	hud_static_text_update(game->hud,
 		filename_truncate(filename), game->score_max);
+	game->msg = NULL;
 	bg_render(game);
 	sprites_setup(game);
 	view_centre(&game->view,
@@ -58,6 +59,7 @@ void	game_end(t_game *game)
 {
 	if (game == NULL)
 		return ;
+	message_destroy(&game->msg, game->mlx);
 	map_destroy(&game->map);
 	hud_destroy(&game->hud, game->mlx);
 	sprites_destroy(&game->sprites, game->mlx);

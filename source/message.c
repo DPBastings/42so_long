@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 17:21:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 12:21:42 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 13:56:23 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_message	*message_init(mlx_t *mlx, mlx_texture_t *txr,
 	t_message		*msg;
 	uint32_t const	gridsize[2] = {GRID_W, GRID_H};
 
-	if (wh[2] <= BODY_OFFSET || wh[0] <= 2 * MARGIN || wh[1] <= 2 * MARGIN)
+	if (wh[1] <= BODY_OFFSET || wh[0] <= 2 * MARGIN || wh[1] <= 2 * MARGIN)
 		sl_error(SL_GENERIC);
 	msg = malloc(sizeof(t_message));
 	if (msg == NULL)
@@ -43,6 +43,8 @@ t_message	*message_init(mlx_t *mlx, mlx_texture_t *txr,
 
 void	message_destroy(t_message **msg, mlx_t *mlx)
 {
+	if (*msg == NULL)
+		return ;
 	mlx_delete_image(mlx, (*msg)->bg);
 	mlx_delete_image(mlx, (*msg)->text);
 	free(*msg);

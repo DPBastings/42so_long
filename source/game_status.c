@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 17:20:53 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 12:21:09 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 14:01:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 
 #define BORDER	240
 
-static void	message_win(mlx_t *mlx, mlx_texture_t *bg, mlx_texture_t *font);
-static void	message_lose(mlx_t *mlx, mlx_texture_t *bg, mlx_texture_t *font);
+static t_message	*message_win(mlx_t *mlx, mlx_texture_t *bg,
+						mlx_texture_t *font);
+static t_message	*message_lose(mlx_t *mlx, mlx_texture_t *bg,
+						mlx_texture_t *font);
 
 void	object_collect(t_game *game, t_object **obj)
 {
@@ -38,7 +40,9 @@ void	game_win(t_game *game)
 	game->lock_input = true;
 	game->game_over = true;
 	ft_printf("You've made it!\n");
-	message_win(game->mlx, game->textures[TXR_HUD_BG], game->font);
+	message_destroy(&game->msg, game->mlx);
+	game->msg = message_win(game->mlx, game->textures[TXR_HUD_BG],
+			game->font);
 }
 
 void	game_lose(t_game *game)
@@ -46,10 +50,13 @@ void	game_lose(t_game *game)
 	game->lock_input = true;
 	game->game_over = true;
 	ft_printf("Ow!\n");
-	message_lose(game->mlx, game->textures[TXR_HUD_BG], game->font);
+	message_destroy(&game->msg, game->mlx);
+	game->msg = message_lose(game->mlx, game->textures[TXR_HUD_BG],
+			game->font);
 }
 
-static void	message_win(mlx_t *mlx, mlx_texture_t *bg, mlx_texture_t *font)
+static t_message	*message_win(mlx_t *mlx, mlx_texture_t *bg,
+						mlx_texture_t *font)
 {
 	t_message		*msg;
 	uint32_t const	xy[2] = {BORDER, BORDER};
@@ -57,21 +64,27 @@ static void	message_win(mlx_t *mlx, mlx_texture_t *bg, mlx_texture_t *font)
 
 	msg = message_init(mlx, bg, xy, wh);
 	message_print_caption(msg, "Congratulations!", font);
-	message_print_body(msg, "You've collected every Rainbow Orb\n"
-		"and managed to make it to the exit. Hooray to colour!\n\n"
+	message_print_body(msg,
+		"You've collected every Rainbow Orb and managed to make it to the "
+		"exit.\n"
+		"Now you're free to enjoy all colourfulness the world has to offer.\n"
+		"Hooray to colour!\n\n"
 		"Press ESC to exit the game.", font);
+	return (msg);
 }
 
-static void	message_lose(mlx_t *mlx, mlx_texture_t *bg, mlx_texture_t *font)
+static t_message	*message_lose(mlx_t *mlx, mlx_texture_t *bg,
+						mlx_texture_t *font)
 {
 	t_message		*msg;
 	uint32_t const	xy[2] = {BORDER, BORDER};
 	uint32_t const	wh[2] = {SCREEN_W - 2 * BORDER, SCREEN_H - 2 * BORDER};
 
 	msg = message_init(mlx, bg, xy, wh);
-	message_print_caption(msg, "Too bad!", font);
-	message_print_body(msg, "You got caught by the conformist Grauwlingen.\n"
-		"It's going to be an existence of drabness for you\n"
-		"from now on...\n\n"
+	message_print_caption(msg, "Too bad...", font);
+	message_print_body(msg,
+		"You got caught by the conformist Grauwlingen.\n"
+		"It's going to be an existence of drabness for you from now on...\n\n"
 		"Press ESC to exit the game.", font);
+	return (msg);
 }
