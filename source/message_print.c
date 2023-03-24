@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/24 10:54:36 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 11:50:24 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:21:51 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	message_print_body(t_message *msg, char const *text,
 {
 	uint32_t	p[2];
 	t_style		style;
-	
+
 	p[0] = 0;
 	p[1] = BODY_OFFSET;
 	style.font = font;

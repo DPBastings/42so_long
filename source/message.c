@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 17:21:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 11:56:25 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:21:42 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#define	MARGIN	12
+#define MARGIN	12
 
 static void	msg_render(t_message *msg, mlx_t *mlx, uint32_t const xy[2]);
 
