@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 17:20:53 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 14:01:46 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 15:30:13 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_message	*message_win(mlx_t *mlx, mlx_texture_t *bg,
 		"You've collected every Rainbow Orb and managed to make it to the "
 		"exit.\n"
 		"Now you're free to enjoy all colourfulness the world has to offer.\n"
-		"Hooray to colour!\n\n"
+		"Hooray for colour!\n\n"
 		"Press ESC to exit the game.", font);
 	return (msg);
 }
