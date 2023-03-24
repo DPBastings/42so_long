@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/21 17:09:59 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/24 11:19:36 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ SRC_FILES	:= main.c\
 			map_check_path.c\
 			map_load.c\
 			map_setup.c\
+			message.c\
+			message_print.c\
 			movement.c\
 			obj_coll.c\
 			obj_default.c\

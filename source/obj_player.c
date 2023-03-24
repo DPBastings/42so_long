@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:04:23 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 11:23:22 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	player_collisions(t_object *player, t_game *game)
 		else if (obj_is_harmful(other))
 			game_lose(game);
 		else if (other->type == OBJ_EXIT && game->score == game->score_max)
-			game_exit(game);
+			game_win(game);
 		other = other->below;
 	}
 }

@@ -6,16 +6,15 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/06 12:48:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:12:11 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 11:53:27 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "sl_object.h"
 #include "sl_error.h"
+#include "sl_general.h"
 
 #include "point.h"
-#include "libft.h"
-#include <limits.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -28,7 +27,7 @@ enum e_obj_vars {
 };
 
 static int32_t	g_lut_obj_vars[N_OBJS][N_OBJ_VARS] = {
-{Z_FG,		DIR_N,	0,	false,},
+{Z_FG1,		DIR_N,	0,	false,},
 {Z_PLYR,	DIR_S,	0,	true,},
 {Z_COLL0,	DIR_N,	1,	true,},
 {Z_MAP,		DIR_N,	0,	true,},

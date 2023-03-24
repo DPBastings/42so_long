@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 17:14:07 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 10:52:32 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,21 +103,6 @@ typedef enum e_sprites {
 # define N_COLL_SPR			5	// (SPR_COLL_MAX - SPR_COLL_MIN + 1)
 # define N_WALL_SPR			32	// (SPR_WALL_MAX - SPR_WALL_MIN + 1)
 # define SPR_FILLER			18	// SPR_WALL_00000000
-
-typedef enum e_z {
-	Z_BG0 = 0,
-	Z_BG1,
-	Z_MAP,
-	Z_COLL0,
-	Z_COLL1,
-	Z_PLYR,
-	Z_ENMY,
-	Z_HUD0,
-	Z_HUD1,
-	Z_HUD2,
-	Z_HUD3,
-	Z_FG,
-}	t_z;
 
 /* Sprite object.
  * @param texture	The texture/spritesheet from which this sprite was created.

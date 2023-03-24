@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 17:05:27 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:07:05 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	hook_tick(void *param)
 	t_game			*game;
 
 	game = param;
+	if (game->game_over)
+		return ;
 	time_now = mlx_get_time();
 	if (time_now - time_prev < SEC_PER_TICK)
 		return ;

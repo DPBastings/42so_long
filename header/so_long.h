@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:09:21 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/24 12:01:46 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_game {
 	int32_t			seed;
 	uint64_t		ticks;
 	bool			lock_input;
+	bool			game_over;
 	mlx_texture_t	**textures;
 	mlx_texture_t	*font;
 	t_sprite		**sprites;
@@ -75,14 +76,12 @@ t_game		*game_init(char const *filename);
 void		object_collect(t_game *game, t_object **obj);
 void		game_win(t_game *game);
 void		game_lose(t_game *game);
-void		game_exit(t_game *game);
 void		game_end(t_game *game);
 int32_t		seed_get(t_game *game);
 
 void		hook_set(t_game *game);
 void		hook_close(void *param);
 void		hook_keys(void *param);
-bool		hook_keys_move(t_game *game);
 void		hook_tick(void *param);
 
 void		sprites_setup(t_game *game);
