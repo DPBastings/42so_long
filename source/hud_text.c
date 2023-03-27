@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/14 14:43:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:41:54 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 13:58:39 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	hud_text_init(t_hud *hud, mlx_t *mlx)
 {
 	uint32_t	p[2];
 	t_style		style;
-	char		maxscore[MAX_DIGITS + 1];
 	int32_t		id;
 
 	p[0] = 0;

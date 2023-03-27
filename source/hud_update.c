@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/13 16:18:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 15:14:17 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 13:58:51 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <float.h>
 #include "mlx42_utils.h"
 #include <stdint.h>
-
-static void	hud_bar_fill(t_bar *bar);
 
 void	hud_text_update(t_hud *hud, char const *str, uint32_t p[2])
 {

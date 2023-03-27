@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:45:20 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:14:47 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 14:01:41 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void		object_setup(t_map *map, t_upoint p, char type);
 
 void	map_setup(t_map *map, t_list *bytemap)
 {
-	t_object	*obj;
 	t_upoint	p;
 	char		*row;
 

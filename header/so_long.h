@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/16 18:12:27 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 13:48:26 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 14:06:38 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		sprite_change(t_object *obj, t_sprite *newspr, t_game *game);
 
 void		sprites_animate(t_game *game);
 
-bool		player_move(t_game *game, t_dir dir);
+bool		player_move(t_object *player, t_game *game, t_dir dir);
 bool		enemy_move(t_object *enemy, t_game *game);
 void		exit_open(t_object *exit, t_game *game);
 
@@ -107,7 +107,7 @@ void		tick_exit(t_object *exit, t_game *game);
 void		tick_player(t_object *player, t_game *game);
 
 bool		object_align_grid(t_object *obj, t_map *map, t_view view);
-void		bg_render(t_game *game);
 void		hud_bar_animate(t_bar *bar, t_game *game);
+void		bg_render(mlx_t *mlx, t_sprite **sprites, t_view view);
 
 #endif

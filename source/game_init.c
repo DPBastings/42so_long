@@ -6,12 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 13:55:21 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 13:57:21 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "sl_error.h"
+#include "sl_graphics.h"
 #include "sl_hud.h"
 #include "sl_view.h"
 
@@ -45,8 +46,7 @@ t_game	*game_init(char const *filename)
 	game->hud = hud_init(game->mlx, game->textures, game->font);
 	hud_static_text_update(game->hud,
 		filename_truncate(filename), game->score_max);
-	game->msg = NULL;
-	bg_render(game);
+	bg_render(game->mlx, game->sprites, game->view);
 	sprites_setup(game);
 	view_centre(&game->view,
 		instance_to_point(game->map->player->sprite->image->instances[0]),

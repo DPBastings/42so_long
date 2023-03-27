@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/10 12:44:24 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/20 16:40:44 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 13:58:22 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@
 #include "point.h"
 #include <stdint.h>
 
-static void	hud_add_logo(t_hud *hud, mlx_t *mlx, mlx_texture_t *txr);
 static void	hud_bg_render(t_hud *hud, mlx_t *mlx);
 
 void	hud_bg_init(t_hud *hud, mlx_t *mlx, mlx_texture_t **txrs)
 {
-	t_upoint	p;
 	t_upoint	gridsize;
 
 	hud->bg = image_init(mlx, HUD_W, HUD_H);

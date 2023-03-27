@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:04:22 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 13:35:37 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 14:05:32 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	player_keys(t_object *player, t_game *game)
 	{
 		if (mlx_is_key_down(game->mlx, lut_movement_keys[dir]))
 		{
-			player_move(game, dir * 2);
+			player_move(player, game, dir * 2);
 			return ;
 		}
 		dir++;

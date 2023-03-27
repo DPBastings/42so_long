@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:28:07 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:10:15 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 14:07:10 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,13 @@ bool	object_align_grid(t_object *obj, t_map *map, t_view view)
 	return (false);
 }
 
-bool	player_move(t_game *game, t_dir dir)
+bool	player_move(t_object *player, t_game *game, t_dir dir)
 {
-	t_object	*player;
 	t_object	**other;
 
-	player = game->map->player;
 	player->dir = dir;
 	other = map_index(game->map, upoint_get_adjacent(player->position, dir));
-	if (*other == game->map->none || !obj_is_passable(*other))
+	if (!obj_is_passable(*other) || *other == game->map->none)
 		return (false);
 	sprite_change(player, game->sprites[SPR_PLYR_MOVE_UP + dir / 2], game);
 	player->sprite->frame = 0;

@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:53:33 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 15:37:14 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 14:15:08 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "point.h"
 #include <stdint.h>
 
-#define VMARGIN	240
+#define VMARGIN	216
 
 static void	objects_reposition(t_map *map, t_point diff);
 static void	object_reposition(t_object *obj, t_point diff);
@@ -68,7 +68,6 @@ void	view_shift(t_view *view, t_point anchor, t_map *map)
 static void	objects_reposition(t_map *map, t_point diff)
 {
 	t_upoint	p;
-	t_object	*obj;
 
 	p.y = 0;
 	while (p.y < map->dims.y)
@@ -85,10 +84,9 @@ static void	objects_reposition(t_map *map, t_point diff)
 
 static void	object_reposition(t_object *obj, t_point diff)
 {
-	if (obj)
-	{
-		obj->sprite->image->instances[obj->instance_id].x -= diff.x;
-		obj->sprite->image->instances[obj->instance_id].y -= diff.y;
-		object_reposition(obj->below, diff);
-	}
+	if (obj == NULL)
+		return ;
+	obj->sprite->image->instances[obj->instance_id].x -= diff.x;
+	obj->sprite->image->instances[obj->instance_id].y -= diff.y;
+	object_reposition(obj->below, diff);
 }

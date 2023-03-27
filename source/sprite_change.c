@@ -6,12 +6,13 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/24 13:31:49 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 15:46:12 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/27 14:07:34 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "sl_error.h"
+#include "sl_image.h"
 #include "sl_view.h"
 
 #include "MLX42/MLX42.h"
@@ -33,11 +34,7 @@ void	sprite_change(t_object *obj, t_sprite *new_spr, t_game *game)
 		new_id++;
 	}
 	if (new_id == new_spr->image->count)
-	{
-		new_id = mlx_image_to_window(game->mlx, new_spr->image, 0, 0);
-		if (new_id == -1)
-			sl_error(SL_MEMFAIL);
-	}
+		new_id = image_render(game->mlx, new_spr->image, 0, 0);
 	new_spr->image->instances[new_id].enabled = true;
 	obj->instance_id = new_id;
 	obj->sprite = new_spr;
