@@ -16,13 +16,13 @@ The project only allows the use of the following libc functions: `open`, `close`
 
 #### Bonus features
 
-The game sports a few nifty sprite animations. This niftiness is however offset by the added presence of evil grauwlingen, who will try to stop Verve from achieving their goals.
+The game sports a HUD, alongside a few nifty sprite animations. This niftiness is however offset by the added presence of evil grauwlingen, who will try to stop Verve from achieving their goals.
 
 ## How to play
 
 The game is started by executing the following command in your terminal: `./so_long <path_to_map>`
 ```
-./so_long ./assets/maps/level0.ber
+./so_long ./assets/maps/level00.ber
 ```
 Your objective is to collect every rainbow orb on the map and then make your way to the exit.  
 A number of premade maps are enclosed in this repository (in the `./assets/maps` subdirectory); you could, however, build a map of your own.
@@ -38,11 +38,19 @@ The game will only load a map which conforms to the following specifications:
 	- `E`: exit;
 	- `C`: collectible;
 	- `H`: [BONUS] horizontally moving enemy;
-	- `V`: [BONUS] vertically moving enemy;
-	- `W`: [BONUS] wall-hugging enemy.
-3. The map is rectangular in shape and enclosed by wall objects (`1`) around the edges.
+	- `V`: [BONUS] vertically moving enemy.
+3. The map is rectangular in shape (i.e. all lines are equal in length) and enclosed by wall objects (`1`) around the edges.
 4. The map contains exactly one player start (`P`), exactly one exit (`E`) and at least one collectible (`C`).
 5. There should be a traversable path from the starting position to the exit. For this purpose, empty space, collectibles and enemy objects count as traversable space.
+Below is an example of a valid map.
+```
+11111
+1P001
+10C01
+100E1
+11111
+```
+Attempting to open a map which fails to meet all of these requirements will exit the program immediately.
 
 ### Controls
 
