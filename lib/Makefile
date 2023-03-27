@@ -9,6 +9,11 @@ DIR = ./libft ./libftprintf
 
 all: $(ARC) $(HDR) ./MLX42/
 
+define execute
+$(1)
+
+endef
+
 libf%.a:
 	@$(MAKE) --directory=./$(basename $@)/
 	@ln -fs ./$(basename $@)/$@ ./$@

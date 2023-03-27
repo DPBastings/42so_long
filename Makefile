@@ -6,7 +6,7 @@
 #    By: dbasting <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/12/16 11:14:39 by dbasting      #+#    #+#                  #
-#    Updated: 2023/03/24 15:03:53 by dbasting      ########   odam.nl          #
+#    Updated: 2023/03/27 14:18:05 by dbasting      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,9 +90,9 @@ LIB_FILES	:= libft.a\
 			libmlx42.a
 
 ifeq ($(BONUS), 1)
-	CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR) -D BONUS
+	CFLAGS 		?= -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIB_DIR) -D BONUS
 else
-	CFLAGS 		?= -I$(HDR_DIR) -I$(LIB_DIR)
+	CFLAGS 		?= -Wall -Wextra -Werror -I$(HDR_DIR) -I$(LIB_DIR)
 endif
 export BONUS := 1
 
@@ -109,7 +109,7 @@ all: $(NAME)
 
 bonus:
 	@rm -f $(OBJ_DIR)*.o
-	$(MAKE)
+	@$(MAKE)
 
 $(NAME): $(addprefix $(OBJ_DIR),$(OBJ_FILES)) $(addprefix $(LIB_DIR),$(LIB_FILES)) 
 	@$(CC) $(CFLAGS) -L$(HDR_DIR) -L$(LIB_DIR) $^ $(MLX_FLAGS) -o $@
