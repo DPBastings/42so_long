@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/20 12:04:21 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 17:06:48 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/28 11:14:25 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,21 @@
 #include <stddef.h>
 #include <stdint.h>
 
-typedef t_sl_errno	(*t_checkf)(t_map *);
-
 static t_sl_errno	check_object(t_object *obj, int *reqs);
 
-bool	map_check(t_map *map)
+bool	map_check(t_map *map, uint32_t score_max)
 {
 	t_sl_errno		errno;
-	const t_checkf	checkers[N_MAP_CHECKS] = {
-		map_check_walls,
-		map_check_objects,
-		map_check_path,};
-	size_t			i;
 
-	i = 0;
-	while (i < 3)
-	{
-		errno = checkers[i](map);
-		if (errno != SL_SUCCESS)
-			sl_error(errno);
-		i++;
-	}
+	errno = map_check_walls(map);
+	if (errno != SL_SUCCESS)
+		sl_error(errno);
+	errno = map_check_objects(map);
+	if (errno != SL_SUCCESS)
+		sl_error(errno);
+	errno = map_check_path(map, score_max);
+	if (errno != SL_SUCCESS)
+		sl_error(errno);
 	return (true);
 }
 

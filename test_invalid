@@ -1,13 +1,26 @@
-./so_long assets/maps/invalid00.ber -d=easy	# Invalid arguments.
+./so_long assets/maps/tiny.ber -d=easy		# Invalid arguments.
 
 ./so_long assets/maps/invalid00.ber			# Invalid dimensions.
+cat assets/maps/invalid00.ber
 ./so_long assets/maps/invalid01.ber			# Invalid characters.
+cat assets/maps/invalid01.ber
 ./so_long assets/maps/invalid02.ber			# Only partially enclosing walls.
+cat assets/maps/invalid02.ber
 ./so_long assets/maps/invalid03.ber			# No player.
+cat assets/maps/invalid03.ber
 ./so_long assets/maps/invalid04.ber			# No exit.
+cat assets/maps/invalid04.ber
 ./so_long assets/maps/invalid05.ber			# Multiple players.
+cat assets/maps/invalid05.ber
 ./so_long assets/maps/invalid06.ber			# Multiple exits.
+cat assets/maps/invalid06.ber
 ./so_long assets/maps/invalid07.ber			# No collectibles.
+cat assets/maps/invalid07.ber
 ./so_long assets/maps/invalid08.ber			# No path to exit.
-./so_long assets/maps/invalid09				# No file extension.
-./so_long assets/maps/invalid10.be			# Partial file extension.
+cat assets/maps/invalid08.ber
+./so_long assets/maps/invalid09.ber			# No path to collectibles.
+cat assets/maps/invalid09.ber
+./so_long assets/maps/invalid10				# No file extension.
+cat assets/maps/invalid10
+./so_long assets/maps/invalid11.be			# Partial file extension.
+cat assets/maps/invalid11.be

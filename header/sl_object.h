@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/21 15:53:30 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:21:36 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/28 10:59:25 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		object_destroy(t_object **obj);
 t_map		*map_load(char const *filename);
 t_map		*map_init(t_upoint dims);
 void		map_setup(t_map *map, t_list *bytemap);
-bool		map_check(t_map *map);
+bool		map_check(t_map *map, uint32_t score_max);
 uint32_t	map_get_maxscore(t_map *map);	
 t_object	**map_index(t_map *map, t_upoint p);
 void		map_destroy(t_map **map);

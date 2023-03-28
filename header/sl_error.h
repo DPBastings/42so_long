@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/17 11:20:47 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 16:50:09 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/28 10:50:29 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef enum e_sl_errno {
 	SL_INVMAP_EXCSTART,
 	SL_INVMAP_EXCEXIT,
 	SL_INVMAP_NOCOLL,
-	SL_INVMAP_NOPATH,
+	SL_INVMAP_NOPATH_EXIT,
+	SL_INVMAP_NOPATH_COLL,
 	N_SL_ERR,
 }	t_sl_errno;
 

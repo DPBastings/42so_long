@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/13 16:21:05 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/27 13:57:21 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/28 10:48:20 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_game	*game_init(char const *filename)
 	if (game == NULL)
 		sl_error(SL_MEMFAIL);
 	game->map = map_load(filename);
-	map_check(game->map);
 	game->score_max = map_get_maxscore(game->map);
+	map_check(game->map, game->score_max);
 	screen_init(game);
 	view_init(&game->view, game->map->dims);
 	game->textures = textures_load();

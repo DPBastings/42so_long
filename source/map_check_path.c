@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/23 13:40:29 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/21 17:05:00 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/28 11:14:20 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 #define UNCHECKED	-1
 #define CHECKED		1
 
-static bool		check_point(t_upoint p, t_map *map);
-static void		map_clean(t_map *map);
+static void	check_point(t_upoint p, t_map *map,
+				bool *check_exit, uint32_t *check_coll);
+static void	map_clean(t_map *map);
 
 /* bool map_check_path(t_map *map)
  * Determines whether `map` has an unobstructed path from the player's
@@ -31,15 +32,18 @@ static void		map_clean(t_map *map);
  * Returns SL_INVMAP_NOPATH if there is no such path, returns SL_SUCCESS if
  * there is.
  */
-t_sl_errno	map_check_path(t_map *map)
+t_sl_errno	map_check_path(t_map *map, uint32_t score_max)
 {
-	bool	res;
+	bool	exit_reachable;
 
+	exit_reachable = false;
 	map->none->instance_id = CHECKED;
-	res = check_point(map->player->position, map);
+	check_point(map->player->position, map, &exit_reachable, &score_max);
 	map_clean(map);
-	if (res == false)
-		return (SL_INVMAP_NOPATH);
+	if (exit_reachable == false)
+		return (SL_INVMAP_NOPATH_EXIT);
+	if (score_max != 0)
+		return (SL_INVMAP_NOPATH_COLL);
 	return (SL_SUCCESS);
 }
 
@@ -51,7 +55,8 @@ t_sl_errno	map_check_path(t_map *map)
  * adjacent passable, unchecked points.
  * Returns false if the map doesn't contain a reachable exit.
  */
-static bool	check_point(t_upoint p, t_map *map)
+static void	check_point(t_upoint p, t_map *map,
+	bool *check_exit, uint32_t *check_coll)
 {
 	t_object	**obj;
 	t_upoint	adj;
@@ -61,9 +66,11 @@ static bool	check_point(t_upoint p, t_map *map)
 	if (*obj)
 	{
 		if ((*obj)->instance_id == CHECKED)
-			return (false);
+			return ;
 		if ((*obj)->type == OBJ_EXIT)
-			return (true);
+			*check_exit = true;
+		else if ((*obj)->type == OBJ_COLL)
+			*check_coll -= 1;
 		(*obj)->instance_id = CHECKED;
 	}
 	else
@@ -72,11 +79,10 @@ static bool	check_point(t_upoint p, t_map *map)
 	while (dir < N_DIRS)
 	{
 		adj = upoint_get_adjacent(p, dir);
-		if (obj_is_passable(*map_index(map, adj)) && check_point(adj, map))
-			return (true);
+		if (obj_is_passable(*map_index(map, adj)))
+			check_point(adj, map, check_exit, check_coll);
 		dir += 2;
 	}
-	return (false);
 }
 
 /* void	map_clean(t_map *map)

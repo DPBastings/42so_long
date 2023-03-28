@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/16 16:18:15 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/24 14:53:47 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/28 10:59:12 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "sl_object.h"
 # include "sl_error.h"
+# include <stdint.h>
 
 # define SL_FILEEXT		".ber"
 
@@ -36,6 +37,6 @@
 
 t_sl_errno	map_check_walls(t_map *map);
 t_sl_errno	map_check_objects(t_map *map);
-t_sl_errno	map_check_path(t_map *map);
+t_sl_errno	map_check_path(t_map *map, uint32_t score_max);
 
 #endif

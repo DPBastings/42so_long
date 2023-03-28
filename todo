@@ -1,7 +1,4 @@
 Urgent:
-# Implement opening and closing screens.
-# Split the so_long.h header into smaller headers. Sensibly, if at all possible.
-# Make it so that enemy sprites no longer cut off one another.
 
 Not-so-urgent:
 

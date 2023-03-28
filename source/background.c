@@ -6,7 +6,7 @@
 /*   By: dbasting <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/06 11:37:01 by dbasting      #+#    #+#                 */
-/*   Updated: 2023/03/27 14:14:27 by dbasting      ########   odam.nl         */
+/*   Updated: 2023/03/28 11:14:35 by dbasting      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "MLX42/MLX42.h"
 
 static void	draw_bg_element(mlx_t *mlx, t_point p, t_sprite **sprites,
-	t_view view);
+				t_view view);
 
 void	bg_render(mlx_t *mlx, t_sprite **sprites, t_view view)
 {
