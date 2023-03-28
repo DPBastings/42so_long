@@ -42,7 +42,8 @@ The game will only load a map which conforms to the following specifications:
 3. The map is rectangular in shape (i.e. all lines are equal in length) and enclosed by wall objects (`1`) around the edges.
 4. The map contains exactly one player start (`P`), exactly one exit (`E`) and at least one collectible (`C`).
 5. There should be a traversable path from the starting position to the exit. For this purpose, empty space, collectibles and enemy objects count as traversable space.
-Below is an example of a valid map.
+6. Similarly, every collectible should be reachable from the player's starting position.
+Below is an example of a valid map (`./assets/maps/tiny.ber`).
 ```
 11111
 1P001
@@ -50,7 +51,7 @@ Below is an example of a valid map.
 100E1
 11111
 ```
-Attempting to open a map which fails to meet all of these requirements will exit the program immediately.
+Attempting to open a map which fails to meet all of these requirements will cause the program to display an appropriate error message and subsequently terminate.
 
 ### Controls
 
